@@ -1,15 +1,14 @@
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 //import { Text } from "react-native-elements";
-import { navigation } from "react-navigation";
 
 const WelcomeScreen = ({ navigation }) => {
   setTimeout(() => {
     navigation.navigate("Signin");
-  }, 5000);
+  }, 2000);
   return (
     <View style={styles.main}>
-      <Image style={styles.image} source={require("../icons/logo.png")} />
+      <Image style={styles.image} source={require("../../icons/logo.png")} />
     </View>
   );
 };
