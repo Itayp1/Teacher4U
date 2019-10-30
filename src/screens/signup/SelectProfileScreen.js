@@ -26,7 +26,10 @@ const SelectProfileScreen = ({ navigation }) => {
 
         <View>
           <Text style={styles.text}>מורה</Text>
-          <TouchableOpacity style={styles.circle}>
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() => navigation.navigate("Registration")}
+          >
             <Image
               style={styles.image}
               source={require("../../icons/teacher.png")}

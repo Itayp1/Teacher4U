@@ -8,8 +8,17 @@ import FacebookSigninScreen from "./src/screens/Sign/FacebookSigninScreen";
 import GoogleSigninScreen from "./src/screens/Sign/GoogleSigninScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import SelectProfileScreen from "./src/screens/signup/SelectProfileScreen";
+import RegistrationScreen from "./src/screens/signup/RegistrationScreen";
+import MenuScreen from "./src/screens/MenuScreen";
+import MessageScreen from "./src/screens/MessagesScreen";
+import ReviewScreen from "./src/screens/ReviewScreen";
+import ScheduleLessionsScreen from "./src/screens/ScheduleLessionsScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
+import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
+
 const switchNavigator = createSwitchNavigator(
   {
+    start: ScheduleLessionsScreen,
     Welcome: WelcomeScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
@@ -17,18 +26,26 @@ const switchNavigator = createSwitchNavigator(
       GoogleSignin: GoogleSigninScreen,
       SelectProfile: SelectProfileScreen
     }),
-    signupFlow: createStackNavigator({
-      SelectProfile: SelectProfileScreen
+    SignupFlow: createStackNavigator({
+      SelectProfile: SelectProfileScreen,
+      Registration: RegistrationScreen
+    }),
+    StudentMenu: createBottomTabNavigator({
+      Message: MessageScreen,
+      SearchTeacher: SearchTeacherScreen,
+      ScheduleLessions: ScheduleLessionsScreen,
+      Profile: ProfileScreen
+    }),
+    TeacherMenu: createBottomTabNavigator({
+      Message: MessageScreen,
+      Review: ReviewScreen,
+      ScheduleLessions: ScheduleLessionsScreen,
+      Profile: ProfileScreen
     })
-    // mainFlow: createBottomTabNavigator({
-    //   trackListFlow: trackListFlow,
-    //   TrackCreate: TrackCreateScreen,
-    //   Account: AccountScreen
-    // })
   },
 
   {
-    initialRouteName: "signupFlow"
+    initialRouteName: "StudentMenu"
   }
 );
 
