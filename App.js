@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesome } from "@expo/vector-icons";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -15,10 +16,20 @@ import ReviewScreen from "./src/screens/ReviewScreen";
 import ScheduleLessionsScreen from "./src/screens/ScheduleLessionsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
+import TeacherListScreen from "./src/screens/TeacherListScreen";
+
+const SearchTeacher = createStackNavigator({
+  SearchTeachers: SearchTeacherScreen,
+  TeacherList: TeacherListScreen
+});
+SearchTeacher.navigationOptions = {
+  title: "חיפוש מורה",
+  tabBarIcon: <FontAwesome name="th-list" size={20} />
+};
 
 const switchNavigator = createSwitchNavigator(
   {
-    start: ScheduleLessionsScreen,
+    SearchTeacher: SearchTeacherScreen,
     Welcome: WelcomeScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
@@ -32,9 +43,9 @@ const switchNavigator = createSwitchNavigator(
     }),
     StudentMenu: createBottomTabNavigator({
       Message: MessageScreen,
-      SearchTeacher: SearchTeacherScreen,
+      Profile: ProfileScreen,
       ScheduleLessions: ScheduleLessionsScreen,
-      Profile: ProfileScreen
+      SearchTeacher: SearchTeacher
     }),
     TeacherMenu: createBottomTabNavigator({
       Message: MessageScreen,

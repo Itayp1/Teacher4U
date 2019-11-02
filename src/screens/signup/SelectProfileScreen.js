@@ -16,7 +16,12 @@ const SelectProfileScreen = ({ navigation }) => {
       <View style={styles.images}>
         <View>
           <Text style={styles.text}>תלמיד</Text>
-          <TouchableOpacity style={styles.circle}>
+          <TouchableOpacity
+            style={styles.circle}
+            onPress={() =>
+              navigation.navigate("Registration", { profile: "StudentMenu" })
+            }
+          >
             <Image
               style={styles.image}
               source={require("../../icons/student.png")}
@@ -28,7 +33,9 @@ const SelectProfileScreen = ({ navigation }) => {
           <Text style={styles.text}>מורה</Text>
           <TouchableOpacity
             style={styles.circle}
-            onPress={() => navigation.navigate("Registration")}
+            onPress={() =>
+              navigation.navigate("Registration", { profile: "TeacherMenu" })
+            }
           >
             <Image
               style={styles.image}

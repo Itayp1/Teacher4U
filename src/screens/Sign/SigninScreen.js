@@ -18,7 +18,7 @@ const signInWithGoogleAsync = async navigation => {
     const result = await Google.logInAsync(config);
     if (result.type === "success") {
       navigation.navigate("SelectProfile");
-      navigation0dismiss();
+      // navigation0dismiss();
       return result.accessToken;
     } else {
       return { cancelled: true };

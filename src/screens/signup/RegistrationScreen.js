@@ -3,9 +3,11 @@ import { View, StyleSheet, Image } from "react-native";
 import DetailsFrorm from "../../components/DetailsFrorm";
 
 const RegistrationScreen = ({ navigation }) => {
+  const profile = navigation.getParam("profile");
+  console.log(profile);
   return (
     <View>
-      <DetailsFrorm />
+      <DetailsFrorm profile={profile} />
     </View>
   );
 };

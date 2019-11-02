@@ -21,7 +21,7 @@ const list = [
   }
 ];
 
-const DetailsFrorm = ({ navigation }) => {
+const DetailsFrorm = ({ navigation, profile }) => {
   let test;
   const details = [
     { title: "שם מלא", input: "הכנס את השם" },
@@ -56,7 +56,7 @@ const DetailsFrorm = ({ navigation }) => {
       <Button
         title="שמור"
         style={{ size: 15 }}
-        onPress={() => navigation.navigate("TeacherMenu")}
+        onPress={() => navigation.navigate(profile)}
       />
     </View>
   );

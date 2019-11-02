@@ -19,13 +19,13 @@ const list = [
   }
 ];
 
-const ScheduleLessionsScreen = ({ navigation }) => {
+const TeacherListScreen = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <Header
         style={styles.Header}
         centerComponent={{
-          text: "מערכת שעות ",
+          text: "רשימת מורים",
           style: styles.HeadercenterComponent
         }}
       />
@@ -46,9 +46,8 @@ const ScheduleLessionsScreen = ({ navigation }) => {
   );
 };
 
-ScheduleLessionsScreen.navigationOptions = {
-  title: "מערכת שעות",
-  tabBarIcon: <FontAwesome name="gear" size={20} />
+TeacherListScreen.navigationOptions = {
+  header: null
 };
 
 const styles = StyleSheet.create({
@@ -71,4 +70,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScheduleLessionsScreen;
+export default TeacherListScreen;
