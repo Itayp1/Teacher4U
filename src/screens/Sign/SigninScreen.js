@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Button, Platform } from "react-native";
 import * as Google from "expo-google-app-auth";
 import { withNavigation } from "react-navigation";
+//import GoogleButton from "./GoogleSigninScreen";
+//import FacebookButton from "./FacebookSigninScreen";
 const signInWithGoogleAsync = async navigation => {
   console.log(Platform.OS);
   try {
@@ -41,12 +43,7 @@ const SigninScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Sign In With Google</Text>
-      <Button
-        title="Sign in with Google"
-        onPress={() => {
-          signInWithGoogleAsync(navigation);
-        }}
-      />
+      <Text style={styles.header}>Sign In With Facebook</Text>
     </View>
   );
 };
@@ -54,20 +51,19 @@ const SigninScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#D3E8FF",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-between"
   },
   header: {
     fontSize: 25
-  },
-  image: {
-    marginTop: 15,
-    width: 150,
-    height: 150,
-    borderColor: "rgba(0,0,0,0.2)",
-    borderWidth: 3,
-    borderRadius: 150
   }
 });
 export default withNavigation(SigninScreen);
+
+/* <Button
+title="Sign in with Google"
+onPress={() => {
+  signInWithGoogleAsync(navigation);
+}}
+/> */

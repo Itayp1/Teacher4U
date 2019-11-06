@@ -1,6 +1,6 @@
 import { ListItem } from "react-native-elements";
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
 
 import { FontAwesome } from "@expo/vector-icons";
@@ -32,14 +32,22 @@ const TeacherListScreen = ({ navigation }) => {
 
       <View>
         {list.map((l, i) => (
-          <ListItem
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("TeacherProfile", { details: l })
+            }
             key={i}
-            leftAvatar={{ source: { uri: l.avatar_url } }}
-            rightIcon={i == "0" ? { name: "cancel" } : null}
-            title={l.name}
-            subtitle={l.subtitle}
-            bottomDivider
-          />
+          >
+            <ListItem
+              keyExtractor={item => item.name}
+              key={item => item.name}
+              leftAvatar={{ source: { uri: l.avatar_url } }}
+              rightIcon={i == "0" ? { name: "cancel" } : null}
+              title={l.name}
+              subtitle={l.subtitle}
+              bottomDivider
+            />
+          </TouchableOpacity>
         ))}
       </View>
     </View>

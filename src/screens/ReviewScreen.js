@@ -52,7 +52,7 @@ const ReviewScreen = ({ navigation }) => {
 };
 
 ReviewScreen.navigationOptions = {
-  title: "מערכת שעות",
+  title: "ביקורות",
   tabBarIcon: <FontAwesome name="gear" size={20} />
 };
 
