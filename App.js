@@ -72,7 +72,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "loginFlow"
+    initialRouteName: "Welcome"
   }
 );
 
