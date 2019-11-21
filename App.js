@@ -21,6 +21,7 @@ import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/TeacherListScreen";
 import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
+import InonTestScreen from "./src/screens/InonTestScreen";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -36,6 +37,7 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
+    InonTest: InonTestScreen,
     Welcome: WelcomeScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
@@ -72,7 +74,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "InonTest"
   }
 );
 

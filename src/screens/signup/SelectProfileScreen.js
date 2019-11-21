@@ -12,7 +12,6 @@ const SelectProfileScreen = ({ navigation }) => {
   return (
     <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <Image style={styles.logo} source={require("../../icons/logo.png")} />
-
       <View style={styles.images}>
         <View>
           <Text style={styles.text}>תלמיד</Text>
