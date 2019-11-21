@@ -9,7 +9,7 @@ const list = [
     name: "דריו בורזיו",
     avatar_url:
       "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "בשעה 10:10 בתאריך 25.10.2019"
+    subtitle: "בשעה 10:10 בתאריך 25.10.2019 "
   },
   {
     name: "ליאור לביא",
