@@ -21,6 +21,7 @@ import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/TeacherListScreen";
 import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
+import { Provider as AuthProvider } from "./src/context/AuthContext";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -80,10 +81,12 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
   return (
-    <App
-      ref={navigator => {
-        setNavigator(navigator);
-      }}
-    />
+    <AuthProvider>
+      <App
+        ref={navigator => {
+          setNavigator(navigator);
+        }}
+      />
+    </AuthProvider>
   );
 };

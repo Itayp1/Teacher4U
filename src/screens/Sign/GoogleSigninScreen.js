@@ -15,7 +15,8 @@ const signInWithGoogleAsync = async navigation => {
   try {
     const config = {
       behaviar: "web",
-      scopes: ["profile", "email"]
+      scopes: ["profile", "email"],
+      access_type: "offline"
     };
     Platform.OS === "ios"
       ? (config.iosClientId =
@@ -25,6 +26,7 @@ const signInWithGoogleAsync = async navigation => {
 
     const result = await Google.logInAsync(config);
     if (result.type === "success") {
+      console.log(result);
       navigation.navigate("SelectProfile");
       // navigation0dismiss();
       return result.accessToken;
