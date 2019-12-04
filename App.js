@@ -22,6 +22,7 @@ import TeacherListScreen from "./src/screens/TeacherListScreen";
 import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -38,6 +39,7 @@ SearchTeacher.navigationOptions = {
 const switchNavigator = createSwitchNavigator(
   {
     Welcome: WelcomeScreen,
+    // ResolveAuth: ResolveAuthScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
       FacebookSignin: FacebookSigninScreen,

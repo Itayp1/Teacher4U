@@ -1,12 +1,7 @@
-import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import axios from "axios";
+import { AsyncStorage } from "react-native";
 
-let url;
-if (__DEV__) {
-  url = 'http://cd14184c.ngrok.io';
-} else {
-  url = 'https://sleepy-savannah-10606.herokuapp.com';
-}
+const url = "https://teacher4u-test.herokuapp.com";
 
 const instance = axios.create({
   baseURL: url
@@ -14,7 +9,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async config => {
-    const token = await AsyncStorage.getItem('token');
+    const token = await AsyncStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

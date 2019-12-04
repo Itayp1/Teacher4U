@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -9,8 +9,9 @@ import {
 import { Text } from "react-native-elements";
 import * as Google from "expo-google-app-auth";
 import { withNavigation } from "react-navigation";
+import { Context } from "../../context/AuthContext";
 
-const signInWithGoogleAsync = async navigation => {
+const signInWithGoogleAsync = async signin => {
   console.log(Platform.OS);
   try {
     const config = {
@@ -26,6 +27,7 @@ const signInWithGoogleAsync = async navigation => {
 
     const result = await Google.logInAsync(config);
     if (result.type === "success") {
+      signin(Platform.OS, result.accessToken);
       console.log(result);
       navigation.navigate("SelectProfile");
       // navigation0dismiss();
@@ -41,6 +43,8 @@ const signInWithGoogleAsync = async navigation => {
 };
 
 const GoogleSignin = ({ navigation }) => {
+  const { state, signin, clearErrorMessage } = useContext(Context);
+
   const [details, setDetails] = useState({
     signedIn: false,
     name: "",
@@ -50,7 +54,7 @@ const GoogleSignin = ({ navigation }) => {
     <>
       <TouchableOpacity
         onPress={() => {
-          signInWithGoogleAsync(navigation);
+          signInWithGoogleAsync(signin);
           console.log("clicked");
         }}
       >
