@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { View, StyleSheet, FlatList, TextInput, Picker } from "react-native";
 import { Text, Button, Input, label } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { withNavigation } from "react-navigation";
-
 import { ListItem } from "react-native-elements";
+import loginApi from "../api/Login";
+import { Context } from "../context/AuthContext";
 
 const list = [
   {
@@ -21,15 +22,44 @@ const list = [
   }
 ];
 
+const printDetails = async (obj, state) => {
+  try {
+    console.log("acess " + state.access_token);
+    response = await loginApi.post("/api/registration/student", obj, {
+      headers: {
+        Platform: "google",
+        access_token: state.access_token
+      }
+    });
+
+    console.log(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 const DetailsFrorm = ({ navigation, profile }) => {
+  const { state, student_signup, clearErrorMessage } = useContext(Context);
+  // const { state } = useContext(Contect);
+
+  const [name, setname] = useState({});
+  const [lastname, setlastname] = useState({});
+  const [phone, setphone] = useState({});
+  const [age, setage] = useState({});
+  const [city, setcity] = useState({});
+  const [gender, setgender] = useState({});
+  const [userprofile, setuserprofile] = useState({});
+
   let test;
   const details = [
-    { title: "שם מלא", input: "הכנס את השם" },
-    { title: "מס טלפון", input: "הכנס שם משפחה" },
-    { title: "תאריך לידה", input: "הכנס שם משפחה" },
-    { title: "עיר", input: "הכנס שם משפחה" },
-    { title: "מין", input: "זכר או נקבה" }
+    { title: "שם פרטי", input: "הכנס את השם", set: setname },
+    { title: "שם משפחה", input: "הכנס את השם", set: setlastname },
+
+    { title: "מס טלפון", input: "מס טלפון", set: setphone },
+    { title: "תאריך לידה", input: "תאריך לידה", set: setage },
+    { title: "עיר", input: "עיר", set: setcity },
+    { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
+
   return (
     <View>
       <FlatList
@@ -40,7 +70,8 @@ const DetailsFrorm = ({ navigation, profile }) => {
             <View>
               <Input
                 label={item.title}
-                placeholder={item.inpu}
+                placeholder={item.input}
+                onChangeText={item.set}
                 errorStyle={{ color: "red" }}
                 errorMessage=""
               />
@@ -56,7 +87,22 @@ const DetailsFrorm = ({ navigation, profile }) => {
       <Button
         title="שמור"
         style={{ size: 15 }}
-        onPress={() => navigation.navigate(profile)}
+        //        onPress={() => navigation.navigate(profile)}
+
+        onPress={() =>
+          printDetails(
+            {
+              name,
+              lastname,
+              age,
+              phone,
+              city,
+              gender,
+              profile: "student"
+            },
+            state
+          )
+        }
       />
     </View>
   );

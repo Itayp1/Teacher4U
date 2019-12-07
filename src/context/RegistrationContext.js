@@ -8,7 +8,10 @@ const authReducer = (state, action) => {
     case "add_error":
       return { ...state, errorMessage: action.payload };
     case "login":
-      return { access_token: action.payload };
+      return {
+        platform: action.payload.platform,
+        access_token: action.payload.access_token
+      };
     case "clear_error_message":
       return { ...state, errorMessage: "" };
     case "student_signup":
@@ -60,7 +63,7 @@ const login = dispatch => async (platform, access_token) => {
 
     console.log(response.data);
     // await AsyncStorage.setItem("token", response.data.jwt);
-    dispatch({ type: "login", payload: access_token });
+    dispatch({ type: "signin", payload: { platform, access_token } });
     // navigate("TrackList");
   } catch (err) {
     console.log("in err");
@@ -92,5 +95,5 @@ const signout = dispatch => async () => {
 export const { Provider, Context } = createDataContext(
   authReducer,
   { student_signup, signout, signup, clearErrorMessage, tryLocalSignin, login },
-  { platform: "null", access_token: null, errorMessage: "" }
+  { token: null, platform: "null", access_token: null, errorMessage: "" }
 );
