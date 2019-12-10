@@ -35,24 +35,25 @@ const clearErrorMessage = dispatch => () => {
 };
 
 const signup = dispatch => async ({ name, lastname }) => {
-  try {
-    const response = await loginApi.post("/signup", { email, password });
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
-
-    navigate("TrackList");
-  } catch (err) {
-    dispatch({
-      type: "add_error",
-      payload: "Something went wrong with sign up"
-    });
-  }
+  // try {
+  //   const response = await loginApi.post("/signup", { email, password });
+  //   await AsyncStorage.setItem("token", response.data.token);
+  //   dispatch({ type: "signin", payload: response.data.token });
+  //   navigate("TrackList");
+  // } catch (err) {
+  //   dispatch({
+  //     type: "add_error",
+  //     payload: "Something went wrong with sign up"
+  //   });
+  // }
 };
 
 const login = dispatch => async (platform, access_token) => {
   try {
     console.log("send req login");
     console.log(platform + "   " + access_token);
+    dispatch({ type: "login", payload: access_token });
+
     const response = await loginApi.get("/api/login", {
       headers: { platform, access_token }
     });
@@ -60,7 +61,6 @@ const login = dispatch => async (platform, access_token) => {
 
     console.log(response.data);
     // await AsyncStorage.setItem("token", response.data.jwt);
-    dispatch({ type: "login", payload: access_token });
     // navigate("TrackList");
   } catch (err) {
     console.log("in err");

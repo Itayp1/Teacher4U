@@ -17,6 +17,7 @@ import MessageScreen from "./src/screens/MessagesScreen";
 import ReviewScreen from "./src/screens/ReviewScreen";
 import ScheduleLessionsScreen from "./src/screens/ScheduleLessionsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import StudentProfileScreen from "./src/screens/StudentProfileScreen";
 import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/TeacherListScreen";
 import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
@@ -53,7 +54,7 @@ const switchNavigator = createSwitchNavigator(
     StudentMenu: createBottomTabNavigator(
       {
         Message: MessageScreen,
-        Profile: ProfileScreen,
+        Profile: StudentProfileScreen,
         ScheduleLessions: ScheduleLessionsScreen,
         SearchTeacher: SearchTeacher
       },
@@ -75,7 +76,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "StudentMenu"
   }
 );
 

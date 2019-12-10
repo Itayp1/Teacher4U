@@ -2,7 +2,9 @@ import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { Header } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
+import StudentLoginForm from "../components/StudentLoginForm";
 import DetailsFrorm from "../components/DetailsFrorm";
+
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
 

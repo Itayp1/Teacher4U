@@ -1,4 +1,6 @@
 import React from "react";
+import { AsyncStorage } from "react-native";
+
 import { View, StyleSheet, Image, Text } from "react-native";
 import { Picker, Header } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
@@ -13,6 +15,7 @@ const MessagesScreen = ({ navigation }) => {
           style: styles.HeadercenterComponent
         }}
       />
+
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>

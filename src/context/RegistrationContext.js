@@ -9,7 +9,8 @@ const authReducer = (state, action) => {
       return { ...state, errorMessage: action.payload };
     case "login":
       return {
-        platform: action.payload.platform,
+        ...state,
+        platform: action.payload,
         access_token: action.payload.access_token
       };
     case "clear_error_message":
@@ -38,18 +39,18 @@ const clearErrorMessage = dispatch => () => {
 };
 
 const signup = dispatch => async ({ name, lastname }) => {
-  try {
-    const response = await loginApi.post("/signup", { email, password });
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "signin", payload: response.data.token });
-
-    navigate("TrackList");
-  } catch (err) {
-    dispatch({
-      type: "add_error",
-      payload: "Something went wrong with sign up"
-    });
-  }
+  // try {
+  //   const response = await loginApi.post("/signup", { email, password });
+  //   console.log("save " + response.data.token);
+  //   await AsyncStorage.setItem("token", response.data.token);
+  //   dispatch({ type: "signin", payload: response.data.token });
+  //   navigate("TrackList");
+  // } catch (err) {
+  //   dispatch({
+  //     type: "add_error",
+  //     payload: "Something went wrong with sign up"
+  //   });
+  // }
 };
 
 const login = dispatch => async (platform, access_token) => {
