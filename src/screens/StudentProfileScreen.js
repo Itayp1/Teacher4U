@@ -6,15 +6,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import StudentLoginForm from "../components/StudentLoginForm";
 import DetailsFrorm from "../components/DetailsFrorm";
 import api from "../api/api";
-import { AppLoading } from "expo";
-const { startAsync, onFinish } = AppLoading;
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
 
 const printDetails = async (obj, navigation) => {};
 
 const StudentProfileScreen = ({ navigation }) => {
-  const [name, setname] = useState({});
+  const [name, setname] = useState("הכנס את השם");
   const [lastname, setlastname] = useState({});
   const [phone, setphone] = useState({});
   const [age, setage] = useState({});
@@ -22,7 +20,7 @@ const StudentProfileScreen = ({ navigation }) => {
   const [gender, setgender] = useState({});
   const [userprofile, setuserprofile] = useState({});
   const details = [
-    { title: "שם פרטי", input: "הכנס את השם", set: setname },
+    { title: "שם פרטי", input: name, set: setname },
     { title: "שם משפחה", input: "הכנס את השם", set: setlastname },
 
     { title: "מס טלפון", input: "מס טלפון", set: setphone },
@@ -31,17 +29,21 @@ const StudentProfileScreen = ({ navigation }) => {
     { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
 
-  startAsync(() => {
+  useEffect(() => {
     console.log("start");
     const fetchApi = async () => {
-      const response = await api.get("/api/information/student");
-      details[0].set = response.data.name;
-      details[1].set = response.data.lastname;
-      details[2].set = response.data.phone;
-      details[3].set = response.data.age;
-      details[4].set = response.data.ciry;
-      details[5].set = response.data.gender;
-      console.log(response.data);
+      const response = await api.get("/api/information/student").catch(err => {
+        console.log(err);
+      });
+
+      if (response) {
+        setname("undifind");
+        setlastname(response.data.phone || "undifind");
+        setphone(response.data.age || "undifind");
+        setAge(response.data.ciry || "undifind");
+        setgender(response.data.gender || "undifind");
+      }
+      //  console.log(response.data);
     };
     fetchApi();
   }, []);
