@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import { View, StyleSheet, Input, Button } from "react-native";
-import { Header } from "react-native-elements";
+import { View, StyleSheet, Button } from "react-native";
+import { Header, Input } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import StudentLoginForm from "../components/StudentLoginForm";
 import DetailsFrorm from "../components/DetailsFrorm";
 import api from "../api/api";
-
+import { AppLoading } from "expo";
+const { startAsync, onFinish } = AppLoading;
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
 
 const printDetails = async (obj, navigation) => {};
 
 const StudentProfileScreen = ({ navigation }) => {
-  useEffect(() => {
-    console.log("start");
-    const fetchApi = async () => {
-      const response = await api.get("/api/information/student");
-
-      console.log(response.data);
-    };
-    fetchApi();
-  }, []);
-
   const [name, setname] = useState({});
   const [lastname, setlastname] = useState({});
   const [phone, setphone] = useState({});
@@ -30,7 +21,6 @@ const StudentProfileScreen = ({ navigation }) => {
   const [city, setcity] = useState({});
   const [gender, setgender] = useState({});
   const [userprofile, setuserprofile] = useState({});
-
   const details = [
     { title: "שם פרטי", input: "הכנס את השם", set: setname },
     { title: "שם משפחה", input: "הכנס את השם", set: setlastname },
@@ -40,6 +30,21 @@ const StudentProfileScreen = ({ navigation }) => {
     { title: "עיר", input: "עיר", set: setcity },
     { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
+
+  startAsync(() => {
+    console.log("start");
+    const fetchApi = async () => {
+      const response = await api.get("/api/information/student");
+      details[0].set = response.data.name;
+      details[1].set = response.data.lastname;
+      details[2].set = response.data.phone;
+      details[3].set = response.data.age;
+      details[4].set = response.data.ciry;
+      details[5].set = response.data.gender;
+      console.log(response.data);
+    };
+    fetchApi();
+  }, []);
 
   return (
     <View style={styles.main}>
@@ -51,7 +56,7 @@ const StudentProfileScreen = ({ navigation }) => {
         }}
       />
       <View>
-        {/* <Input
+        <Input
           label={details[0].title}
           placeholder={details[0].input}
           onChangeText={details[0].set}
@@ -92,7 +97,7 @@ const StudentProfileScreen = ({ navigation }) => {
           onChangeText={details[5].set}
           errorStyle={{ color: "red" }}
           errorMessage=""
-        /> */}
+        />
       </View>
 
       <Button title="שמור" style={{ size: 15 }} onPress={() => {}} />
