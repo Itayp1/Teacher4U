@@ -8,16 +8,20 @@ import DetailsFrorm from "../components/DetailsFrorm";
 import api from "../api/api";
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
-
-const printDetails = async (obj, navigation) => {};
+import { AsyncStorage } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const StudentProfileScreen = ({ navigation }) => {
   const [name, setname] = useState("הכנס את השם");
-  const [lastname, setlastname] = useState({});
-  const [phone, setphone] = useState({});
-  const [age, setage] = useState({});
-  const [city, setcity] = useState({});
-  const [gender, setgender] = useState({});
+  const [lastname, setlastname] = useState("הכנס את השם");
+  const [phone, setphone] = useState("מס טלפון");
+  const [age, setage] = useState("תאריך לידה");
+  const [city, setcity] = useState("עיר");
+  const [gender, setgender] = useState("זכר או נקבה");
+  const [isvisable, setisvisable] = useState(true);
+
+  console.log(isvisable);
+
   const [userprofile, setuserprofile] = useState({});
   const details = [
     { title: "שם פרטי", input: name, set: setname },
@@ -28,28 +32,39 @@ const StudentProfileScreen = ({ navigation }) => {
     { title: "עיר", input: "עיר", set: setcity },
     { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
+  const updateDetails = async obj => {
+    const response = await api.put("/api/information/student", obj);
+    console.log(response);
+  };
 
   useEffect(() => {
     console.log("start");
     const fetchApi = async () => {
-      const response = await api.get("/api/information/student").catch(err => {
-        console.log(err);
-      });
+      try {
+        const response = await api.get("/api/information/student");
+        setname(response.data.name);
+        setlastname(response.data.lastname);
+        setphone(response.data.phone);
+        setage(response.data.age);
+        setcity(response.data.city);
+        setgender(response.data.gender);
 
-      if (response) {
-        setname("undifind");
-        setlastname(response.data.phone || "undifind");
-        setphone(response.data.age || "undifind");
-        setAge(response.data.ciry || "undifind");
-        setgender(response.data.gender || "undifind");
+        setisvisable(false);
+      } catch (error) {
+        console.log(error);
       }
-      //  console.log(response.data);
+
     };
     fetchApi();
   }, []);
 
   return (
     <View style={styles.main}>
+      <Spinner
+        visible={isvisable}
+        textContent={"Loading..."}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Header
         style={styles.Header}
         centerComponent={{
@@ -60,49 +75,76 @@ const StudentProfileScreen = ({ navigation }) => {
       <View>
         <Input
           label={details[0].title}
-          placeholder={details[0].input}
-          onChangeText={details[0].set}
+          value={name}
+          onChangeText={text => {
+            setname(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
         <Input
           label={details[1].title}
-          placeholder={details[1].input}
-          onChangeText={details[1].set}
+          value={lastname}
+          onChangeText={text => {
+            setlastname(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
         <Input
           label={details[2].title}
-          placeholder={details[2].input}
-          onChangeText={details[2].set}
+          value={phone}
+          onChangeText={text => {
+            setphone(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
         <Input
           label={details[3].title}
-          placeholder={details[3].input}
-          onChangeText={details[3].set}
+          value={age}
+          onChangeText={text => {
+            setage(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
         <Input
           label={details[4].title}
-          placeholder={details[4].input}
-          onChangeText={details[4].set}
+          value={city.toString()}
+          onChangeText={async text => {
+            setcity(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
         <Input
           label={details[5].title}
-          placeholder={details[5].input}
-          onChangeText={details[5].set}
+          value={gender}
+          onChangeText={text => {
+            setgender(text);
+          }}
           errorStyle={{ color: "red" }}
           errorMessage=""
         />
       </View>
 
-      <Button title="שמור" style={{ size: 15 }} onPress={() => {}} />
+      <Button
+        title="שמור"
+        style={{ size: 15 }}
+        onPress={() => {
+          updateDetails({
+            name,
+            lastname,
+            age,
+            phone,
+            city,
+            gender,
+            email: "asdasdsa",
+            profile: "student"
+          });
+        }}
+      />
       <Spacer />
       <SignOut style={styles.button} />
     </View>
@@ -125,6 +167,9 @@ const styles = StyleSheet.create({
   HeadercenterComponent: {
     fontSize: 25,
     color: "white"
+  },
+  spinnerTextStyle: {
+    color: "#FFF"
   }
 });
 
