@@ -6,8 +6,6 @@ import { FontAwesome } from "@expo/vector-icons";
 import StudentLoginForm from "../components/StudentLoginForm";
 import DetailsFrorm from "../components/DetailsFrorm";
 import api from "../api/api";
-import { AppLoading } from "expo";
-const { startAsync, onFinish } = AppLoading;
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
 import { AsyncStorage } from "react-native";
@@ -23,9 +21,10 @@ const StudentProfileScreen = ({ navigation }) => {
   const [isvisable, setisvisable] = useState(true);
 
   console.log(isvisable);
+
   const [userprofile, setuserprofile] = useState({});
   const details = [
-    { title: "שם פרטי", input: "הכנס את השם", set: setname },
+    { title: "שם פרטי", input: name, set: setname },
     { title: "שם משפחה", input: "הכנס את השם", set: setlastname },
 
     { title: "מס טלפון", input: "מס טלפון", set: setphone },
@@ -54,6 +53,7 @@ const StudentProfileScreen = ({ navigation }) => {
       } catch (error) {
         console.log(error);
       }
+
     };
     fetchApi();
   }, []);
