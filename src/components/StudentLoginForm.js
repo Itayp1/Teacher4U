@@ -40,18 +40,18 @@ const printDetails = async (obj, state, navigation) => {
         access_token: state.access_token
       }
     });
+    console.log("after response");
 
-    try {
-      await AsyncStorage.setItem("token", response.data);
+    await AsyncStorage.setItem("token", response.data);
+    console.log("after token");
 
-      navigation.navigate("StudentMenu");
-    } catch (error) {
-      // Error saving data
-      console.log(error);
-    }
+    navigation.navigate("StudentMenu");
+    console.log("after StudentMenu");
 
     console.log(response.data);
   } catch (error) {
+    console.log("error");
+
     console.log(error);
   }
 };
