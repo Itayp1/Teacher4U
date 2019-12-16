@@ -33,8 +33,11 @@ const StudentProfileScreen = ({ navigation }) => {
     { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
   const updateDetails = async obj => {
+    setisvisable(true)
     const response = await api.put("/api/information/student", obj);
-    console.log(response);
+    console.log(response.data);
+    setisvisable(false)
+
   };
 
   useEffect(() => {
