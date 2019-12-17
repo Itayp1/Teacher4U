@@ -1,7 +1,8 @@
 import { ListItem } from "react-native-elements";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
+import api from "../api/api";
 
 import { FontAwesome } from "@expo/vector-icons";
 const list = [
@@ -20,6 +21,29 @@ const list = [
 ];
 
 const ScheduleLessionsScreen = ({ navigation }) => {
+  const [lessonsList, setLessonsList] = useState([]);
+
+  useEffect(() => {
+    console.log("start");
+    const fetchApi = async () => {
+      console.log("in use effect");
+
+      try {
+        const response = await api.get(`/api/lessons/timetable`);
+
+        //  console.log(response.data);
+
+        setLessonsList(response.data.timeTable);
+        console.log(response.data.timeTable);
+        Console.log(lessonsList);
+      } catch (error) {
+        console.log("in error");
+        console.log(error);
+      }
+    };
+    fetchApi();
+  }, []);
+
   return (
     <View style={styles.main}>
       <Header
@@ -35,10 +59,10 @@ const ScheduleLessionsScreen = ({ navigation }) => {
           <TouchableOpacity key={l.name}>
             <ListItem
               key={l.name}
-              leftAvatar={{ source: { uri: l.avatar_url } }}
+              //     leftAvatar={{ source: { uri: l.avatar_url } }}
               rightIcon={i == "0" ? { name: "cancel" } : null}
               title={l.name}
-              subtitle={l.subtitle}
+              subtitle={`בשעה ${i.time}:00 בתאריך ${i.date}`}
               bottomDivider
             />
           </TouchableOpacity>
