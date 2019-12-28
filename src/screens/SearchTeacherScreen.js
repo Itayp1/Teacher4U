@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -13,10 +13,32 @@ import { FontAwesome } from "@expo/vector-icons";
 import SearchInput from "../components/SearchInput";
 import cities from "../../config/cities.json";
 import professions from "../../config/professions.json";
+import api from "../api/api";
 
 const SearchTeacherScreen = ({ navigation }) => {
   const [city, setCity] = useState(0);
   const [profession, setProfession] = useState(0);
+
+  const fetchApi = async () => {
+    console.log("in use effect");
+    console.log(city, profession);
+    try {
+      const response = await api.get(`/api/searchTeacher`, {
+        params: {
+          query: { city: city.name, profession: profession.name }
+        }
+      });
+
+      console.log(response);
+
+      // setLessonsList(response.data.timeTable);
+      //   console.log(response.data.timeTable);
+      // console.log(lessonsList);
+    } catch (error) {
+      console.log("in error");
+      console.log(error);
+    }
+  };
 
   console.log(profession.name);
   return (
@@ -35,7 +57,10 @@ const SearchTeacherScreen = ({ navigation }) => {
         inputText="לחץ כאן לבחירת מקצוע"
         label={profession.name}
         data={professions}
-        onSelect={name => console.log("clicked " + setProfession(name))}
+        onSelect={name => {
+          console.log("clicked ");
+          setProfession(name);
+        }}
       />
       <Text style={styles.text}>עיר</Text>
       <SearchInput
@@ -43,13 +68,15 @@ const SearchTeacherScreen = ({ navigation }) => {
         inputText="לחץ כאן לבחירת אזור"
         label={city.name}
         data={cities}
-        ד
         onSelect={name => console.log("clicked " + setCity(name))}
       />
       <TouchableOpacity style={styles.button}>
         <Button
           title="המשך"
-          onPress={() => navigation.navigate("TeacherList")}
+          onPress={async () => {
+            await fetchApi();
+            navigation.navigate("TeacherList");
+          }}
         />
       </TouchableOpacity>
     </View>

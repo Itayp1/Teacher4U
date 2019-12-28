@@ -34,8 +34,8 @@ const ScheduleLessionsScreen = ({ navigation }) => {
         //  console.log(response.data);
 
         setLessonsList(response.data.timeTable);
-        console.log(response.data.timeTable);
-        Console.log(lessonsList);
+        //   console.log(response.data.timeTable);
+        console.log(lessonsList);
       } catch (error) {
         console.log("in error");
         console.log(error);
@@ -55,14 +55,14 @@ const ScheduleLessionsScreen = ({ navigation }) => {
       />
 
       <View>
-        {list.map((l, i) => (
-          <TouchableOpacity key={l.name}>
+        {lessonsList.map((l, i) => (
+          <TouchableOpacity key={l._id}>
             <ListItem
-              key={l.name}
+              key={l._id}
               //     leftAvatar={{ source: { uri: l.avatar_url } }}
-              rightIcon={i == "0" ? { name: "cancel" } : null}
+              rightIcon={l.status == "cancel" ? { name: "cancel" } : null}
               title={l.name}
-              subtitle={`בשעה ${i.time}:00 בתאריך ${i.date}`}
+              subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
               bottomDivider
             />
           </TouchableOpacity>
