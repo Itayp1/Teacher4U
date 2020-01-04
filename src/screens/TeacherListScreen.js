@@ -1,5 +1,5 @@
 import { ListItem } from "react-native-elements";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
 
@@ -20,6 +20,12 @@ const list = [
 ];
 
 const TeacherListScreen = ({ navigation }) => {
+  // const [teacherList, setTeacherList] = useState([]);
+  const teacherList = navigation.getParam("teachetList");
+
+  console.log("TeacherListScreen");
+  console.log(teacherList);
+
   return (
     <View style={styles.main}>
       <Header
@@ -31,7 +37,7 @@ const TeacherListScreen = ({ navigation }) => {
       />
 
       <View>
-        {list.map((l, i) => (
+        {teacherList.map((l, i) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("TeacherProfile", { details: l })
@@ -40,11 +46,11 @@ const TeacherListScreen = ({ navigation }) => {
           >
             <ListItem
               keyExtractor={item => item.name}
-              key={item => item.name}
-              leftAvatar={{ source: { uri: l.avatar_url } }}
-              rightIcon={i == "0" ? { name: "cancel" } : null}
+              key={l => l.name}
+              //   leftAvatar={{ source: { uri: l.avatar_url } }}
+              //   rightIcon={i == "0" ? { name: "cancel" } : null}
               title={l.name}
-              subtitle={l.subtitle}
+              subtitle={l.generalDescription}
               bottomDivider
             />
           </TouchableOpacity>

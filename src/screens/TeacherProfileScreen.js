@@ -2,7 +2,17 @@ import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 const TeacherProfileScreen = ({ navigation }) => {
-  const { avatar_url, name } = navigation.getParam("details");
+  const {
+    avatar_url,
+    name,
+    generalDescription,
+    courses,
+    email
+  } = navigation.getParam("details");
+  console.log("emailllllllllll " + email);
+  const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
+
+  console.log(coursesList);
   console.log(`the name is ${name}`);
   return (
     <View style={styles.container}>
@@ -11,14 +21,11 @@ const TeacherProfileScreen = ({ navigation }) => {
       <View style={styles.body}>
         <View style={styles.bodyContent}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.info}>UX Designer / Mobile developer</Text>
-          <Text style={styles.description}>
-            Lorem ipsum dolor sit amet, saepe sapientem eu nam. Qui ne assum
-            electram expetendis, omittam deseruisse consequuntur ius an,
-          </Text>
+          <Text style={styles.info}>{coursesList}</Text>
+          <Text style={styles.description}>{generalDescription}</Text>
           <TouchableOpacity
             style={styles.buttonContainer}
-            onPress={() => navigation.navigate("Review")}
+            onPress={() => navigation.navigate("Review", { email })}
           >
             <Text>ביקורות</Text>
           </TouchableOpacity>

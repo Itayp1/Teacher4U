@@ -56,9 +56,9 @@ const ScheduleLessionsScreen = ({ navigation }) => {
 
       <View>
         {lessonsList.map((l, i) => (
-          <TouchableOpacity key={l._id}>
+          <TouchableOpacity key={i}>
             <ListItem
-              key={l._id}
+              key={i}
               //     leftAvatar={{ source: { uri: l.avatar_url } }}
               rightIcon={l.status == "cancel" ? { name: "cancel" } : null}
               title={l.name}

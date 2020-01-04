@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { ListItem, Header, Rating } from "react-native-elements";
 import { FontAwesome, AirbnbRating } from "@expo/vector-icons";
+import api from "../api/api";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const list = [
   {
@@ -19,8 +21,44 @@ const list = [
 ];
 
 const ReviewScreen = ({ navigation }) => {
+  const [reviewList, setReviewList] = useState([]);
+  const [ratingSum, setRatingSum] = useState(0);
+  const [isvisable, setisvisable] = useState(true);
+
+  const email = navigation.getParam("email");
+  console.log(email);
+  useEffect(() => {
+    console.log("start ReviewScreen");
+    const fetchApi = async () => {
+      console.log("in use effect");
+
+      try {
+        const response = await api.get(`/api/rating/${email}`);
+        console.log(response.data);
+
+        const { rating } = response.data.reduce((pre, next) => {
+          return { rating: +pre.rating + +next.rating };
+        });
+        console.log(rating);
+        setRatingSum(rating / response.data.length);
+        setReviewList(response.data);
+        setisvisable(false);
+        //   console.log(response.data.timeTable);
+      } catch (error) {
+        console.log("in error");
+        console.log(error);
+      }
+    };
+    fetchApi();
+  }, []);
+
   return (
     <View style={styles.main}>
+      <Spinner
+        visible={isvisable}
+        textContent={"Loading..."}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Header
         style={styles.Header}
         centerComponent={{
@@ -29,12 +67,12 @@ const ReviewScreen = ({ navigation }) => {
         }}
       />
       <View>
-        {list.map((l, i) => (
+        {reviewList.map((l, i) => (
           <ListItem
             key={i}
-            leftAvatar={{ source: { uri: l.avatar_url } }}
-            title={l.name}
-            subtitle={l.subtitle}
+            //  leftAvatar={{ source: { uri: l.avatar_url } }}
+            title={l.studentName}
+            subtitle={l.review}
             bottomDivider
           />
         ))}
@@ -45,7 +83,7 @@ const ReviewScreen = ({ navigation }) => {
         showRating
         ratingBackgroundColor="#D3E8FF"
         readonly
-        startingValue={2.5}
+        startingValue={ratingSum}
       />
     </View>
   );
@@ -73,6 +111,9 @@ const styles = StyleSheet.create({
   HeadercenterComponent: {
     fontSize: 25,
     color: "white"
+  },
+  spinnerTextStyle: {
+    color: "#FFF"
   }
 });
 

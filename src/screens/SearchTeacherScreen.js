@@ -20,17 +20,18 @@ const SearchTeacherScreen = ({ navigation }) => {
   const [profession, setProfession] = useState(0);
 
   const fetchApi = async () => {
-    console.log("in use effect");
-    console.log(city, profession);
+    console.log("fetchApi");
+    console.log(city.name, profession.name);
     try {
       const response = await api.get(`/api/searchTeacher`, {
         params: {
-          query: { city: city.name, profession: profession.name }
+          city: city.name,
+          course: profession.name
         }
       });
 
-      console.log(response);
-
+      console.log(response.data);
+      navigation.navigate("TeacherList", { teachetList: response.data });
       // setLessonsList(response.data.timeTable);
       //   console.log(response.data.timeTable);
       // console.log(lessonsList);
@@ -68,16 +69,13 @@ const SearchTeacherScreen = ({ navigation }) => {
         inputText="לחץ כאן לבחירת אזור"
         label={city.name}
         data={cities}
-        onSelect={name => console.log("clicked " + setCity(name))}
+        onSelect={name => {
+          console.log("clicked ");
+          setCity(name);
+        }}
       />
       <TouchableOpacity style={styles.button}>
-        <Button
-          title="המשך"
-          onPress={async () => {
-            await fetchApi();
-            navigation.navigate("TeacherList");
-          }}
-        />
+        <Button title="המשך" onPress={() => fetchApi()} />
       </TouchableOpacity>
     </View>
   );
