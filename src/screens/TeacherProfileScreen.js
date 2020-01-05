@@ -7,7 +7,9 @@ const TeacherProfileScreen = ({ navigation }) => {
     name,
     generalDescription,
     courses,
-    email
+    email,
+    avaiablesHours,
+    availablesDays
   } = navigation.getParam("details");
   console.log("emailllllllllll " + email);
   const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
@@ -32,7 +34,10 @@ const TeacherProfileScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.buttonContainer}
             onPress={() => {
-              navigation.navigate("Calender");
+              navigation.navigate("Calender", {
+                email,
+                availablesDays
+              });
             }}
           >
             <Text>קבע שיעור</Text>

@@ -36,9 +36,12 @@ const ReviewScreen = ({ navigation }) => {
         const response = await api.get(`/api/rating/${email}`);
         console.log(response.data);
 
-        const { rating } = response.data.reduce((pre, next) => {
-          return { rating: +pre.rating + +next.rating };
-        });
+        const { rating } = response.data.reduce(
+          (pre, next) => {
+            return { rating: +pre.rating + +next.rating };
+          },
+          { rating: 0 }
+        );
         console.log(rating);
         setRatingSum(rating / response.data.length);
         setReviewList(response.data);

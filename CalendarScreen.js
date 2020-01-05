@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
+
 import {
   View,
   StyleSheet,
@@ -13,9 +15,7 @@ import { LocaleConfig } from "react-native-calendars";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import Modal from "react-native-modal";
 import AwesomeAlert from "react-native-awesome-alerts";
-import moment from "moment";
-import { AuthSession } from "expo";
-import api from "../api/api";
+
 const dayNames = [
   { Sunday: 1 },
   { Monday: 2 },
@@ -83,28 +83,10 @@ const days = {
   ],
   monday: ["23:00", "13:00"]
 };
+const availablesDays = [1, 2, 4];
 
 LocaleConfig.defaultLocale = "en";
-
-const appointmentLesson = async (email, date, setAvailablesHouers) => {
-  const response = await api.psot("/api/lessons/appointmentLesson", {
-    params: {
-      email,
-      date
-    }
-  });
-  setAvailablesHouers(response.data.avaiables);
-};
-const getAvaiablehours = async (email, date, setAvailablesHouers) => {
-  const response = await api.get("/api/lessons/getavaiabletime", {
-    params: {
-      email,
-      date
-    }
-  });
-  setAvailablesHouers(response.data.avaiables);
-};
-const getMonthsArray = (yyyy, mm, availablesDays) => {
+const getMonthsArray = (yyyy, mm, availablesDays, tmp) => {
   yyyy = yyyy.length == 4 ? yyyy : `20${yyyy}`;
   mm = mm.toString().length > 1 ? mm : `0${mm}`;
   // console.log("months is " + mm);
@@ -120,9 +102,9 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
 
     return Object.assign(c, {
       [v]:
-        availablesDays.includes(moment(`${2020}-${mm}-${i}`).day() + 1) == true
+        availablesDays.includes(moment(`${2020}-${mm}-${i}`).day()) == true
           ? { disabled: false }
-          : { disabled: true, disableTouchEvent: true }
+          : { disabled: true }
     });
   }, {});
 
@@ -130,9 +112,7 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
 };
 
 const CalanderScreen = ({ navigation }) => {
-  const email = navigation.getParam("email");
-  const availablesDays = navigation.getParam("availablesDays");
-  const [availablesHouers, setAvailablesHouers] = useState([]);
+  console.log(moment().format("YYYY"));
   const [visable, setVisable] = useState(false);
   const [update, setupdate] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -141,11 +121,9 @@ const CalanderScreen = ({ navigation }) => {
       moment().format("YYYY"),
 
       moment().format("MM"),
+
       availablesDays,
       currentDate
-
-      // new Date().getFullYear().toString().substring(2, month.year.length),
-      // new Date().getMonth(),
     )
   );
 
@@ -158,14 +136,13 @@ const CalanderScreen = ({ navigation }) => {
             בחר שעה לשיעור
           </Text>
           <FlatList
-            data={availablesHouers}
+            data={days.sunday}
             keyExtractor={houer => houer}
             renderItem={({ item }) => {
               return (
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() => {
-                      console.log("the selected houer is " + item);
                       setVisable(false);
                       setupdate(true);
                     }}
@@ -187,6 +164,7 @@ const CalanderScreen = ({ navigation }) => {
           />
         </ScrollView>
       </Modal>
+
       {update === true ? (
         <Modal isVisible={true}>
           <AwesomeAlert
@@ -202,7 +180,6 @@ const CalanderScreen = ({ navigation }) => {
             confirmButtonColor="#DD6B55"
             onCancelPressed={() => {}}
             onConfirmPressed={() => {
-              console.log("confirmmm");
               navigation.navigate("StudentMenu");
             }}
           />
@@ -214,23 +191,18 @@ const CalanderScreen = ({ navigation }) => {
           setCurrentDate(month.dateString);
           console.log(currentDate);
           setMonthsList(
-            getMonthsArray(
-              month.year.toString(),
-              month.month,
-              availablesDays,
-              currentDate
-            )
+            getMonthsArray(month.year.toString(), month.month, availablesDays)
           );
         }}
         // Collection of dates that have to be marked. Default = {}
         current={currentDate}
-        minDate={new Date()}
+        minDate={currentDate}
         //  displayLoadingIndicator
         // Handler which gets executed on day press. Default = undefined
-        onDayPress={async ({ dateString }) => {
-          await getAvaiablehours(email, dateString, setAvailablesHouers);
-          console.log(setAvailablesHouers);
+        onDayPress={({ dateString }) => {
+          setPopo(dateString);
           setVisable(true);
+          console.log("ppp");
         }}
         hideExtraDays={true}
         markedDates={monthList}
