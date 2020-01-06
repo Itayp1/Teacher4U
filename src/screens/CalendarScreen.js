@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
+import { navigate } from "../navigationRef";
+
 import { Picker, Text } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import { LocaleConfig } from "react-native-calendars";
@@ -16,6 +18,8 @@ import AwesomeAlert from "react-native-awesome-alerts";
 import moment from "moment";
 import { AuthSession } from "expo";
 import api from "../api/api";
+import { withNavigation } from "react-navigation";
+
 const dayNames = [
   { Sunday: 1 },
   { Monday: 2 },
@@ -132,7 +136,10 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
 const CalanderScreen = ({ navigation }) => {
   const email = navigation.getParam("email");
   const availablesDays = navigation.getParam("availablesDays");
+  const [visableOk, setVisableOK] = useState(false);
+
   const [availablesHouers, setAvailablesHouers] = useState([]);
+
   const [visable, setVisable] = useState(false);
   const [update, setupdate] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -159,15 +166,16 @@ const CalanderScreen = ({ navigation }) => {
           </Text>
           <FlatList
             data={availablesHouers}
-            keyExtractor={houer => houer}
+            keyExtractor={(key, i) => i.toString()}
             renderItem={({ item }) => {
               return (
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={() => {
                       console.log("the selected houer is " + item);
-                      setVisable(false);
-                      setupdate(true);
+
+                      // setVisable(false);
+                      setVisableOK(true);
                     }}
                   >
                     <Text
@@ -187,27 +195,31 @@ const CalanderScreen = ({ navigation }) => {
           />
         </ScrollView>
       </Modal>
-      {update === true ? (
-        <Modal isVisible={true}>
-          <AwesomeAlert
-            show={"BasicAwesomeAlert"}
-            showProgress={false}
-            title="השיעור נקבע בהצלחה"
-            message="למעבר לתפריט הראשי לחץ המשך"
-            closeOnTouchOutside={false}
-            closeOnHardwareBackPress={false}
-            showCancelButton={false}
-            showConfirmButton={true}
-            confirmText="המשך"
-            confirmButtonColor="#DD6B55"
-            onCancelPressed={() => {}}
-            onConfirmPressed={() => {
-              console.log("confirmmm");
-              navigation.navigate("StudentMenu");
-            }}
-          />
-        </Modal>
-      ) : null}
+      <Modal isVisible={visableOk}>
+        <AwesomeAlert
+          show={true}
+          showProgress={false}
+          title="השיעור נקבע בהצלחה"
+          message="למעבר לתפריט הראשי לחץ המשך"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="המשך"
+          confirmButtonColor="#DD6B55"
+          onCancelPressed={() => {}}
+          onConfirmPressed={() => {
+            try {
+              setVisableOK(false);
+              setVisable(false);
+              navigation.popToTop();
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        />
+      </Modal>
+
       <Calendar
         onMonthChange={month => {
           console.log("set corrent date ");
@@ -228,9 +240,12 @@ const CalanderScreen = ({ navigation }) => {
         //  displayLoadingIndicator
         // Handler which gets executed on day press. Default = undefined
         onDayPress={async ({ dateString }) => {
-          await getAvaiablehours(email, dateString, setAvailablesHouers);
-          console.log(setAvailablesHouers);
-          setVisable(true);
+          try {
+            await getAvaiablehours(email, dateString, setAvailablesHouers);
+            setVisable(true);
+          } catch (error) {
+            console.log(error);
+          }
         }}
         hideExtraDays={true}
         markedDates={monthList}

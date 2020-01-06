@@ -114,6 +114,8 @@ const getMonthsArray = (yyyy, mm, availablesDays, tmp) => {
 const CalanderScreen = ({ navigation }) => {
   console.log(moment().format("YYYY"));
   const [visable, setVisable] = useState(false);
+  const [visableOk, setVisableOK] = useState(false);
+
   const [update, setupdate] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [monthList, setMonthsList] = useState(
@@ -166,7 +168,7 @@ const CalanderScreen = ({ navigation }) => {
       </Modal>
 
       {update === true ? (
-        <Modal isVisible={true}>
+        <Modal isVisible={visableOk}>
           <AwesomeAlert
             show={"BasicAwesomeAlert"}
             showProgress={false}
@@ -180,7 +182,9 @@ const CalanderScreen = ({ navigation }) => {
             confirmButtonColor="#DD6B55"
             onCancelPressed={() => {}}
             onConfirmPressed={() => {
-              navigation.navigate("StudentMenu");
+              console.log("pppppp");
+              setVisableOK(false);
+              navigation.navigate("Signin");
             }}
           />
         </Modal>
