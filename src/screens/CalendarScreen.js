@@ -90,14 +90,20 @@ const days = {
 
 LocaleConfig.defaultLocale = "en";
 
-const appointmentLesson = async (email, date, setAvailablesHouers) => {
-  const response = await api.psot("/api/lessons/appointmentLesson", {
-    params: {
-      email,
-      date
-    }
+const Lappointmentesson = async (
+  teacherName,
+  teacherEmail,
+  cource,
+  date,
+  time
+) => {
+  const response = await api.post("/api/lessons/appointmentLesson", {
+    teacherName,
+    teacherEmail,
+    cource,
+    date,
+    time
   });
-  setAvailablesHouers(response.data.avaiables);
 };
 const getAvaiablehours = async (email, date, setAvailablesHouers) => {
   const response = await api.get("/api/lessons/getavaiabletime", {
@@ -134,10 +140,14 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
 };
 
 const CalanderScreen = ({ navigation }) => {
-  const email = navigation.getParam("email");
-  const availablesDays = navigation.getParam("availablesDays");
+  // const email = navigation.getParam("email");
+  //const availablesDays = navigation.getParam("availablesDays");
+  const { name, email, availablesDays, profession } = navigation.getParam(
+    "TeacherProfile"
+  );
+  console.log(name, email, availablesDays, profession.name);
   const [visableOk, setVisableOK] = useState(false);
-
+  const [selectetDate, setSelectetDate] = useState({});
   const [availablesHouers, setAvailablesHouers] = useState([]);
 
   const [visable, setVisable] = useState(false);
@@ -171,11 +181,21 @@ const CalanderScreen = ({ navigation }) => {
               return (
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
-                    onPress={() => {
+                    onPress={async () => {
                       console.log("the selected houer is " + item);
-
-                      // setVisable(false);
-                      setVisableOK(true);
+                      try {
+                        await Lappointmentesson(
+                          name,
+                          email,
+                          profession.name,
+                          selectetDate,
+                          item
+                        );
+                        // setVisable(false);
+                        setVisableOK(true);
+                      } catch (error) {
+                        console.log(error);
+                      }
                     }}
                   >
                     <Text
@@ -242,6 +262,7 @@ const CalanderScreen = ({ navigation }) => {
         onDayPress={async ({ dateString }) => {
           try {
             await getAvaiablehours(email, dateString, setAvailablesHouers);
+            setSelectetDate(dateString);
             setVisable(true);
           } catch (error) {
             console.log(error);

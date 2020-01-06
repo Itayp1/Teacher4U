@@ -31,7 +31,10 @@ const SearchTeacherScreen = ({ navigation }) => {
       });
 
       console.log(response.data);
-      navigation.navigate("TeacherList", { teachetList: response.data });
+      navigation.navigate("TeacherList", {
+        teachetList: response.data,
+        profession
+      });
       // setLessonsList(response.data.timeTable);
       //   console.log(response.data.timeTable);
       // console.log(lessonsList);

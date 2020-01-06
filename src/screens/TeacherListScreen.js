@@ -22,6 +22,7 @@ const list = [
 const TeacherListScreen = ({ navigation }) => {
   // const [teacherList, setTeacherList] = useState([]);
   const teacherList = navigation.getParam("teachetList");
+  const profession = navigation.getParam("profession");
 
   console.log("TeacherListScreen");
   console.log(teacherList);
@@ -39,9 +40,10 @@ const TeacherListScreen = ({ navigation }) => {
       <View>
         {teacherList.map((l, i) => (
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("TeacherProfile", { details: l })
-            }
+            onPress={() => {
+              l.profession = profession;
+              navigation.navigate("TeacherProfile", { details: l });
+            }}
             key={i}
           >
             <ListItem

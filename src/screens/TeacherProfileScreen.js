@@ -9,9 +9,11 @@ const TeacherProfileScreen = ({ navigation }) => {
     courses,
     email,
     avaiablesHours,
-    availablesDays
+    availablesDays,
+    profession
   } = navigation.getParam("details");
   console.log("emailllllllllll " + email);
+  const TeacherProfile = { name, email, availablesDays, profession };
   const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
 
   console.log(coursesList);
@@ -35,8 +37,7 @@ const TeacherProfileScreen = ({ navigation }) => {
             style={styles.buttonContainer}
             onPress={() => {
               navigation.navigate("Calender", {
-                email,
-                availablesDays
+                TeacherProfile
               });
             }}
           >
