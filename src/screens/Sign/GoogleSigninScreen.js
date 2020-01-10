@@ -10,6 +10,8 @@ import { Text } from "react-native-elements";
 import * as Google from "expo-google-app-auth";
 import { withNavigation } from "react-navigation";
 import { Context } from "../../context/AuthContext";
+import api from "../../api/api";
+import { AsyncStorage } from "react-native";
 
 const signInWithGoogleAsync = async (login, navigation) => {
   console.log(Platform.OS);
@@ -27,9 +29,22 @@ const signInWithGoogleAsync = async (login, navigation) => {
 
     const result = await Google.logInAsync(config);
     if (result.type === "success") {
+      const response = await api.get("/api/login", {
+        headers: {
+          access_token: result.accessToken,
+          platform: "google"
+        }
+      });
+      AsyncStorage.setItem("token", response.data.jwt);
+      if (response.data.profile === "student") {
+        navigation.navigate("StudentMenu");
+      } else if (response.data.profile === "teacher") {
+        navigation.navigate("TeacherMenu");
+      } else {
+        navigation.navigate("SelectProfile");
+      }
       login("google", result.accessToken);
       console.log(result);
-      navigation.navigate("SelectProfile");
       // navigation0dismiss();
       return result.accessToken;
     } else {

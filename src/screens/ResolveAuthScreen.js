@@ -1,14 +1,26 @@
-import React, { useEffect, useContext } from 'react';
-import { Context as AuthContext } from '../context/AuthContext';
+import React, { useEffect } from "react";
+import { AsyncStorage } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
+import jwt from "react-native-pure-jwt";
 
-const ResolveAuthScreen = () => {
-  const { tryLocalSignin } = useContext(AuthContext);
+const ResolveAuthScreen = ({ navigation }) => {
+  const ResolveAuth = async () => {
+    const token = await AsyncStorage.getItem("token");
+    console.log(token);
+    try {
+      jwt.decode("token", "secret", {
+        skipValidation: true
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    tryLocalSignin();
+    ResolveAuth();
   }, []);
 
-  return null;
+  return <View></View>;
 };
 
 export default ResolveAuthScreen;

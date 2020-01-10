@@ -24,7 +24,6 @@ import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
-import NewCalendarScreen from "./CalendarScreen";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -40,9 +39,8 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
-    NewCalendar: NewCalendarScreen,
     Welcome: WelcomeScreen,
-    // ResolveAuth: ResolveAuthScreen,
+    //ResolveAuth: ResolveAuthScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
       FacebookSignin: FacebookSigninScreen,
@@ -78,7 +76,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "StudentMenu"
+    initialRouteName: "Welcome"
   }
 );
 

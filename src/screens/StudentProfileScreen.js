@@ -8,7 +8,6 @@ import DetailsFrorm from "../components/DetailsFrorm";
 import api from "../api/api";
 import SignOut from "../components/SignOutButton";
 import Spacer from "../components/Spacer";
-import { AsyncStorage } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const StudentProfileScreen = ({ navigation }) => {
@@ -33,11 +32,10 @@ const StudentProfileScreen = ({ navigation }) => {
     { title: "מין", input: "זכר או נקבה", set: setgender }
   ];
   const updateDetails = async obj => {
-    setisvisable(true)
+    setisvisable(true);
     const response = await api.put("/api/information/student", obj);
     console.log(response.data);
-    setisvisable(false)
-
+    setisvisable(false);
   };
 
   useEffect(() => {
@@ -56,7 +54,6 @@ const StudentProfileScreen = ({ navigation }) => {
       } catch (error) {
         console.log(error);
       }
-
     };
     fetchApi();
   }, []);
