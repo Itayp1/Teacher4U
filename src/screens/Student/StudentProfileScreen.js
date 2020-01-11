@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Button } from "react-native";
 import { Header, Input } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
-import StudentLoginForm from "../components/StudentLoginForm";
-import DetailsFrorm from "../components/DetailsFrorm";
-import api from "../api/api";
-import SignOut from "../components/SignOutButton";
-import Spacer from "../components/Spacer";
+import StudentLoginForm from "../../components/StudentLoginForm";
+import DetailsFrorm from "../../components/DetailsFrorm";
+import api from "../../api/api";
+import SignOut from "../../components/SignOutButton";
+import Spacer from "../../components/Spacer";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const StudentProfileScreen = ({ navigation }) => {

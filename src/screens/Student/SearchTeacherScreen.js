@@ -10,10 +10,10 @@ import {
 //import { Button } from "react-native-elements";
 import { Text, Header } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
-import SearchInput from "../components/SearchInput";
-import cities from "../../config/cities.json";
-import professions from "../../config/professions.json";
-import api from "../api/api";
+import SearchInput from "../../components/SearchInput";
+import cities from "../../../config/cities.json";
+import professions from "../../../config/professions.json";
+import api from "../../api/api";
 
 const SearchTeacherScreen = ({ navigation }) => {
   const [city, setCity] = useState(0);

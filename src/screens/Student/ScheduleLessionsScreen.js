@@ -2,7 +2,7 @@ import { ListItem } from "react-native-elements";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
-import api from "../api/api";
+import api from "../../api/api";
 
 import { FontAwesome } from "@expo/vector-icons";
 const list = [

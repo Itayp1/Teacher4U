@@ -19,7 +19,9 @@ const SelectProfileScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.circle}
             onPress={() =>
-              navigation.navigate("Registration", { profile: "StudentMenu" })
+              navigation.navigate("StudentRegistration", {
+                profile: "StudentMenu"
+              })
             }
           >
             <Image
@@ -34,7 +36,9 @@ const SelectProfileScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.circle}
             onPress={() =>
-              navigation.navigate("Registration", { profile: "TeacherMenu" })
+              navigation.navigate("TeacherRegistration", {
+                profile: "TeacherMenu"
+              })
             }
           >
             <Image

@@ -10,20 +10,21 @@ import SigninScreen from "./src/screens/Sign/SigninScreen";
 import FacebookSigninScreen from "./src/screens/Sign/FacebookSigninScreen";
 import GoogleSigninScreen from "./src/screens/Sign/GoogleSigninScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
-import SelectProfileScreen from "./src/screens/signup/SelectProfileScreen";
-import RegistrationScreen from "./src/screens/signup/RegistrationScreen";
-import MenuScreen from "./src/screens/MenuScreen";
+import SelectProfileScreen from "./src/screens/SelectProfileScreen";
+import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistrationScreen";
+import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
+//import MenuScreen from "./src/screens/other/MenuScreen";
 import MessageScreen from "./src/screens/MessagesScreen";
 import ReviewScreen from "./src/screens/ReviewScreen";
-import ScheduleLessionsScreen from "./src/screens/ScheduleLessionsScreen";
+import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
-import StudentProfileScreen from "./src/screens/StudentProfileScreen";
-import SearchTeacherScreen from "./src/screens/SearchTeacherScreen";
-import TeacherListScreen from "./src/screens/TeacherListScreen";
-import TeacherProfileScreen from "./src/screens/TeacherProfileScreen";
+import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
+import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
+import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
+import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
-import ResolveAuthScreen from "./src/screens/ResolveAuthScreen";
+//import ResolveAuthScreen from "./src/screens/other/ResolveAuthScreen";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -40,7 +41,7 @@ SearchTeacher.navigationOptions = {
 const switchNavigator = createSwitchNavigator(
   {
     Welcome: WelcomeScreen,
-    //ResolveAuth: ResolveAuthScreen,
+    TeacherRegistration: TeacherRegistrationScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
       FacebookSignin: FacebookSigninScreen,
@@ -49,7 +50,8 @@ const switchNavigator = createSwitchNavigator(
     }),
     SignupFlow: createStackNavigator({
       SelectProfile: SelectProfileScreen,
-      Registration: RegistrationScreen
+      TeacherRegistration: TeacherRegistrationScreen,
+      StudentRegistration: StudentRegistrationScreen
     }),
     StudentMenu: createBottomTabNavigator(
       {
@@ -76,7 +78,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "TeacherRegistration"
   }
 );
 
