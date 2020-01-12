@@ -26,7 +26,7 @@ const SelectProfileScreen = ({ navigation }) => {
           >
             <Image
               style={styles.image}
-              source={require("../../icons/student.png")}
+              source={require("../icons/student.png")}
             />
           </TouchableOpacity>
         </View>
@@ -42,8 +42,8 @@ const SelectProfileScreen = ({ navigation }) => {
             }
           >
             <Image
-              style={styles.image}
-              source={require("../../icons/teacher.png")}
+              style={styles.teacherImage}
+              source={require("../icons/teacher.png")}
             />
           </TouchableOpacity>
         </View>
@@ -79,7 +79,20 @@ const styles = StyleSheet.create({
     bottom: 70
   },
 
-  image: { width: 150, height: 150, resizeMode: "contain" }
+  image: {
+    width: 140,
+    height: 140,
+    resizeMode: "contain",
+    marginLeft: 15,
+    marginTop: 5
+  },
+  teacherImage: {
+    width: 150,
+    height: 150,
+    resizeMode: "contain",
+    marginLeft: 5,
+    marginTop: 5
+  }
 });
 
 export default SelectProfileScreen;
