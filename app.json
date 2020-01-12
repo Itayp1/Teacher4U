@@ -3,13 +3,16 @@
     "name": "Teacher4U",
     "slug": "Teacher4U",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
-    "platforms": ["ios", "android", "web"],
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "facebookScheme": "fb552200288939015",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,7 +21,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     }
