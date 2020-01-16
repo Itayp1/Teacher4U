@@ -1,11 +1,17 @@
-import React from "react";
-import { AsyncStorage } from "react-native";
+import React, { useState } from "react";
+import cities from "../../config/cities.json";
 
 import { View, StyleSheet, Image, Text } from "react-native";
-import { Picker, Header } from "react-native-elements";
+import { Picker, Header, Button } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
+import MultiSelect from "../components/MultiSelect";
+import MultiSelectResult from "../components/MultiSelectResult";
 
 const MessagesScreen = ({ navigation }) => {
+  const [visable, setvsable] = useState(false);
+  const [term, seterm] = useState("");
+  const [cityList, setcityList] = useState([]);
+
   return (
     <View style={styles.main}>
       <Header
@@ -15,15 +21,22 @@ const MessagesScreen = ({ navigation }) => {
           style: styles.HeadercenterComponent
         }}
       />
-
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>
-      {/* <Picker selectedValue={test} onValueChange={test}>
-        <Picker.Item label="Steve" value="steve" />
-        <Picker.Item label="Ellen" value="ellen" />
-        <Picker.Item label="Maria" value="maria" />
-      </Picker> */}
+      <Button
+        title={"jklndjd"}
+        onPress={() => {
+          setvsable(!visable);
+        }}
+      />
+      <MultiSelect
+        isVisible={visable}
+        setvsable={setvsable}
+        list={cities}
+        selectedItems={setcityList}
+      />
+      <MultiSelectResult list={cityList} />
     </View>
   );
 };
