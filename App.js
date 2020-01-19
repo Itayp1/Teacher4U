@@ -78,7 +78,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "StudentMenu"
+    initialRouteName: "Welcome"
   }
 );
 

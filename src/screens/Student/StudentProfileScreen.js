@@ -19,8 +19,6 @@ const StudentProfileScreen = ({ navigation }) => {
   const [gender, setgender] = useState("זכר או נקבה");
   const [isvisable, setisvisable] = useState(true);
 
-  console.log(isvisable);
-
   const [userprofile, setuserprofile] = useState({});
   const details = [
     { title: "שם פרטי", input: name, set: setname },
@@ -34,12 +32,10 @@ const StudentProfileScreen = ({ navigation }) => {
   const updateDetails = async obj => {
     setisvisable(true);
     const response = await api.put("/api/information/student", obj);
-    console.log(response.data);
     setisvisable(false);
   };
 
   useEffect(() => {
-    console.log("start");
     const fetchApi = async () => {
       try {
         const response = await api.get("/api/information/student");

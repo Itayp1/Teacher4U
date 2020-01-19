@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Button } from "react-native-elements";
-import MultiSelectResult from "../components/MultiSelectResult";
+import MultiSelectResult from "./MultiSelectResult";
 
 import { Feather } from "@expo/vector-icons";
 import cities from "../../config/cities.json";
@@ -22,8 +22,8 @@ const listResult = (list, term) => {
   term ? term : null;
   const results = list.filter(city => {
     if (
-      (term == null && index <= 24) ||
-      (city.name.includes(term) && index <= 24)
+      (term == null && index <= 5) ||
+      (city.name.includes(term) && index <= 5)
     ) {
       index++;
       return true;
@@ -39,8 +39,7 @@ export default MultiSelect = ({
   setIsVisible,
   list,
   selectedItems,
-  showList,
-  singleSelect
+  showList
 }) => {
   const [term, seterm] = useState("");
   const [coosen, setchossen] = useState([]);
@@ -75,12 +74,7 @@ export default MultiSelect = ({
                 <TouchableOpacity
                   style={styles.item}
                   onPress={() => {
-                    if (singleSelect) {
-                      selectedItems(item.name);
-                      setchossen(item.name);
-
-                      setIsVisible(false);
-                    } else if (!coosen.includes(item.name)) {
+                    if (!coosen.includes(item.name)) {
                       setchossen([...coosen, item.name]);
                     } else {
                       setchossen(coosen.filter(obj => obj != item.name));
@@ -95,15 +89,13 @@ export default MultiSelect = ({
               );
             }}
           />
-          {singleSelect ? null : (
-            <Button
-              title="שמירה"
-              onPress={() => {
-                selectedItems(coosen);
-                setIsVisible(false);
-              }}
-            />
-          )}
+          <Button
+            title="שמירה"
+            onPress={() => {
+              selectedItems(coosen);
+              setIsVisible(false);
+            }}
+          />
         </View>
       </Modal>
       {showList && coosen.length > 0 ? (

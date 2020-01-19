@@ -117,8 +117,6 @@ const getAvaiablehours = async (email, date, setAvailablesHouers) => {
 const getMonthsArray = (yyyy, mm, availablesDays) => {
   yyyy = yyyy.length == 4 ? yyyy : `20${yyyy}`;
   mm = mm.toString().length > 1 ? mm : `0${mm}`;
-  // console.log("months is " + mm);
-  // console.log("currentDate :" + tmp);
 
   const nextDay = Array.from(
     new Array(new Date(yyyy, mm, 0).getDate()),
@@ -145,7 +143,6 @@ const CalanderScreen = ({ navigation }) => {
   const { name, email, availablesDays, profession } = navigation.getParam(
     "TeacherProfile"
   );
-  console.log(name, email, availablesDays, profession.name);
   const [visableOk, setVisableOK] = useState(false);
   const [selectetDate, setSelectetDate] = useState({});
   const [availablesHouers, setAvailablesHouers] = useState([]);
@@ -182,7 +179,6 @@ const CalanderScreen = ({ navigation }) => {
                 <View style={{ alignItems: "center" }}>
                   <TouchableOpacity
                     onPress={async () => {
-                      console.log("the selected houer is " + item);
                       try {
                         await Lappointmentesson(
                           name,
@@ -242,9 +238,7 @@ const CalanderScreen = ({ navigation }) => {
 
       <Calendar
         onMonthChange={month => {
-          console.log("set corrent date ");
           setCurrentDate(month.dateString);
-          console.log(currentDate);
           setMonthsList(
             getMonthsArray(
               month.year.toString(),

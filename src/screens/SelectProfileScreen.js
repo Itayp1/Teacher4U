@@ -9,6 +9,8 @@ import {
 import { Text } from "react-native-elements";
 
 const SelectProfileScreen = ({ navigation }) => {
+  const access_token = navigation.getParam("access_token");
+
   return (
     <SafeAreaView forceInset={{ top: "always" }} style={styles.container}>
       <Image style={styles.logo} source={require("../../icons/logo.png")} />
@@ -37,7 +39,8 @@ const SelectProfileScreen = ({ navigation }) => {
             style={styles.circle}
             onPress={() =>
               navigation.navigate("TeacherRegistration", {
-                profile: "TeacherMenu"
+                profile: "TeacherMenu",
+                access_token
               })
             }
           >

@@ -20,8 +20,6 @@ const SearchTeacherScreen = ({ navigation }) => {
   const [profession, setProfession] = useState(0);
 
   const fetchApi = async () => {
-    console.log("fetchApi");
-    console.log(city.name, profession.name);
     try {
       const response = await api.get(`/api/searchTeacher`, {
         params: {
@@ -30,21 +28,16 @@ const SearchTeacherScreen = ({ navigation }) => {
         }
       });
 
-      console.log(response.data);
       navigation.navigate("TeacherList", {
         teachetList: response.data,
         profession
       });
-      // setLessonsList(response.data.timeTable);
-      //   console.log(response.data.timeTable);
-      // console.log(lessonsList);
     } catch (error) {
       console.log("in error");
       console.log(error);
     }
   };
 
-  console.log(profession.name);
   return (
     <View style={styles.container}>
       <Header
@@ -62,7 +55,6 @@ const SearchTeacherScreen = ({ navigation }) => {
         label={profession.name}
         data={professions}
         onSelect={name => {
-          console.log("clicked ");
           setProfession(name);
         }}
       />
@@ -73,7 +65,6 @@ const SearchTeacherScreen = ({ navigation }) => {
         label={city.name}
         data={cities}
         onSelect={name => {
-          console.log("clicked ");
           setCity(name);
         }}
       />

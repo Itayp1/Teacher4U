@@ -4,9 +4,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import RNPicker from "rn-modal-picker";
 
 const SearchInput = ({ onSelect, data, title, inputText, label }) => {
-  const _selectedValue = (index, item) => {
-    console.log({ selectedText: item.name });
-  };
+  const _selectedValue = (index, item) => {};
 
   return (
     <RNPicker

@@ -12,12 +12,9 @@ const TeacherProfileScreen = ({ navigation }) => {
     availablesDays,
     profession
   } = navigation.getParam("details");
-  console.log("emailllllllllll " + email);
   const TeacherProfile = { name, email, availablesDays, profession };
   const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
 
-  console.log(coursesList);
-  console.log(`the name is ${name}`);
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>

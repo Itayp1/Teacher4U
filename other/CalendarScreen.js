@@ -89,8 +89,6 @@ LocaleConfig.defaultLocale = "en";
 const getMonthsArray = (yyyy, mm, availablesDays, tmp) => {
   yyyy = yyyy.length == 4 ? yyyy : `20${yyyy}`;
   mm = mm.toString().length > 1 ? mm : `0${mm}`;
-  // console.log("months is " + mm);
-  // console.log("currentDate :" + tmp);
 
   const nextDay = Array.from(
     new Array(new Date(yyyy, mm, 0).getDate()),
@@ -112,7 +110,6 @@ const getMonthsArray = (yyyy, mm, availablesDays, tmp) => {
 };
 
 const CalanderScreen = ({ navigation }) => {
-  console.log(moment().format("YYYY"));
   const [visable, setVisable] = useState(false);
   const [visableOk, setVisableOK] = useState(false);
 
@@ -182,7 +179,6 @@ const CalanderScreen = ({ navigation }) => {
             confirmButtonColor="#DD6B55"
             onCancelPressed={() => {}}
             onConfirmPressed={() => {
-              console.log("pppppp");
               setVisableOK(false);
               navigation.navigate("Signin");
             }}
@@ -191,9 +187,7 @@ const CalanderScreen = ({ navigation }) => {
       ) : null}
       <Calendar
         onMonthChange={month => {
-          console.log("set corrent date ");
           setCurrentDate(month.dateString);
-          console.log(currentDate);
           setMonthsList(
             getMonthsArray(month.year.toString(), month.month, availablesDays)
           );
@@ -206,7 +200,6 @@ const CalanderScreen = ({ navigation }) => {
         onDayPress={({ dateString }) => {
           setPopo(dateString);
           setVisable(true);
-          console.log("ppp");
         }}
         hideExtraDays={true}
         markedDates={monthList}

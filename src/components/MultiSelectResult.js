@@ -15,24 +15,36 @@ import {
 export default MultiSelect = ({ list }) => {
   return (
     <View style={styles.container}>
-      <FlatList
-        horizontal
-        data={list}
-        keyExtractor={(result, index) => index}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                margin: 5,
-                backgroundColor: "#F0EEEE",
-                borderRadius: 10
-              }}
-            >
-              <Text style={{ fontSize: 15 }}> {item}</Text>
-            </View>
-          );
-        }}
-      />
+      {Array.isArray(list) ? (
+        <FlatList
+          horizontal
+          data={list}
+          keyExtractor={(result, index) => index.toString()}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  margin: 5,
+                  backgroundColor: "#F0EEEE",
+                  borderRadius: 10
+                }}
+              >
+                <Text style={{ fontSize: 15 }}> {item}</Text>
+              </View>
+            );
+          }}
+        />
+      ) : (
+        <View
+          style={{
+            margin: 5,
+            backgroundColor: "#F0EEEE",
+            borderRadius: 10
+          }}
+        >
+          <Text style={{ fontSize: 15 }}> {list}</Text>
+        </View>
+      )}
     </View>
   );
 };

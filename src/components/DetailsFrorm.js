@@ -24,15 +24,12 @@ const list = [
 
 const printDetails = async (obj, state) => {
   try {
-    console.log("acess " + state.access_token);
     response = await loginApi.post("/api/registration/student", obj, {
       headers: {
         Platform: "google",
         access_token: state.access_token
       }
     });
-
-    console.log(response.data);
   } catch (error) {
     console.log(error);
   }

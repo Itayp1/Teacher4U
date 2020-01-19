@@ -24,18 +24,11 @@ const ScheduleLessionsScreen = ({ navigation }) => {
   const [lessonsList, setLessonsList] = useState([]);
 
   useEffect(() => {
-    console.log("start");
     const fetchApi = async () => {
-      console.log("in use effect");
-
       try {
         const response = await api.get(`/api/lessons/timetable`);
 
-        //  console.log(response.data);
-
         setLessonsList(response.data.timeTable);
-        //   console.log(response.data.timeTable);
-        console.log(lessonsList);
       } catch (error) {
         console.log("in error");
         console.log(error);

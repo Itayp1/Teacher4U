@@ -14,7 +14,7 @@ import api from "../../api/api";
 import { AsyncStorage } from "react-native";
 
 const signInWithGoogleAsync = async (login, navigation) => {
-  console.log(Platform.OS);
+  console.log(Platform.OS + "signInWithGoogleAsync");
   try {
     const config = {
       behaviar: "web",
@@ -25,7 +25,8 @@ const signInWithGoogleAsync = async (login, navigation) => {
       ? (config.iosClientId =
           "879750377002-iv2ka9ht149lc6l7h40i74hq8jsd16ib.apps.googleusercontent.com")
       : (config.androidClientId =
-          "879750377002-sj5g0pq3k0kvu4n9ebljh8qchcq2l50s.apps.googleusercontent.com");
+          "563900462069-ab0rdude70kol3fvkj9rh4vgcl37nhgi.apps.googleusercontent.com");
+    // "879750377002-sj5g0pq3k0kvu4n9ebljh8qchcq2l50s.apps.googleusercontent.com");
 
     const result = await Google.logInAsync(config);
     if (result.type === "success") {
@@ -41,9 +42,12 @@ const signInWithGoogleAsync = async (login, navigation) => {
       } else if (response.data.profile === "teacher") {
         navigation.navigate("TeacherMenu");
       } else {
-        navigation.navigate("SelectProfile");
+        navigation.navigate("SelectProfile", {
+          access_token: result.accessToken,
+          platform: "google"
+        });
       }
-      login("google", result.accessToken);
+      // login("google", result.accessToken);
       console.log(result);
       // navigation0dismiss();
       return result.accessToken;
@@ -51,6 +55,7 @@ const signInWithGoogleAsync = async (login, navigation) => {
       return { cancelled: true };
     }
   } catch (e) {
+    console.log("error in catch");
     console.log(e);
 
     return { error: true };

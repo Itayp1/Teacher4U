@@ -26,15 +26,10 @@ const ReviewScreen = ({ navigation }) => {
   const [isvisable, setisvisable] = useState(true);
 
   const email = navigation.getParam("email");
-  console.log(email);
   useEffect(() => {
-    console.log("start ReviewScreen");
     const fetchApi = async () => {
-      console.log("in use effect");
-
       try {
         const response = await api.get(`/api/rating/${email}`);
-        console.log(response.data);
 
         const { rating } = response.data.reduce(
           (pre, next) => {
@@ -42,11 +37,9 @@ const ReviewScreen = ({ navigation }) => {
           },
           { rating: 0 }
         );
-        console.log(rating);
         setRatingSum(rating / response.data.length);
         setReviewList(response.data);
         setisvisable(false);
-        //   console.log(response.data.timeTable);
       } catch (error) {
         console.log("in error");
         console.log(error);

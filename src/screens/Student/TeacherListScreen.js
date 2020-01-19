@@ -24,9 +24,6 @@ const TeacherListScreen = ({ navigation }) => {
   const teacherList = navigation.getParam("teachetList");
   const profession = navigation.getParam("profession");
 
-  console.log("TeacherListScreen");
-  console.log(teacherList);
-
   return (
     <View style={styles.main}>
       <Header
