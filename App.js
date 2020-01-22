@@ -13,19 +13,18 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import SelectProfileScreen from "./src/screens/SelectProfileScreen";
 import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistrationScreen";
 import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
-//import MenuScreen from "./src/screens/other/MenuScreen";
 import MessageScreen from "./src/screens/MessagesScreen";
 import ReviewScreen from "./src/screens/ReviewScreen";
 import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
-import ProfileScreen from "./src/screens/ProfileScreen";
 import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
+import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
+import TeacherProfileScreenMenu from "./src/screens/Teacher/TeacherProfileScreenMenu";
+import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
-import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
-//import ResolveAuthScreen from "./src/screens/other/ResolveAuthScreen";
-
+import Card from "./src/screens/Teacher/card";
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
   TeacherList: TeacherListScreen,
@@ -40,6 +39,8 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
+    Profilep: TeacherMainProfileScreen,
+    cardppp: Card,
     Welcome: WelcomeScreen,
     TeacherRegistration: TeacherRegistrationScreen,
     loginFlow: createStackNavigator({
@@ -69,7 +70,20 @@ const switchNavigator = createSwitchNavigator(
         Message: MessageScreen,
         Review: ReviewScreen,
         ScheduleLessions: ScheduleLessionsScreen,
-        Profile: ProfileScreen
+        Profile: createStackNavigator({
+          SelectProfile: {
+            screen: TeacherMainProfileScreen,
+            navigationOptions: {
+              header: null
+            }
+          },
+          TeacherRegistrationProfile: {
+            screen: TeacherRegistrationScreen,
+            navigationOptions: {
+              header: null
+            }
+          }
+        })
       },
       {
         // tabBarComponent: FlexibleTabBarComponent
@@ -78,7 +92,7 @@ const switchNavigator = createSwitchNavigator(
   },
 
   {
-    initialRouteName: "Welcome"
+    initialRouteName: "Profilep"
   }
 );
 

@@ -52,7 +52,7 @@ export default class FormExample extends Component {
     };
   }
 
-  printDetails = async (obj, access_token, navigation) => {
+  printDetails = async (obj, access_token) => {
     try {
       console.log(JSON.stringify(obj));
       console.log("acess " + access_token);
@@ -67,7 +67,7 @@ export default class FormExample extends Component {
       await AsyncStorage.setItem("token", response.data.jwt);
       console.log("after token");
 
-      navigation.navigate("TeacherMenu");
+      this.props.navigation.navigate("TeacherMenu");
 
       console.log(response.data);
     } catch (error) {
@@ -298,8 +298,7 @@ export default class FormExample extends Component {
                     rating: 0,
                     profile: "teacher"
                   },
-                  this.props.navigation.getParam("access_token"),
-                  this.props.navigation
+                  this.props.navigation.getParam("access_token")
                 )
               }
             />
