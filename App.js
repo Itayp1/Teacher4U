@@ -23,8 +23,12 @@ import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
-import { Provider as AuthProvider } from "./src/context/AuthContext";
 import Card from "./src/screens/Teacher/card";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import ReduxThunk from "redux-thunk";
+import reducers from "./src/reducers";
+//import Choseepic from "./src/components/Choseepic";
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
   TeacherList: TeacherListScreen,
@@ -39,6 +43,7 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
+    //  Cameraa: Choseepic,
     Profilep: TeacherMainProfileScreen,
     cardppp: Card,
     Welcome: WelcomeScreen,
@@ -99,13 +104,15 @@ const switchNavigator = createSwitchNavigator(
 const App = createAppContainer(switchNavigator);
 
 export default () => {
+  const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <App
         ref={navigator => {
           setNavigator(navigator);
         }}
       />
-    </AuthProvider>
+    </Provider>
   );
 };

@@ -14,8 +14,6 @@ import { ListItem } from "react-native-elements";
 import loginApi from "../api/Login";
 import api from "../api/api";
 
-import { Context } from "../context/AuthContext";
-
 const list = [
   {
     name: "Amy Farha",
@@ -140,7 +138,7 @@ const StudentLoginForm = ({ navigation, profile }) => {
               gender,
               profile: "student"
             },
-            state,
+            "state",
             navigation
           )
         }

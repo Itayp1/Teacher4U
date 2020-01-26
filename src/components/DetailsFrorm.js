@@ -5,7 +5,6 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { withNavigation } from "react-navigation";
 import { ListItem } from "react-native-elements";
 import loginApi from "../api/Login";
-import { Context } from "../context/AuthContext";
 
 const list = [
   {

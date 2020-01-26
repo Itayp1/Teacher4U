@@ -4,6 +4,7 @@ import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Card, Icon, Header, Text } from "react-native-elements";
 
 export default class TeacherMAinProfile extends React.Component {
+  componentDidMount() {}
   render() {
     return (
       <View style={styles.view}>
@@ -15,10 +16,12 @@ export default class TeacherMAinProfile extends React.Component {
           }}
         />
         <View>
-          <Text h1 style={{ textAlign: "center" }}>
+          <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
             איתי פרץ
           </Text>
-          <Image style={styles.avatar} source={require("./avatar6.png")} />
+          <TouchableOpacity>
+            <Image style={styles.avatar} source={require("./avatar6.png")} />
+          </TouchableOpacity>
         </View>
         <View style={styles.cards}>
           <Card title={`סה"כ שיעורים`}>
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: "center",
     // position: "absolute",
-    marginTop: 60
+    marginTop: 35
   },
   HeadercenterComponent: {
     fontSize: 25,

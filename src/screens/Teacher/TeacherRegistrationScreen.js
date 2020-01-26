@@ -10,7 +10,6 @@ import { StyleSheet, TextInput, Text } from "react-native";
 import { Container, Form, Content, Picker, Label, View } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
-import { Context } from "../../context/AuthContext";
 import { AsyncStorage } from "react-native";
 
 function UselessTextInput(props) {
