@@ -10,8 +10,7 @@ import { StyleSheet, TextInput, Text } from "react-native";
 import { Container, Form, Content, Picker, Label, View } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
-import { connect } from "react-redux";
-import { teacherFetch } from "../../actions";
+import { AsyncStorage } from "react-native";
 
 function UselessTextInput(props) {
   return (
@@ -23,34 +22,33 @@ function UselessTextInput(props) {
   );
 }
 
-class FormExample extends Component {
+export default class FormExample extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.Teacher.name);
-    this.state = {
-      fullname: this.props.Teacher.name || "eee",
-      phone: this.props.Teacher.phone || "",
-      priceAtStudent: this.props.Teacher.priceAtStudent || "",
-      price: this.props.Teacher.price || "",
-      gender: this.props.Teacher.gender || "זכר",
-      city: this.props.Teacher.city || "",
-      cityisVisible: false,
-      courses: this.props.Teacher.courses || [],
-      coursesisVisible: false,
-      studyCities: this.props.Teacher.studyCities || [],
-      studyCitiesVisable: false,
-      university:
-        this.props.Teacher.university || "שם המוסד בו למדה או השגלה רלוונטית",
-      generalDescription: this.props.Teacher.generalDescription || "",
-      priceValidation: false,
-      availablesDays: this.props.Teacher.availablesDays || [],
-      availablesDaysIsVisiable: false,
-      avaiablesHours: this.props.Teacher.avaiablesHours || [],
-      avaiablesHoursisVisible: false,
-      datePickerTitle: this.props.Teacher.age || "תאריך לידה",
-      DateTimePickerVisable: false,
-      DateTimePicker: this.props.age || ""
-    };
+    (this.teacherProfile = this.props.navigation.getParam("teacherProfile")),
+      (this.state = {
+        fullname: this.this.teacherProfile.name || "שם מלא",
+        phone: this.teacherProfile.Phone | "מספר טלפון",
+        priceAtStudent: this.teacherProfile.priceAtStudent || "",
+        price: this.teacherProfile.price || "",
+        gender: this.teacherProfile.gender || "זכר",
+        city: this.teacherProfile.city || "",
+        cityisVisible: false,
+        courses: this.teacherProfile.courses || [],
+        coursesisVisible: false,
+        studyCities: this.teacherProfile.studyCities || [],
+        studyCitiesVisable: false,
+        university: "",
+        generalDescription: "",
+        priceValidation: false,
+        availablesDays: this.teacherProfile.availablesDays || [],
+        availablesDaysIsVisiable: false,
+        avaiablesHours: this.teacherProfile.avaiablesHours || [],
+        avaiablesHoursisVisible: false,
+        datePickerTitle: this.teacherProfile.age || "תאריך לידה",
+        DateTimePickerVisable: false,
+        DateTimePicker: ""
+      });
   }
 
   printDetails = async (obj, access_token) => {
@@ -76,30 +74,15 @@ class FormExample extends Component {
     }
   };
 
-  updateDetails = async obj => {
-    try {
-      console.log(JSON.stringify(obj));
-      const response = await loginApi.put(
-        "/api/information/update/teacher",
-        obj
-      );
-      console.log("after response");
-
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   render() {
+    console.log(this.state.teacherProfile);
     return (
       <Container style={styles.main}>
         <Content>
           <Form style={styles.title}>
             <FormSearchInput
               title={"שם מלא"}
-              input={"שם מלא"}
-              initializeValue={this.state.fullname}
+              input={this.state.fullname}
               validationType={"text"}
               inputValue={input => {
                 this.setState({ fullname: input });
@@ -107,8 +90,7 @@ class FormExample extends Component {
             />
             <FormSearchInput
               title={"מס טלפון"}
-              input={"מס טלפון"}
-              initializeValue={this.state.phone}
+              input={"this.state.phone"}
               validationType={"phoneNumber"}
               inputValue={input => {
                 this.setState({ phone: input });
@@ -117,7 +99,6 @@ class FormExample extends Component {
             <FormSearchInput
               title={"מחיר אצל מורה"}
               input={"מחיר"}
-              initializeValue={this.state.price.toString()}
               validationType={"number"}
               inputValue={input => {
                 this.setState({ price: input });
@@ -125,8 +106,7 @@ class FormExample extends Component {
             />
             <FormSearchInput
               title={"מחיר אצל סטודנט"}
-              input={"מחיר"}
-              initializeValue={this.state.priceAtStudent.toString()}
+              input={this.state.price}
               validationType={"number"}
               inputValue={input => {
                 this.setState({ priceAtStudent: input });
@@ -151,7 +131,7 @@ class FormExample extends Component {
             </View>
             <FormSearchInput
               title={"מוסד /  השכלה"}
-              input={this.state.university}
+              input={"שם המוסד בו למדה או השגלה רלוונטית"}
               validationType={"text"}
               inputValue={input => {
                 this.setState({ university: input });
@@ -163,6 +143,7 @@ class FormExample extends Component {
                 mode="date"
                 onConfirm={res => {
                   const date = new Date(res);
+                  this.setState({});
                   this.setState({ DateTimePickerVisable: false });
                   this.setState({
                     datePickerTitle: moment(date).format("DD/MM/YYYY")
@@ -193,7 +174,6 @@ class FormExample extends Component {
                   console.log(selected);
                   this.setState({ city: selected });
                 }}
-                initializeValue={this.state.city}
                 showList={true}
                 singleSelect={true}
               />
@@ -210,7 +190,6 @@ class FormExample extends Component {
                 setIsVisible={() =>
                   this.setState({ studyCitiesVisable: false })
                 }
-                initializeValue={this.state.studyCities}
                 list={cities}
                 selectedItems={selected =>
                   this.setState({ studyCities: selected })
@@ -228,7 +207,6 @@ class FormExample extends Component {
               <MultiSelect
                 isVisible={this.state.coursesisVisible}
                 setIsVisible={() => this.setState({ coursesisVisible: false })}
-                initializeValue={this.state.courses}
                 list={listOfcources}
                 selectedItems={selected => this.setState({ courses: selected })}
                 showList={true}
@@ -247,7 +225,6 @@ class FormExample extends Component {
                 setIsVisible={() =>
                   this.setState({ availablesDaysIsVisiable: false })
                 }
-                initializeValue={this.state.availablesDays}
                 list={days}
                 selectedItems={selected =>
                   this.setState({ availablesDays: selected })
@@ -266,7 +243,6 @@ class FormExample extends Component {
                 setIsVisible={() =>
                   this.setState({ avaiablesHoursisVisible: false })
                 }
-                initializeValue={this.state.avaiablesHours}
                 list={Array.from(Array(24).keys()).map(day => {
                   return {
                     name: day.toString(),
@@ -302,35 +278,29 @@ class FormExample extends Component {
             <Button
               title="שמור"
               style={{ size: 15 }}
-              onPress={() => {
-                const obj = {
-                  fullName: this.state.fullname,
-                  phone: this.state.phone,
-                  priceAtStudent: this.state.priceAtStudent,
-                  price: this.state.price,
-                  gender: this.state.gender,
-                  city: this.state.city,
-                  courses: this.state.courses,
-                  studyCities: this.state.studyCities,
-                  university: this.state.university,
-                  generalDescription: this.state.generalDescription,
-                  availablesDays: this.state.availablesDays,
-                  avaiablesHours: this.state.avaiablesHours,
-                  age: this.state.datePickerTitle,
-                  pic: "",
-                  rating: 0,
-                  profile: "teacher"
-                };
-
-                if (!this.props.Teacher.name) {
-                  this.printDetails(
-                    obj,
-                    this.props.navigation.getParam("access_token")
-                  );
-                } else {
-                  this.updateDetails(obj);
-                }
-              }}
+              onPress={() =>
+                this.printDetails(
+                  {
+                    fullName: this.state.fullname,
+                    phone: this.state.phone,
+                    priceAtStudent: this.state.priceAtStudent,
+                    price: this.state.price,
+                    gender: this.state.gender,
+                    city: this.state.city,
+                    courses: this.state.courses,
+                    studyCities: this.state.studyCities,
+                    university: this.state.university,
+                    generalDescription: this.state.generalDescription,
+                    availablesDays: this.state.availablesDays,
+                    avaiablesHours: this.state.avaiablesHours,
+                    age: this.state.datePickerTitle,
+                    pic: "",
+                    rating: 0,
+                    profile: "teacher"
+                  },
+                  this.props.navigation.getParam("access_token")
+                )
+              }
             />
           </Form>
         </Content>
@@ -359,13 +329,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#ddd"
   }
 });
-
-const mapStateToProps = state => {
-  const { Teacher } = state;
-
-  return { Teacher };
-};
-
-export default connect(mapStateToProps, {
-  teacherFetch
-})(FormExample);

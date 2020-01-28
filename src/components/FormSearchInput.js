@@ -66,12 +66,19 @@ class FormSearchInput extends React.Component {
     }
   };
   render() {
-    const { title, input, validationType, inputValue } = this.props;
+    const {
+      title,
+      input,
+      validationType,
+      inputValue,
+      initializeValue
+    } = this.props;
 
     return (
       <View style={styles.elementSpaces}>
         <Label>{title}</Label>
         <Input
+          value={initializeValue}
           style={{ borderWidth: 1, borderRadius: 15, textAlign: "right" }}
           placeholder={input}
           error={"#d50000"}

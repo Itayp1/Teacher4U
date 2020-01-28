@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import { teacherFetch } from "../../actions";
 
-export default class TeacherProfileScreenMenu extends Component {
+class TeacherProfileScreenMenu extends Component {
+  componentDidMount() {
+    this.props.teacherFetch();
+    console.log("this.props");
+
+    console.log(this.props);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -97,3 +105,13 @@ const styles = StyleSheet.create({
     marginTop: 130
   }
 });
+
+const mapStateToProps = state => {
+  // const { name, phone, shift } = state.employeeForm;
+
+  return state;
+};
+
+export default connect(mapStateToProps, {
+  teacherFetch
+})(TeacherProfileScreenMenu);

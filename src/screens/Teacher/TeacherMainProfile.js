@@ -1,10 +1,43 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
+import { teacherFetch } from "../../actions";
 
 import { Card, Icon, Header, Text } from "react-native-elements";
 
-export default class TeacherMAinProfile extends React.Component {
-  componentDidMount() {}
+class TeacherMainProfile extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: this.props.name,
+      views: this.props.views,
+      ratingAverage: this.props.ratingAverage,
+      TimeTable: this.props.TimeTable,
+      sumOfLessons: this.props.sumOfLessons
+    };
+  }
+
+  componentDidMount() {
+    this.props.teacherFetch();
+  }
+
+  componentDidUpdate() {
+    console.log("get new props");
+    if (
+      this.props.views != this.state.views ||
+      this.props.sumOfLessons != this.state.sumOfLessons ||
+      this.props.ratingAverage != this.state.ratingAverage
+    ) {
+      console.log(`${this.props.views} ${this.state.views}`);
+      this.setState({
+        views: this.props.views,
+        sumOfLessons: this.props.sumOfLessons,
+        ratingAverage: this.props.ratingAverage,
+        name: this.props.name
+      });
+    }
+  }
   render() {
     return (
       <View style={styles.view}>
@@ -17,7 +50,7 @@ export default class TeacherMAinProfile extends React.Component {
         />
         <View>
           <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
-            איתי פרץ
+            {this.props.name}
           </Text>
           <TouchableOpacity>
             <Image style={styles.avatar} source={require("./avatar6.png")} />
@@ -25,19 +58,21 @@ export default class TeacherMAinProfile extends React.Component {
         </View>
         <View style={styles.cards}>
           <Card title={`סה"כ שיעורים`}>
-            <Text>{"שיעורים"}</Text>
+            <Text style={styles.text}>{this.state.sumOfLessons}</Text>
           </Card>
           <Card title="צפיות">
-            <Text>{"users.name"}</Text>
+            <Text style={styles.text}>{this.state.views}</Text>
           </Card>
           <Card title="דירוג">
-            <Text>{"users.name"}</Text>
+            <Text style={styles.text}>{this.state.ratingAverage}</Text>
           </Card>
         </View>
         <TouchableOpacity
           style={{ marginTop: 20 }}
           onPress={() => {
-            this.props.navigation.navigate("TeacherRegistrationProfile");
+            this.props.navigation.navigate("TeacherRegistrationProfile", {
+              teacherProfile: this.props.Teacher
+            });
             console.log("clicked");
           }}
         >
@@ -52,6 +87,9 @@ export default class TeacherMAinProfile extends React.Component {
 const styles = StyleSheet.create({
   view: {
     alignItems: "center"
+  },
+  text: {
+    textAlign: "center"
   },
   cards: {
     flexDirection: "row",
@@ -73,3 +111,23 @@ const styles = StyleSheet.create({
     color: "white"
   }
 });
+
+const mapStateToProps = state => {
+  const { Rating, Teacher, TimeTable } = state;
+
+  const { rating } = Rating.reduce(
+    (pre, next) => {
+      return { rating: +pre.rating + +next.rating };
+    },
+    { rating: 0 }
+  );
+  const ratingAverage = rating.toString();
+  const views = Teacher.views || 0;
+  const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
+  const name = Teacher.name;
+  return { ratingAverage, views, TimeTable, sumOfLessons, Teacher, name };
+};
+
+export default connect(mapStateToProps, {
+  teacherFetch
+})(TeacherMainProfile);

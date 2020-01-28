@@ -5,7 +5,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { setNavigator } from "./src/navigationRef";
 //import { AnimatedCircleBarComponent } from "react-navigation-custom-bottom-tab-component/AnimatedCircleBarComponent";
-//import { FlexibleTabBarComponent } from "react-navigation-custom-bottom-tab-component/FlexibleTabBarComponent";
+import { FlexibleTabBarComponent } from "react-navigation-custom-bottom-tab-component/FlexibleTabBarComponent";
 import SigninScreen from "./src/screens/Sign/SigninScreen";
 import FacebookSigninScreen from "./src/screens/Sign/FacebookSigninScreen";
 import GoogleSigninScreen from "./src/screens/Sign/GoogleSigninScreen";
@@ -23,7 +23,7 @@ import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
-import Card from "./src/screens/Teacher/card";
+import Cards from "./src/screens/Teacher/card";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -45,7 +45,6 @@ const switchNavigator = createSwitchNavigator(
   {
     //  Cameraa: Choseepic,
     Profilep: TeacherMainProfileScreen,
-    cardppp: Card,
     Welcome: WelcomeScreen,
     TeacherRegistration: TeacherRegistrationScreen,
     loginFlow: createStackNavigator({
@@ -67,7 +66,7 @@ const switchNavigator = createSwitchNavigator(
         SearchTeacher: SearchTeacher
       },
       {
-        //  tabBarComponent: FlexibleTabBarComponent
+        tabBarComponent: FlexibleTabBarComponent
       }
     ),
     TeacherMenu: createBottomTabNavigator(
@@ -75,29 +74,37 @@ const switchNavigator = createSwitchNavigator(
         Message: MessageScreen,
         Review: ReviewScreen,
         ScheduleLessions: ScheduleLessionsScreen,
-        Profile: createStackNavigator({
-          SelectProfile: {
-            screen: TeacherMainProfileScreen,
-            navigationOptions: {
-              header: null
+        Profile: createStackNavigator(
+          {
+            TeacherProfile: {
+              screen: TeacherMainProfileScreen,
+              navigationOptions: {
+                header: null
+              }
+            },
+            TeacherRegistrationProfile: {
+              screen: TeacherRegistrationScreen,
+              navigationOptions: {
+                header: null
+              }
             }
           },
-          TeacherRegistrationProfile: {
-            screen: TeacherRegistrationScreen,
+          {
             navigationOptions: {
-              header: null
+              title: "פרופיל",
+              tabBarIcon: <FontAwesome name="th-list" size={20} />
             }
           }
-        })
+        )
       },
       {
-        // tabBarComponent: FlexibleTabBarComponent
+        tabBarComponent: FlexibleTabBarComponent
       }
     )
   },
 
   {
-    initialRouteName: "Profilep"
+    initialRouteName: "Welcome"
   }
 );
 

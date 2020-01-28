@@ -1,31 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, Button } from "react-native";
-import { Camera } from "expo-camera";
-import * as Permissions from "expo-permissions";
+import React from "react";
+import { View, Text } from "react-native";
+import { Camera, Permissions } from "expo";
 
-export default class Choseepic extends React.Component() {
+import styles from "./styles";
+
+export default class CameraPage extends React.Component {
+  camera = null;
+
   state = {
-    hasPermission: null,
-    type: Camera.Constants.Type.back
+    hasCameraPermission: null
   };
 
   async componentDidMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasPermission: status === "granted" });
+    const camera = await Permissions.askAsync(Permissions.CAMERA);
+    const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    const hasCameraPermission =
+      camera.status === "granted" && audio.status === "granted";
+
+    this.setState({ hasCameraPermission });
   }
 
   render() {
-    const { hasPermission } = this.state;
-    if (hasPermission === null) {
+    const { hasCameraPermission } = this.state;
+
+    if (hasCameraPermission === null) {
       return <View />;
-    } else if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
-    } else {
-      return (
-        <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.cameraType}></Camera>
-        </View>
-      );
+    } else if (hasCameraPermission === false) {
+      return <Text>Access to camera has been denied.</Text>;
     }
+
+    return (
+      <View>
+        <Camera style={styles.preview} ref={camera => (this.camera = camera)} />
+      </View>
+    );
   }
 }

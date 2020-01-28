@@ -34,13 +34,21 @@ const listResult = (list, term) => {
   return results;
 };
 
+const multiSelectResult = (coosen, inival) => {
+  if (coosen.length > 0) {
+    return <MultiSelectResult list={coosen} />;
+  } else {
+    return <MultiSelectResult list={inival} />;
+  }
+};
 export default MultiSelect = ({
   isVisible,
   setIsVisible,
   list,
   selectedItems,
   showList,
-  singleSelect
+  singleSelect,
+  initializeValue
 }) => {
   const [term, seterm] = useState("");
   const [coosen, setchossen] = useState([]);
@@ -106,9 +114,9 @@ export default MultiSelect = ({
           )}
         </View>
       </Modal>
-      {showList && coosen.length > 0 ? (
-        <MultiSelectResult list={coosen} />
-      ) : null}
+      {(showList && coosen.length > 0) || initializeValue
+        ? multiSelectResult(coosen, initializeValue)
+        : null}
     </View>
   );
 };
