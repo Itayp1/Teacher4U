@@ -1,7 +1,7 @@
 import axios from "axios";
 import { AsyncStorage } from "react-native";
 
-const url = "http://a220fcb4.ngrok.io"; //"https://teacher4u-test.herokuapp.com"; //"http://7c2a67d6.ngrok.io"; //
+const url = "https://teacher4u-test.herokuapp.com"; //"http://bcc34eb9.ngrok.io";
 
 const instance = axios.create({
   baseURL: url
@@ -9,13 +9,9 @@ const instance = axios.create({
 try {
   instance.interceptors.request.use(
     async config => {
-      //console.log("token");
-
       const token = await AsyncStorage.getItem("token");
 
       if (token) {
-        //console.log("token iss" + token);
-
         config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
@@ -25,7 +21,7 @@ try {
     }
   );
 } catch (error) {
-  //console.log("error api");
-  //console.log(error);
+  console.log("error api");
+  console.log(error);
 }
 export default instance;

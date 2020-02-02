@@ -13,7 +13,6 @@ import api from "../../api/api";
 import { AsyncStorage } from "react-native";
 
 const signInWithGoogleAsync = async navigation => {
-  console.log(Platform.OS + "signInWithGoogleAsync");
   try {
     const config = {
       behaviar: "web",
@@ -47,7 +46,6 @@ const signInWithGoogleAsync = async navigation => {
         });
       }
       // login("google", result.accessToken);
-      console.log(result);
       // navigation0dismiss();
       return result.accessToken;
     } else {
@@ -72,7 +70,7 @@ const GoogleSignin = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           signInWithGoogleAsync(navigation);
-          console.log("clicked");
+          //   console.log("clicked");
         }}
       >
         <Image

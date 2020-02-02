@@ -53,22 +53,16 @@ export default class FormExample extends Component {
 
   printDetails = async (obj, access_token) => {
     try {
-      console.log(JSON.stringify(obj));
-      console.log("acess " + access_token);
       response = await loginApi.post("/api/registration/teacher", obj, {
         headers: {
           Platform: "google",
           access_token: access_token
         }
       });
-      console.log("after response");
 
       await AsyncStorage.setItem("token", response.data.jwt);
-      console.log("after token");
 
       this.props.navigation.navigate("TeacherMenu");
-
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

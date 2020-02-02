@@ -38,7 +38,7 @@ const multiSelectResult = (coosen, inival) => {
   if (coosen.length > 0) {
     return <MultiSelectResult list={coosen} />;
   } else {
-    return <MultiSelectResult list={inival} />;
+    //   return <MultiSelectResult list={inival} />;
   }
 };
 export default MultiSelect = ({
@@ -48,10 +48,10 @@ export default MultiSelect = ({
   selectedItems,
   showList,
   singleSelect,
-  initializeValue
+  initializeValue = []
 }) => {
   const [term, seterm] = useState("");
-  const [coosen, setchossen] = useState([]);
+  const [coosen, setchossen] = useState(initializeValue);
   return (
     <View>
       <Modal

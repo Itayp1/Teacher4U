@@ -6,7 +6,6 @@ import jwt from "react-native-pure-jwt";
 const ResolveAuthScreen = ({ navigation }) => {
   const ResolveAuth = async () => {
     const token = await AsyncStorage.getItem("token");
-    console.log(token);
     try {
       jwt.decode("token", "secret", {
         skipValidation: true

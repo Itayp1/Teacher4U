@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import cities from "../../config/cities.json";
+import AgreementPopup from "../components/AgreementPopup";
 
 import { View, StyleSheet, Image, Text } from "react-native";
 import { Picker, Header, Button } from "react-native-elements";
@@ -24,8 +25,9 @@ const MessagesScreen = ({ navigation }) => {
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>
       <Text>דגכגדכגדכדגכגד</Text>
+      {/* <AgreementPopup visable={} currentSelectedItem={} /> */}
       <Button
-        title={"jklndjd"}
+        title={"קביעת סטטוס שיעור"}
         onPress={() => {
           setvsable(!visable);
         }}

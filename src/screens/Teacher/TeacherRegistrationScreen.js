@@ -12,6 +12,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
 import { connect } from "react-redux";
 import { teacherFetch } from "../../actions";
+import Spinner from "react-native-loading-spinner-overlay";
 
 function UselessTextInput(props) {
   return (
@@ -26,8 +27,9 @@ function UselessTextInput(props) {
 class FormExample extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.Teacher.name);
+
     this.state = {
+      spinner: false,
       fullname: this.props.Teacher.name || "eee",
       phone: this.props.Teacher.phone || "",
       priceAtStudent: this.props.Teacher.priceAtStudent || "",
@@ -55,22 +57,18 @@ class FormExample extends Component {
 
   printDetails = async (obj, access_token) => {
     try {
-      console.log(JSON.stringify(obj));
-      console.log("acess " + access_token);
+      this.setState({ spinner: true });
       response = await loginApi.post("/api/registration/teacher", obj, {
         headers: {
           Platform: "google",
           access_token: access_token
         }
       });
-      console.log("after response");
 
       await AsyncStorage.setItem("token", response.data.jwt);
-      console.log("after token");
+      this.setState({ spinner: false });
 
       this.props.navigation.navigate("TeacherMenu");
-
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -78,11 +76,15 @@ class FormExample extends Component {
 
   updateDetails = async obj => {
     try {
-      console.log(JSON.stringify(obj));
+      this.setState({ spinner: true });
+
       const response = await loginApi.put(
         "/api/information/update/teacher",
         obj
       );
+      this.setState({ spinner: false });
+      this.props.navigation.pop(1);
+
       console.log("after response");
 
       console.log(response.data);
@@ -95,6 +97,11 @@ class FormExample extends Component {
     return (
       <Container style={styles.main}>
         <Content>
+          <Spinner
+            visible={this.state.spinner}
+            textContent={"Loading..."}
+            textStyle={styles.spinnerTextStyle}
+          />
           <Form style={styles.title}>
             <FormSearchInput
               title={"שם מלא"}
@@ -190,7 +197,6 @@ class FormExample extends Component {
                 setIsVisible={() => this.setState({ cityisVisible: false })}
                 list={cities}
                 selectedItems={selected => {
-                  console.log(selected);
                   this.setState({ city: selected });
                 }}
                 initializeValue={this.state.city}
@@ -357,6 +363,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     backgroundColor: "#ddd"
+  },
+  spinnerTextStyle: {
+    color: "#FFF"
   }
 });
 

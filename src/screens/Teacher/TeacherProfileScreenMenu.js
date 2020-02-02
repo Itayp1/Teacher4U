@@ -6,9 +6,6 @@ import { teacherFetch } from "../../actions";
 class TeacherProfileScreenMenu extends Component {
   componentDidMount() {
     this.props.teacherFetch();
-    console.log("this.props");
-
-    console.log(this.props);
   }
   render() {
     return (

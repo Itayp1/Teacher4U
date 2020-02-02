@@ -2,7 +2,8 @@ import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { teacherFetch } from "../../actions";
-
+import Spinner from "react-native-loading-spinner-overlay";
+import SignOutIcon from "../../components/SignOutIcon";
 import { Card, Icon, Header, Text } from "react-native-elements";
 
 class TeacherMainProfile extends React.Component {
@@ -23,13 +24,13 @@ class TeacherMainProfile extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("get new props");
+    // console.log("get new props");
     if (
       this.props.views != this.state.views ||
       this.props.sumOfLessons != this.state.sumOfLessons ||
       this.props.ratingAverage != this.state.ratingAverage
     ) {
-      console.log(`${this.props.views} ${this.state.views}`);
+      // console.log(`${this.props.views} ${this.state.views}`);
       this.setState({
         views: this.props.views,
         sumOfLessons: this.props.sumOfLessons,
@@ -41,6 +42,11 @@ class TeacherMainProfile extends React.Component {
   render() {
     return (
       <View style={styles.view}>
+        <Spinner
+          visible={this.props.name == undefined}
+          textContent={"Loading..."}
+          textStyle={styles.spinnerTextStyle}
+        />
         <Header
           style={styles.Header}
           centerComponent={{
@@ -73,12 +79,13 @@ class TeacherMainProfile extends React.Component {
             this.props.navigation.navigate("TeacherRegistrationProfile", {
               teacherProfile: this.props.Teacher
             });
-            console.log("clicked");
+            // console.log("clicked");
           }}
         >
           <Icon name="edit" type="feather" color="#00aced" size={50} />
           <Text>עדכון פרטים</Text>
         </TouchableOpacity>
+        <SignOutIcon />
       </View>
     );
   }

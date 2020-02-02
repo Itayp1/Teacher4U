@@ -3,5 +3,3 @@ days2 = Array.from(Array(24).keys()).map(day => {
     name: day.toString()
   };
 });
-
-console.log(days2);

@@ -1,14 +1,31 @@
 import api from "../api/api";
-import { TEACHER_INFO_FEATCH, TEACHER_RATING, TIME_TABLE } from "./types";
+import {
+  TEACHER_INFO_FEATCH,
+  TEACHER_RATING,
+  TIME_TABLE,
+  CHANGE_STATUS
+} from "./types";
+import axios from "axios";
 
 export const teacherFetch = () => {
   return async dispatch => {
-    const responseTeacher = await api.get("/api/information/teacher");
-    const responseTimeTable = await api.get(`/api/lessons/timetable`);
-    const responseReviews = await api.get(`/api/rating`);
-    // console.log(responseReviews.data);
-    dispatch({ type: TEACHER_INFO_FEATCH, payload: responseTeacher.data });
-    dispatch({ type: TIME_TABLE, payload: responseTimeTable.data });
-    dispatch({ type: TEACHER_RATING, payload: responseReviews.data });
+    const responseTeacher = api.get("/api/information/teacher");
+    const responseTimeTable = api.get(`/api/lessons/timetable`);
+    const responseReviews = api.get(`/api/rating`);
+    const allresponsed = await axios.all([
+      responseTeacher,
+      responseTimeTable,
+      responseReviews
+    ]);
+    dispatch({ type: TEACHER_INFO_FEATCH, payload: allresponsed[0].data });
+    dispatch({ type: TIME_TABLE, payload: allresponsed[1].data });
+    dispatch({ type: TEACHER_RATING, payload: allresponsed[2].data });
+  };
+};
+
+export const changeStatus = (id, status) => {
+  return async dispatch => {
+    const response = await api.put("/api/lessons/timetable", { id, status });
+    dispatch({ type: CHANGE_STATUS, payload: response.data.updated });
   };
 };

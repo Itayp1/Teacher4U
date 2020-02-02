@@ -31,22 +31,16 @@ const list = [
 
 const printDetails = async (obj, state, navigation) => {
   try {
-    console.log("acess " + state.access_token);
     response = await loginApi.post("/api/registration/student", obj, {
       headers: {
         Platform: "google",
         access_token: state.access_token
       }
     });
-    console.log("after response");
 
     await AsyncStorage.setItem("token", response.data);
-    console.log("after token");
 
     navigation.navigate("StudentMenu");
-    console.log("after StudentMenu");
-
-    console.log(response.data);
   } catch (error) {
     console.log("error");
 

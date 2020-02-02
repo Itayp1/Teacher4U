@@ -15,6 +15,9 @@ import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistration
 import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
 import MessageScreen from "./src/screens/MessagesScreen";
 import ReviewScreen from "./src/screens/ReviewScreen";
+import TeacherReviewScreen from "./src/screens/Teacher/TeacherReviewScreen";
+import TeacherScheduleLessionsScreen from "./src/screens/Teacher/TeacherScheduleLessionsScreen";
+
 import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
 import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
 import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
@@ -44,6 +47,8 @@ SearchTeacher.navigationOptions = {
 const switchNavigator = createSwitchNavigator(
   {
     //  Cameraa: Choseepic,
+    MessageTest: MessageScreen,
+
     Profilep: TeacherMainProfileScreen,
     Welcome: WelcomeScreen,
     TeacherRegistration: TeacherRegistrationScreen,
@@ -71,9 +76,8 @@ const switchNavigator = createSwitchNavigator(
     ),
     TeacherMenu: createBottomTabNavigator(
       {
-        Message: MessageScreen,
-        Review: ReviewScreen,
-        ScheduleLessions: ScheduleLessionsScreen,
+        //  Message: MessageScreen,
+
         Profile: createStackNavigator(
           {
             TeacherProfile: {
@@ -95,7 +99,9 @@ const switchNavigator = createSwitchNavigator(
               tabBarIcon: <FontAwesome name="th-list" size={20} />
             }
           }
-        )
+        ),
+        Review: TeacherReviewScreen,
+        ScheduleLessions: TeacherScheduleLessionsScreen
       },
       {
         tabBarComponent: FlexibleTabBarComponent

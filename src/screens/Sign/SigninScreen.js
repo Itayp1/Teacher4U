@@ -7,8 +7,6 @@ import GoogleButton from "./GoogleSigninScreen";
 import FacebookButton from "./FacebookSigninScreen";
 
 const SigninScreen = ({ navigation }) => {
-  console.log(navigation);
-
   return (
     <View style={styles.container}>
       <Text h2 style={{ marginBottom: 100 }}>
