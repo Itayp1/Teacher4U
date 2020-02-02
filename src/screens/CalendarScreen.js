@@ -8,6 +8,7 @@ import {
   ScrollView
 } from "react-native";
 import { navigate } from "../navigationRef";
+import { connect } from "react-redux";
 
 import { Picker, Text } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
@@ -128,7 +129,9 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
 
     return Object.assign(c, {
       [v]:
-        availablesDays.includes(moment(`${2020}-${mm}-${i}`).day() + 1) == true
+        availablesDays.includes(
+          (moment(`${2020}-${mm}-${i}`).day() + 1).toString()
+        ) == true
           ? { disabled: false }
           : { disabled: true, disableTouchEvent: true }
     });
@@ -137,12 +140,16 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
   return result;
 };
 
-const CalanderScreen = ({ navigation }) => {
+const CalanderScreen = ({ navigation, SelectedTeacher }) => {
   // const email = navigation.getParam("email");
   //const availablesDays = navigation.getParam("availablesDays");
-  const { name, email, availablesDays, profession } = navigation.getParam(
-    "TeacherProfile"
-  );
+  const {
+    name,
+    email,
+    availablesDays,
+    profession,
+    avaiablesHours
+  } = SelectedTeacher;
   const [visableOk, setVisableOK] = useState(false);
   const [selectetDate, setSelectetDate] = useState({});
   const [availablesHouers, setAvailablesHouers] = useState([]);
@@ -286,4 +293,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CalanderScreen;
+// export default CalanderScreen;
+
+const mapStateToProps = state => {
+  const { SelectedTeacher } = state;
+
+  return { SelectedTeacher };
+};
+
+export default connect(mapStateToProps, {})(CalanderScreen);

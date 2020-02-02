@@ -2,27 +2,17 @@ import { ListItem } from "react-native-elements";
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
-
-import { FontAwesome } from "@expo/vector-icons";
-const list = [
-  {
-    name: "דריו בורזיו",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "בשעה 10:10 בתאריך 25.10.2019"
-  },
-  {
-    name: "ליאור לביא",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "בשעה 10:10 בתאריך 25.10.2019"
-  }
-];
-
-const TeacherListScreen = ({ navigation }) => {
+import { connect } from "react-redux";
+import { selectTeacher } from "../../actions/StudentProfile";
+const TeacherListScreen = ({
+  navigation,
+  teacherList,
+  profession,
+  selectTeacher
+}) => {
   // const [teacherList, setTeacherList] = useState([]);
-  const teacherList = navigation.getParam("teachetList");
-  const profession = navigation.getParam("profession");
+  // const teacherList = navigation.getParam("teachetList");
+  // const profession = navigation.getParam("profession");
 
   return (
     <View style={styles.main}>
@@ -39,7 +29,8 @@ const TeacherListScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               l.profession = profession;
-              navigation.navigate("TeacherProfile", { details: l });
+              selectTeacher(l);
+              navigation.navigate("TeacherProfile");
             }}
             key={i}
           >
@@ -83,4 +74,14 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TeacherListScreen;
+// export default TeacherListScreen;
+
+const mapStateToProps = state => {
+  const {
+    TeacherList: { teacherList, profession }
+  } = state;
+
+  return { teacherList, profession };
+};
+
+export default connect(mapStateToProps, { selectTeacher })(TeacherListScreen);

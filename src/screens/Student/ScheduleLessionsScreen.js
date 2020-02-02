@@ -1,6 +1,12 @@
 import { ListItem } from "react-native-elements";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView
+} from "react-native";
 import { Text, Header, Input } from "react-native-elements";
 import api from "../../api/api";
 
@@ -46,21 +52,22 @@ const ScheduleLessionsScreen = ({ navigation }) => {
           style: styles.HeadercenterComponent
         }}
       />
-
-      <View>
-        {lessonsList.map((l, i) => (
-          <TouchableOpacity key={i}>
-            <ListItem
-              key={i}
-              //     leftAvatar={{ source: { uri: l.avatar_url } }}
-              rightIcon={l.status == "cancel" ? { name: "cancel" } : null}
-              title={l.name}
-              subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-              bottomDivider
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
+      <ScrollView>
+        <View>
+          {lessonsList.map((l, i) => (
+            <TouchableOpacity key={i}>
+              <ListItem
+                key={i}
+                //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                rightIcon={l.status == "cancel" ? { name: "cancel" } : null}
+                title={l.name}
+                subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                bottomDivider
+              />
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };

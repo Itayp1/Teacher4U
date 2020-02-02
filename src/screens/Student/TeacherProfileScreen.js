@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 
-const TeacherProfileScreen = ({ navigation }) => {
+const TeacherProfileScreen = ({ navigation, SelectedTeacher }) => {
   const {
     avatar_url,
     name,
@@ -11,7 +12,7 @@ const TeacherProfileScreen = ({ navigation }) => {
     avaiablesHours,
     availablesDays,
     profession
-  } = navigation.getParam("details");
+  } = SelectedTeacher;
   const TeacherProfile = { name, email, availablesDays, profession };
   const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
 
@@ -104,4 +105,12 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TeacherProfileScreen;
+// export default TeacherProfileScreen;
+
+const mapStateToProps = state => {
+  const { SelectedTeacher } = state;
+
+  return { SelectedTeacher };
+};
+
+export default connect(mapStateToProps, {})(TeacherProfileScreen);

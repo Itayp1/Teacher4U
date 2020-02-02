@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, ScrollView } from "react-native";
 import { ListItem, Header, Rating } from "react-native-elements";
-import { FontAwesome, AirbnbRating } from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import api from "../../api/api";
 import Spinner from "react-native-loading-spinner-overlay";
 import { connect } from "react-redux";
@@ -10,7 +10,6 @@ import { teacherFetch } from "../../actions";
 const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
   const [ratingSum, setRatingSum] = useState(0);
   const [isvisable, setisvisable] = useState(false);
-
   return (
     <View style={styles.main}>
       <Spinner
@@ -25,22 +24,22 @@ const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
           style: styles.HeadercenterComponent
         }}
       />
-      <View>
-        {reviews.map((l, i) => (
-          <ListItem
-            key={i}
-            //  leftAvatar={{ source: { uri: l.avatar_url } }}
-            title={l.studentName}
-            subtitle={l.review}
-            bottomDivider
-          />
-        ))}
+      <View style={{ marginBottom: 20 }}>
+        <ScrollView>
+          {reviews.map((l, i) => (
+            <ListItem
+              key={i}
+              //  leftAvatar={{ source: { uri: l.avatar_url } }}
+              title={l.studentName}
+              subtitle={l.review}
+              bottomDivider
+            />
+          ))}
+        </ScrollView>
       </View>
       <Rating
         ratingCount={5}
         imageSize={60}
-        showRating
-        ratingBackgroundColor="#D3E8FF"
         readonly
         startingValue={ratingAverage}
       />
@@ -50,13 +49,13 @@ const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
 
 TeacherReviewScreen.navigationOptions = {
   title: "ביקורות",
-  tabBarIcon: <FontAwesome name="star" size={20} />
+  tabBarIcon: <Feather name="list" size={20} />
 };
 
 const styles = StyleSheet.create({
   main: {
     // marginTop: 10,
-    backgroundColor: "#D3E8FF",
+    // backgroundColor: "#D3E8FF",
     flex: 1
   },
   Header: {
@@ -76,11 +75,6 @@ const styles = StyleSheet.create({
   }
 });
 
-TeacherReviewScreen.navigationOptions = {
-  title: "ביקורות",
-  tabBarIcon: <FontAwesome name="gear" size={20} />
-};
-
 const mapStateToProps = state => {
   const { Rating } = state;
 
@@ -90,7 +84,7 @@ const mapStateToProps = state => {
     },
     { rating: 0 }
   );
-  const ratingAverage = rating;
+  const ratingAverage = rating / Rating.length;
   return { reviews: Rating, ratingAverage };
 };
 

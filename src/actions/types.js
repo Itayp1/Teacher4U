@@ -5,3 +5,6 @@ export const TIME_TABLE = "time_table";
 export const TIME_TABLE_CHANGED = "time_table_changed";
 export const GET_REVIEWS = "time_table_changed";
 export const CHANGE_STATUS = "time_table_change_status";
+export const STUDENT_INFO_FEATCH = "student_profile";
+export const FETCH_TEACHER_LIST = "search_teacher";
+export const SELECTED_TEACHER = "selected_teacher";

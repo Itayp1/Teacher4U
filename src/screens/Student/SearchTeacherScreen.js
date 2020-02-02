@@ -14,29 +14,11 @@ import SearchInput from "../../components/SearchInput";
 import cities from "../../../config/cities.json";
 import professions from "../../../config/professions.json";
 import api from "../../api/api";
-
-const SearchTeacherScreen = ({ navigation }) => {
+import { connect } from "react-redux";
+import { fetchListOfTeachers } from "../../actions";
+const SearchTeacherScreen = ({ navigation, fetchListOfTeachers }) => {
   const [city, setCity] = useState(0);
   const [profession, setProfession] = useState(0);
-
-  const fetchApi = async () => {
-    try {
-      const response = await api.get(`/api/searchTeacher`, {
-        params: {
-          city: city.name,
-          course: profession.name
-        }
-      });
-
-      navigation.navigate("TeacherList", {
-        teachetList: response.data,
-        profession
-      });
-    } catch (error) {
-      console.log("in error");
-      console.log(error);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -69,7 +51,10 @@ const SearchTeacherScreen = ({ navigation }) => {
         }}
       />
       <TouchableOpacity style={styles.button}>
-        <Button title="המשך" onPress={() => fetchApi()} />
+        <Button
+          title="המשך"
+          onPress={() => fetchListOfTeachers(city, profession, navigation)}
+        />
       </TouchableOpacity>
     </View>
   );
@@ -109,4 +94,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SearchTeacherScreen;
+// export default SearchTeacherScreen;
+
+export default connect(null, {
+  fetchListOfTeachers
+})(SearchTeacherScreen);

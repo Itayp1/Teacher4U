@@ -17,16 +17,15 @@ import MessageScreen from "./src/screens/MessagesScreen";
 import ReviewScreen from "./src/screens/ReviewScreen";
 import TeacherReviewScreen from "./src/screens/Teacher/TeacherReviewScreen";
 import TeacherScheduleLessionsScreen from "./src/screens/Teacher/TeacherScheduleLessionsScreen";
-
+import StudentMainProfileScreen from "./src/screens/Student/StudentMainProfile";
 import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
 import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
 import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
-import TeacherProfileScreenMenu from "./src/screens/Teacher/TeacherProfileScreenMenu";
 import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
-import Cards from "./src/screens/Teacher/card";
+// import Cards from "./src/screens/Teacher/card";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -65,8 +64,7 @@ const switchNavigator = createSwitchNavigator(
     }),
     StudentMenu: createBottomTabNavigator(
       {
-        Message: MessageScreen,
-        Profile: StudentProfileScreen,
+        Profile: StudentMainProfileScreen,
         ScheduleLessions: ScheduleLessionsScreen,
         SearchTeacher: SearchTeacher
       },
