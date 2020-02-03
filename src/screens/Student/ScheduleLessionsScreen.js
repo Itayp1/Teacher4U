@@ -21,14 +21,7 @@ class ScheduleLessionsScreen extends React.Component {
     this.state = { timeTable: this.props.timeTable };
   }
   componentDidUpdate(prevProps) {
-    console.log("before update hapend");
-    console.log(
-      `${this.props.timeTable.length} != ${prevProps.timeTable.length}`
-    );
-
-    console.log(this.props.timeTable.length != prevProps.timeTable.length);
     if (this.props.timeTable.length != prevProps.timeTable.length) {
-      console.log("update hapend");
       this.setState({ timeTable: this.props.timeTable });
     }
   }
@@ -96,8 +89,7 @@ const mapStateToProps = state => {
   const {
     TimeTable: { timeTable }
   } = state;
-  console.log("get table");
-  console.log(JSON.stringify(timeTable));
+
   return { timeTable };
 };
 

@@ -9,7 +9,7 @@ const iconPerStatus = (status, tableId) => {
 
   let statusIcon;
   switch (status) {
-    case "awating":
+    case "waiting":
       statusIcon = (
         <TouchableOpacity
           onPress={() => {
@@ -68,6 +68,7 @@ const iconPerStatus = (status, tableId) => {
   return statusIcon;
 };
 const TimeTableStatus = ({ status, tableId }) => {
+  console.log(status, tableId);
   return <View>{iconPerStatus(status, tableId)}</View>;
 };
 
