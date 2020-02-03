@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import AgreementPopup from "./AgreementPopup";
 
-const iconPerStatus = (status, tableId) => {
+const iconPerStatus = (status, tableId, edit) => {
   const [popUpVisible, setPopUpVisible] = useState(false);
   const [currnetStatus, setCurrnetStatus] = useState(status);
 
@@ -13,7 +13,7 @@ const iconPerStatus = (status, tableId) => {
       statusIcon = (
         <TouchableOpacity
           onPress={() => {
-            setPopUpVisible(true);
+            edit != false ? setPopUpVisible(true) : null;
           }}
         >
           <AgreementPopup
@@ -31,7 +31,7 @@ const iconPerStatus = (status, tableId) => {
       statusIcon = (
         <TouchableOpacity
           onPress={() => {
-            setPopUpVisible(true);
+            edit != false ? setPopUpVisible(true) : null;
           }}
         >
           <AgreementPopup
@@ -48,7 +48,9 @@ const iconPerStatus = (status, tableId) => {
       statusIcon = (
         <TouchableOpacity
           onPress={() => {
-            setPopUpVisible(true);
+            if (edit != false) {
+              edit != false ? setPopUpVisible(true) : null;
+            }
           }}
         >
           <AgreementPopup
@@ -67,9 +69,9 @@ const iconPerStatus = (status, tableId) => {
   }
   return statusIcon;
 };
-const TimeTableStatus = ({ status, tableId }) => {
+const TimeTableStatus = ({ status, tableId, edit }) => {
   console.log(status, tableId);
-  return <View>{iconPerStatus(status, tableId)}</View>;
+  return <View>{iconPerStatus(status, tableId, edit)}</View>;
 };
 
 const styles = StyleSheet.create({});

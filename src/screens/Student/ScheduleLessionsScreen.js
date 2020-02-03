@@ -43,7 +43,11 @@ class ScheduleLessionsScreen extends React.Component {
                   key={i}
                   //     leftAvatar={{ source: { uri: l.avatar_url } }}
                   rightElement={
-                    <TimeTableStatus status={l.status} tableId={l.id} />
+                    <TimeTableStatus
+                      status={l.status}
+                      tableId={l.id}
+                      edit={false}
+                    />
                   }
                   title={l.name || l.teacherName}
                   subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
