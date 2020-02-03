@@ -5,6 +5,7 @@ import { studentFetch } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import SignOutIcon from "../../components/SignOutIcon";
 import { Card, Icon, Header, Text } from "react-native-elements";
+import { AntDesign } from "@expo/vector-icons";
 
 class StudentMainProfile extends React.Component {
   constructor(props) {
@@ -76,6 +77,10 @@ class StudentMainProfile extends React.Component {
     );
   }
 }
+StudentMainProfile.navigationOptions = {
+  title: "פרופיל",
+  tabBarIcon: <AntDesign name="profile" size={20} />
+};
 
 const styles = StyleSheet.create({
   view: {

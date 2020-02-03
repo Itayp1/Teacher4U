@@ -8,3 +8,4 @@ export const CHANGE_STATUS = "time_table_change_status";
 export const STUDENT_INFO_FEATCH = "student_profile";
 export const FETCH_TEACHER_LIST = "search_teacher";
 export const SELECTED_TEACHER = "selected_teacher";
+export const APOINTMENT_lESSON = "appointment_leeson";

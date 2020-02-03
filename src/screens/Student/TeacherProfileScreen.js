@@ -1,111 +1,104 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
+import { getReviews } from "./../../actions/";
+import { Button, Header, Text } from "react-native-elements";
 
-const TeacherProfileScreen = ({ navigation, SelectedTeacher }) => {
-  const {
-    avatar_url,
-    name,
-    generalDescription,
-    courses,
-    email,
-    avaiablesHours,
-    availablesDays,
-    profession
-  } = SelectedTeacher;
-  const TeacherProfile = { name, email, availablesDays, profession };
-  const coursesList = courses.reduce((pre, cur) => pre + cur + "-", "-");
+class TeacherProfileScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    const {
+      name,
+      email,
+      courses,
+      generalDescription,
+      university,
+      priceAtStudent,
+      price
+    } = this.props.SelectedTeacher;
+    this.state = {
+      name,
+      email,
+      courses,
+      generalDescription,
+      university,
+      priceAtStudent,
+      price
+    };
+  }
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}></View>
-      <Image style={styles.avatar} source={{ uri: avatar_url }} />
-      <View style={styles.body}>
-        <View style={styles.bodyContent}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.info}>{coursesList}</Text>
-          <Text style={styles.description}>{generalDescription}</Text>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => navigation.navigate("Review", { email })}
-          >
-            <Text>ביקורות</Text>
+  render() {
+    return (
+      <View style={styles.view}>
+        <View>
+          <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
+            {this.state.name}
+          </Text>
+          <TouchableOpacity>
+            <Image style={styles.avatar} source={require("./avatar6.png")} />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonContainer}
+          <Button
+            title="קבע שיעור"
+            type="outline"
+            containerStyle={{ margin: 40 }}
             onPress={() => {
-              navigation.navigate("Calender", {
-                TeacherProfile
+              this.props.navigation.navigate("Calender");
+            }}
+          />
+
+          <Button
+            title="הצג ביקורות"
+            type="outline"
+            onPress={() => {
+              this.props.getReviews(this.state.email);
+              this.props.navigation.navigate("StudentReview", {
+                email: this.state.email
               });
             }}
-          >
-            <Text>קבע שיעור</Text>
-          </TouchableOpacity>
+          />
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
+TeacherProfileScreen.navigationOptions = {
+  title: "פרופיל",
+  headerStyle: {
+    backgroundColor: "#2E9AFE"
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold"
+  }
+};
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#00BFFF",
-    height: 200
+  view: {
+    alignItems: "center"
+  },
+  text: {
+    textAlign: "center"
+  },
+  cards: {
+    flexDirection: "row",
+    justifyContent: "space-around"
   },
   avatar: {
     width: 130,
     height: 130,
     borderRadius: 63,
     borderWidth: 4,
-    borderColor: "white",
+    // borderColor: "white",
     marginBottom: 10,
     alignSelf: "center",
-    position: "absolute",
-    marginTop: 130
+    // position: "absolute",
+    marginTop: 35
   },
-  name: {
-    fontSize: 22,
-    color: "#FFFFFF",
-    fontWeight: "600"
-  },
-  body: {
-    marginTop: 40
-  },
-  bodyContent: {
-    flex: 1,
-    alignItems: "center",
-    padding: 30
-  },
-  name: {
-    fontSize: 28,
-    color: "#696969",
-    fontWeight: "600"
-  },
-  info: {
-    fontSize: 16,
-    color: "#00BFFF",
-    marginTop: 10
-  },
-  description: {
-    fontSize: 16,
-    color: "#696969",
-    marginTop: 10,
-    textAlign: "center"
-  },
-  buttonContainer: {
-    marginTop: 10,
-    height: 45,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-    width: 250,
-    borderRadius: 30,
-    backgroundColor: "#00BFFF"
+  HeadercenterComponent: {
+    fontSize: 25,
+    color: "white"
   }
 });
-
-// export default TeacherProfileScreen;
 
 const mapStateToProps = state => {
   const { SelectedTeacher } = state;
@@ -113,4 +106,4 @@ const mapStateToProps = state => {
   return { SelectedTeacher };
 };
 
-export default connect(mapStateToProps, {})(TeacherProfileScreen);
+export default connect(mapStateToProps, { getReviews })(TeacherProfileScreen);

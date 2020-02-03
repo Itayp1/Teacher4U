@@ -9,72 +9,65 @@ import {
 } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
 import api from "../../api/api";
+import { connect } from "react-redux";
+import TimeTableStatus from "../../components/TimeTableStatus";
 
-import { FontAwesome } from "@expo/vector-icons";
-const list = [
-  {
-    name: "דריו בורזיו",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-    subtitle: "בשעה 10:10 בתאריך 25.10.2019"
-  },
-  {
-    name: "ליאור לביא",
-    avatar_url:
-      "https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg",
-    subtitle: "בשעה 10:10 בתאריך 25.10.2019"
+import { Feather } from "@expo/vector-icons";
+import { render } from "react-dom";
+
+class ScheduleLessionsScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { timeTable: this.props.timeTable };
   }
-];
+  componentDidUpdate(prevProps) {
+    console.log("before update hapend");
+    console.log(
+      `${this.props.timeTable.length} != ${prevProps.timeTable.length}`
+    );
 
-const ScheduleLessionsScreen = ({ navigation }) => {
-  const [lessonsList, setLessonsList] = useState([]);
-
-  useEffect(() => {
-    const fetchApi = async () => {
-      try {
-        const response = await api.get(`/api/lessons/timetable`);
-
-        setLessonsList(response.data.timeTable);
-      } catch (error) {
-        console.log("in error");
-        console.log(error);
-      }
-    };
-    fetchApi();
-  }, []);
-
-  return (
-    <View style={styles.main}>
-      <Header
-        style={styles.Header}
-        centerComponent={{
-          text: "מערכת שעות ",
-          style: styles.HeadercenterComponent
-        }}
-      />
-      <ScrollView>
-        <View>
-          {lessonsList.map((l, i) => (
-            <TouchableOpacity key={i}>
-              <ListItem
-                key={i}
-                //     leftAvatar={{ source: { uri: l.avatar_url } }}
-                rightIcon={l.status == "cancel" ? { name: "cancel" } : null}
-                title={l.name}
-                subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-                bottomDivider
-              />
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
-    </View>
-  );
-};
+    console.log(this.props.timeTable.length != prevProps.timeTable.length);
+    if (this.props.timeTable.length != prevProps.timeTable.length) {
+      console.log("update hapend");
+      this.setState({ timeTable: this.props.timeTable });
+    }
+  }
+  render() {
+    return (
+      <View style={styles.main}>
+        <Header
+          style={styles.Header}
+          centerComponent={{
+            text: "מערכת שעות ",
+            style: styles.HeadercenterComponent
+          }}
+        />
+        <ScrollView>
+          <View>
+            {this.state.timeTable.map((l, i) => (
+              <TouchableOpacity key={i}>
+                <ListItem
+                  key={i}
+                  //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                  rightElement={
+                    <TimeTableStatus status={l.status} tableId={l.id} />
+                  }
+                  title={l.name || l.teacherName}
+                  subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                  bottomDivider
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+}
 
 ScheduleLessionsScreen.navigationOptions = {
   title: "מערכת שעות",
-  tabBarIcon: <FontAwesome name="gear" size={20} />
+  tabBarIcon: <Feather name="list" size={20} />
 };
 
 const styles = StyleSheet.create({
@@ -97,4 +90,15 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ScheduleLessionsScreen;
+// export default ScheduleLessionsScreen;
+
+const mapStateToProps = state => {
+  const {
+    TimeTable: { timeTable }
+  } = state;
+  console.log("get table");
+  console.log(JSON.stringify(timeTable));
+  return { timeTable };
+};
+
+export default connect(mapStateToProps, {})(ScheduleLessionsScreen);

@@ -1,5 +1,5 @@
 import React from "react";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
@@ -24,7 +24,8 @@ import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
 import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
-import CalendarScreen from "./src/screens/CalendarScreen";
+import CalendarScreen from "./src/screens/Student/CalendarScreen";
+import StudentReviewScreen from "./src/screens/Student/StudentReviewScreen";
 // import Cards from "./src/screens/Teacher/card";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -35,12 +36,12 @@ const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
   TeacherList: TeacherListScreen,
   TeacherProfile: TeacherProfileScreen,
-  Review: ReviewScreen,
+  StudentReview: StudentReviewScreen,
   Calender: CalendarScreen
 });
 SearchTeacher.navigationOptions = {
   title: "חיפוש מורה",
-  tabBarIcon: <FontAwesome name="th-list" size={20} />
+  tabBarIcon: <Feather name="search" size={20} />
 };
 
 const switchNavigator = createSwitchNavigator(

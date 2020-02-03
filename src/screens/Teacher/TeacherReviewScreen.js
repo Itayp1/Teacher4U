@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import { teacherFetch } from "../../actions";
 
 const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
-  const [ratingSum, setRatingSum] = useState(0);
   const [isvisable, setisvisable] = useState(false);
   return (
     <View style={styles.main}>

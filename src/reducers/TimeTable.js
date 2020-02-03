@@ -1,4 +1,4 @@
-import { TIME_TABLE, CHANGE_STATUS } from "../actions/types";
+import { TIME_TABLE, CHANGE_STATUS, APOINTMENT_lESSON } from "../actions/types";
 
 const INITIAL_STATE = {};
 
@@ -14,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
         return obj;
       });
       return { timeTable: newstimeTable };
+    case APOINTMENT_lESSON:
+      return { timeTable: [...state.timeTable, action.payload] };
+
     default:
       return state;
   }

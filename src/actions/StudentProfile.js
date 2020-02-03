@@ -1,9 +1,12 @@
 import api from "../api/api";
+
 import {
   STUDENT_INFO_FEATCH,
   TIME_TABLE,
   FETCH_TEACHER_LIST,
-  SELECTED_TEACHER
+  SELECTED_TEACHER,
+  APOINTMENT_lESSON,
+  TEACHER_RATING
 } from "./types";
 import axios from "axios";
 
@@ -45,5 +48,36 @@ export const selectTeacher = teacher => {
   return {
     type: SELECTED_TEACHER,
     payload: teacher
+  };
+};
+
+export const apointmentLesson = (
+  teacherName,
+  teacherEmail,
+  cource,
+  date,
+  time
+) => {
+  return async dispatch => {
+    const response = await api.post("/api/lessons/appointmentLesson", {
+      teacherName,
+      teacherEmail,
+      cource,
+      date,
+      time
+    });
+    dispatch({ type: APOINTMENT_lESSON, payload: response.data });
+  };
+};
+
+export const getReviews = email => {
+  return async dispatch => {
+    const responseReviews = await api.get(`/api/rating`, {
+      params: {
+        email
+      }
+    });
+
+    dispatch({ type: TEACHER_RATING, payload: responseReviews.data });
   };
 };

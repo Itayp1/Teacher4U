@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,29 +7,16 @@ import {
   TouchableOpacity,
   ScrollView
 } from "react-native";
-import { navigate } from "../navigationRef";
 import { connect } from "react-redux";
-
-import { Picker, Text } from "react-native-elements";
-import { FontAwesome } from "@expo/vector-icons";
+import { apointmentLesson } from "../../actions/index";
+import { Text } from "react-native-elements";
 import { LocaleConfig } from "react-native-calendars";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import Modal from "react-native-modal";
 import AwesomeAlert from "react-native-awesome-alerts";
 import moment from "moment";
-import { AuthSession } from "expo";
-import api from "../api/api";
-import { withNavigation } from "react-navigation";
+import api from "../../api/api";
 
-const dayNames = [
-  { Sunday: 1 },
-  { Monday: 2 },
-  { Tuesday: 3 },
-  { Wednesday: 4 },
-  { Thursday: 5 },
-  { Friday: 6 },
-  { Saturday: 7 }
-];
 LocaleConfig.locales["en"] = {
   monthNames: [
     "January",
@@ -72,40 +59,8 @@ LocaleConfig.locales["en"] = {
   today: "Today"
 };
 
-const days = {
-  sunday: [
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
-    "17:00",
-    "18:00",
-    "19:00",
-    "20:00"
-  ],
-  monday: ["23:00", "13:00"]
-};
-
 LocaleConfig.defaultLocale = "en";
 
-const Lappointmentesson = async (
-  teacherName,
-  teacherEmail,
-  cource,
-  date,
-  time
-) => {
-  const response = await api.post("/api/lessons/appointmentLesson", {
-    teacherName,
-    teacherEmail,
-    cource,
-    date,
-    time
-  });
-};
 const getAvaiablehours = async (email, date, setAvailablesHouers) => {
   const response = await api.get("/api/lessons/getavaiabletime", {
     params: {
@@ -140,9 +95,7 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
   return result;
 };
 
-const CalanderScreen = ({ navigation, SelectedTeacher }) => {
-  // const email = navigation.getParam("email");
-  //const availablesDays = navigation.getParam("availablesDays");
+const CalanderScreen = ({ navigation, SelectedTeacher, apointmentLesson }) => {
   const {
     name,
     email,
@@ -187,7 +140,7 @@ const CalanderScreen = ({ navigation, SelectedTeacher }) => {
                   <TouchableOpacity
                     onPress={async () => {
                       try {
-                        await Lappointmentesson(
+                        apointmentLesson(
                           name,
                           email,
                           profession.name,
@@ -276,10 +229,16 @@ const CalanderScreen = ({ navigation, SelectedTeacher }) => {
   );
 };
 
-// CalanderScreen.navigationOptions = {
-//   title: "לוח שנה",
-//   tabBarIcon: <FontAwesome name="gear" size={20} />
-// };
+CalanderScreen.navigationOptions = {
+  title: "לוח שנה ",
+  headerStyle: {
+    backgroundColor: "#2E9AFE"
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold"
+  }
+};
 
 const styles = StyleSheet.create({
   main: {
@@ -301,4 +260,4 @@ const mapStateToProps = state => {
   return { SelectedTeacher };
 };
 
-export default connect(mapStateToProps, {})(CalanderScreen);
+export default connect(mapStateToProps, { apointmentLesson })(CalanderScreen);

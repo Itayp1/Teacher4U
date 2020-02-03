@@ -6,6 +6,7 @@ import GetReviewsReducer from "./GetReviews";
 import StudentReducer from "./Student";
 import TeacherListReducer from "./TeacherList";
 import SelectedTeacherReducer from "./SelectedTeacher";
+import ApointmentLessonReducer from "./ApointmentLesson";
 export default combineReducers({
   Rating: RatingReducer,
   Teacher: TeacherReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   GetReviews: GetReviewsReducer,
   Student: StudentReducer,
   TeacherList: TeacherListReducer,
-  SelectedTeacher: SelectedTeacherReducer
+  SelectedTeacher: SelectedTeacherReducer,
+  ApointmentLesson: ApointmentLessonReducer
 });
