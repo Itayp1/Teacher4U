@@ -11,7 +11,7 @@ import { Container, Form, Content, Picker, Label, View } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
 import { connect } from "react-redux";
-import { teacherFetch } from "../../actions";
+import { teacherUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 
 function UselessTextInput(props) {
@@ -83,6 +83,8 @@ class FormExample extends Component {
         obj
       );
       this.setState({ spinner: false });
+      this.props.teacherUpdate(obj);
+
       this.props.navigation.pop(1);
     } catch (error) {
       console.log(error);
@@ -372,5 +374,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  teacherFetch
+  teacherUpdate
 })(FormExample);

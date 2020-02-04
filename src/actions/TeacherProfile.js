@@ -3,7 +3,8 @@ import {
   TEACHER_INFO_FEATCH,
   TEACHER_RATING,
   TIME_TABLE,
-  CHANGE_STATUS
+  CHANGE_STATUS,
+  TEACHER_INFO_UPDATE
 } from "./types";
 import axios from "axios";
 
@@ -27,5 +28,12 @@ export const changeStatus = (id, status) => {
   return async dispatch => {
     const response = await api.put("/api/lessons/timetable", { id, status });
     dispatch({ type: CHANGE_STATUS, payload: response.data.updated });
+  };
+};
+
+export const teacherUpdate = info => {
+  return {
+    type: TEACHER_INFO_UPDATE,
+    payload: info
   };
 };
