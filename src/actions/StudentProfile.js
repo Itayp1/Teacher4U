@@ -53,6 +53,8 @@ export const selectTeacher = teacher => {
 };
 
 export const apointmentLesson = (
+  studentName,
+  studentEmail,
   teacherName,
   teacherEmail,
   cource,
@@ -61,6 +63,8 @@ export const apointmentLesson = (
 ) => {
   return async dispatch => {
     const response = await api.post("/api/lessons/appointmentLesson", {
+      studentName,
+      studentEmail,
       teacherName,
       teacherEmail,
       cource,

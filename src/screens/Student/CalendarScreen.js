@@ -95,7 +95,12 @@ const getMonthsArray = (yyyy, mm, availablesDays) => {
   return result;
 };
 
-const CalanderScreen = ({ navigation, SelectedTeacher, apointmentLesson }) => {
+const CalanderScreen = ({
+  navigation,
+  SelectedTeacher,
+  apointmentLesson,
+  Student
+}) => {
   const {
     name,
     email,
@@ -103,6 +108,8 @@ const CalanderScreen = ({ navigation, SelectedTeacher, apointmentLesson }) => {
     profession,
     avaiablesHours
   } = SelectedTeacher;
+
+  const { fullName: studentName, email: studentEmail } = Student;
   const [visableOk, setVisableOK] = useState(false);
   const [selectetDate, setSelectetDate] = useState({});
   const [availablesHouers, setAvailablesHouers] = useState([]);
@@ -141,6 +148,8 @@ const CalanderScreen = ({ navigation, SelectedTeacher, apointmentLesson }) => {
                     onPress={async () => {
                       try {
                         apointmentLesson(
+                          studentName,
+                          studentEmail,
                           name,
                           email,
                           profession.name,
@@ -255,9 +264,9 @@ const styles = StyleSheet.create({
 // export default CalanderScreen;
 
 const mapStateToProps = state => {
-  const { SelectedTeacher } = state;
+  const { SelectedTeacher, Student } = state;
 
-  return { SelectedTeacher };
+  return { SelectedTeacher, Student };
 };
 
 export default connect(mapStateToProps, { apointmentLesson })(CalanderScreen);
