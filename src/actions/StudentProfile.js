@@ -6,7 +6,8 @@ import {
   FETCH_TEACHER_LIST,
   SELECTED_TEACHER,
   APOINTMENT_lESSON,
-  TEACHER_RATING
+  TEACHER_RATING,
+  STUDENT_INFO_UPDATE
 } from "./types";
 import axios from "axios";
 
@@ -79,5 +80,12 @@ export const getReviews = email => {
     });
 
     dispatch({ type: TEACHER_RATING, payload: responseReviews.data });
+  };
+};
+
+export const studentUpdate = info => {
+  return {
+    type: STUDENT_INFO_UPDATE,
+    payload: info
   };
 };

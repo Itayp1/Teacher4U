@@ -10,9 +10,7 @@ const ResolveAuthScreen = ({ navigation }) => {
       jwt.decode("token", "secret", {
         skipValidation: true
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {

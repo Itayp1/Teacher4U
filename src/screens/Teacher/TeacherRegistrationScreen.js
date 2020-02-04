@@ -84,10 +84,6 @@ class FormExample extends Component {
       );
       this.setState({ spinner: false });
       this.props.navigation.pop(1);
-
-      console.log("after response");
-
-      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

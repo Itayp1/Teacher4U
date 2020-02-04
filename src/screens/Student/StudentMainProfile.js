@@ -23,9 +23,7 @@ class StudentMainProfile extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.log("get new props");
     if (this.props.sumOfLessons != this.state.sumOfLessons) {
-      // console.log(`${this.props.views} ${this.state.views}`);
       this.setState({
         sumOfLessons: this.props.sumOfLessons,
         name: this.props.name
@@ -63,10 +61,9 @@ class StudentMainProfile extends React.Component {
         <TouchableOpacity
           style={{ marginTop: 20 }}
           onPress={() => {
-            // this.props.navigation.navigate("TeacherRegistrationProfile", {
+            this.props.navigation.navigate("studnetDetails");
             //   teacherProfile: this.props.Teacher
             // });
-            // console.log("clicked");
           }}
         >
           <Icon name="edit" type="feather" color="#00aced" size={50} />
@@ -114,7 +111,7 @@ const mapStateToProps = state => {
   const { Student, TimeTable } = state;
 
   const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
-  const name = Student.name;
+  const name = Student.fullName;
   return { TimeTable, sumOfLessons, Student, name };
 };
 

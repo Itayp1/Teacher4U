@@ -30,11 +30,9 @@ const NewCities = cities.map(city => {
   if (name) {
     city.value = name;
   } else {
-    console.log(city);
     city.name = city.label;
     city.value = city.label;
   }
-  // console.log(city.name + "  " + city.value);
 
   return city;
 });

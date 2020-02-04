@@ -29,9 +29,7 @@ const printDetails = async (obj, state) => {
         access_token: state.access_token
       }
     });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 const DetailsFrorm = ({ navigation, profile }) => {
   const { state, student_signup, clearErrorMessage } = useContext(Context);

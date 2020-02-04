@@ -22,7 +22,8 @@ const SelectProfileScreen = ({ navigation }) => {
             style={styles.circle}
             onPress={() =>
               navigation.navigate("StudentRegistration", {
-                profile: "StudentMenu"
+                profile: "StudentMenu",
+                access_token
               })
             }
           >

@@ -65,7 +65,29 @@ const switchNavigator = createSwitchNavigator(
     }),
     StudentMenu: createBottomTabNavigator(
       {
-        Profile: StudentMainProfileScreen,
+        Profile: createStackNavigator(
+          {
+            studentProfile: {
+              screen: StudentMainProfileScreen,
+              navigationOptions: {
+                header: null
+              }
+            },
+            studnetDetails: {
+              screen: StudentRegistrationScreen,
+              navigationOptions: {
+                header: null
+              }
+            }
+          },
+          {
+            navigationOptions: {
+              title: "פרופיל",
+              tabBarIcon: <FontAwesome name="th-list" size={20} />
+            }
+          }
+        ),
+
         ScheduleLessions: ScheduleLessionsScreen,
         SearchTeacher: SearchTeacher
       },

@@ -3,6 +3,4 @@ if (1 == 1) {
 }
 
 start();
-function start() {
-  console.log(x);
-}
+function start() {}

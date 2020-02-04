@@ -70,7 +70,6 @@ const GoogleSignin = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           signInWithGoogleAsync(navigation);
-          //   console.log("clicked");
         }}
       >
         <Image

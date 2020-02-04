@@ -70,7 +70,6 @@ const iconPerStatus = (status, tableId, edit) => {
   return statusIcon;
 };
 const TimeTableStatus = ({ status, tableId, edit }) => {
-  console.log(status, tableId);
   return <View>{iconPerStatus(status, tableId, edit)}</View>;
 };
 

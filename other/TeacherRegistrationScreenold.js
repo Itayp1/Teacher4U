@@ -316,9 +316,7 @@ export default class FormExample extends Component {
                   placeholder={"Search"}
                   placeholderTextColor={"#757575"}
                   returnValue={"label"} // label or value
-                  callback={res => {
-                    console.log(res);
-                  }} // callback, array of selected items
+                  callback={res => {}} // callback, array of selected items
                   rowBackgroundColor={"#eee"}
                   rowHeight={40}
                   rowRadius={5}
@@ -384,19 +382,18 @@ export default class FormExample extends Component {
                   return city;
                 });
 
-                // console.log(JSON.stringify(list));
                 this.setState({ cities1: list });
               }}
-              onClosed={() => console.log("pressd2")}
-              onBackButtonPressed={() => console.log("pressd3")}
+              onClosed={() => {}}
+              onBackButtonPressed={() => {}}
               items={this.state.cities1}
               sortingLanguage={"tr"}
               showToTopButton={true}
-              selected={console.log("pressd33")}
+              selected={}
               showAlphabeticalIndex={true}
               autoGenerateAlphabeticalIndex={true}
               selectPlaceholderText={"Choose one..."}
-              onEndReached={() => console.log("list ended...")}
+              onEndReached={() => {}}
               searchPlaceholderText={"Search..."}
               requireSelection={false}
               autoSort={false}
@@ -417,7 +414,7 @@ export default class FormExample extends Component {
                 selectedItems={this.state.selectedItems}
                 selectText="Pick Items"
                 searchInputPlaceholderText="Search Items..."
-                onChangeInput={text => console.log(text)}
+                onChangeInput={text => {}}
                 tagRemoveIconColor="#CCC"
                 tagBorderColor="#CCC"
                 tagTextColor="#CCC"

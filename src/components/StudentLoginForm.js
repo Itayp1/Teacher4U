@@ -41,11 +41,7 @@ const printDetails = async (obj, state, navigation) => {
     await AsyncStorage.setItem("token", response.data);
 
     navigation.navigate("StudentMenu");
-  } catch (error) {
-    console.log("error");
-
-    console.log(error);
-  }
+  } catch (error) {}
 };
 const StudentLoginForm = ({ navigation, profile }) => {
   const { state, student_signup, clearErrorMessage } = useContext(Context);

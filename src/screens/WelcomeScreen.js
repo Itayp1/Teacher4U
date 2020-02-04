@@ -9,7 +9,6 @@ const WelcomeScreen = ({ navigation }) => {
   setTimeout(async () => {
     try {
       const response = await api.get("/api/login/verifyToken");
-      // console.log(response.data.profile === "student");
       if (response.data.profile === "student") {
         navigation.navigate("StudentMenu");
       } else if (response.data.profile === "teacher") {

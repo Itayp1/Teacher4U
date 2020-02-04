@@ -14,9 +14,5 @@ instance
       platform: "google"
     }
   })
-  .then(res => {
-    console.log(res.data);
-  })
-  .catch(err => {
-    console.log(err);
-  });
+  .then(res => {})
+  .catch(err => {});

@@ -24,13 +24,11 @@ class TeacherMainProfile extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.log("get new props");
     if (
       this.props.views != this.state.views ||
       this.props.sumOfLessons != this.state.sumOfLessons ||
       this.props.ratingAverage != this.state.ratingAverage
     ) {
-      // console.log(`${this.props.views} ${this.state.views}`);
       this.setState({
         views: this.props.views,
         sumOfLessons: this.props.sumOfLessons,
@@ -79,7 +77,6 @@ class TeacherMainProfile extends React.Component {
             this.props.navigation.navigate("TeacherRegistrationProfile", {
               teacherProfile: this.props.Teacher
             });
-            // console.log("clicked");
           }}
         >
           <Icon name="edit" type="feather" color="#00aced" size={50} />
