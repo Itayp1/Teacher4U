@@ -4,7 +4,7 @@ import cities from "../../../config/cities.json";
 import moment from "moment";
 import MultiSelect from "../../components/MultiSelect";
 import FormSearchInput from "../../components/FormSearchInput";
-import { StyleSheet, TextInput, Text } from "react-native";
+import { StyleSheet, Alert, Text } from "react-native";
 import { Container, Form, Content, Picker, Label, View } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
@@ -12,21 +12,22 @@ import { connect } from "react-redux";
 import { studentUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import { AsyncStorage } from "react-native";
-
+import FormValidation from "../../hooks/StudentFormsValidation";
 class StudentRegistrationScreenNew extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       spinner: false,
-      fullname: this.props.fullName || "eee",
+      fullname: this.props.fullName || "שם מלא",
       phone: this.props.phone || "",
       gender: this.props.gender || "זכר",
       city: this.props.city || "",
       cityisVisible: false,
       datePickerTitle: this.props.age || "תאריך לידה",
       DateTimePickerVisable: false,
-      DateTimePicker: this.props.age || ""
+      DateTimePicker: this.props.age || "",
+      inputValidationError: ""
     };
   }
 
@@ -152,6 +153,7 @@ class StudentRegistrationScreenNew extends Component {
                 singleSelect={true}
               />
             </View>
+
             <Button
               title="שמור"
               buttonStyle={{ marginTop: 5 }}
@@ -165,12 +167,25 @@ class StudentRegistrationScreenNew extends Component {
                   pic: "",
                   profile: "student"
                 };
-                if (!this.props.fullName) {
+
+                if (
+                  FormValidation(
+                    obj.fullName,
+                    obj.phone,
+                    obj.city,
+                    obj.datePickerTitle
+                  )
+                ) {
+                  Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
+                } else if (!this.props.fullName) {
                   this.printDetails(
                     obj,
                     this.props.navigation.getParam("access_token")
                   );
                 } else {
+                  console.log("this.state.inputValidationError");
+
+                  console.log(this.state.inputValidationError);
                   this.updateDetails(obj);
                 }
               }}

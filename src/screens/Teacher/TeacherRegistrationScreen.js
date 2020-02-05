@@ -6,13 +6,15 @@ import days from "../../../config/days.json";
 import moment from "moment";
 import MultiSelect from "../../components/MultiSelect";
 import FormSearchInput from "../../components/FormSearchInput";
-import { StyleSheet, TextInput, Text } from "react-native";
+import { StyleSheet, TextInput, Text, Alert } from "react-native";
 import { Container, Form, Content, Picker, Label, View } from "native-base";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
 import { connect } from "react-redux";
 import { teacherUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
+import FormValidation from "../../hooks/TeacherFormsValidation";
+import { AsyncStorage } from "react-native";
 
 function UselessTextInput(props) {
   return (
@@ -30,7 +32,7 @@ class FormExample extends Component {
 
     this.state = {
       spinner: false,
-      fullname: this.props.Teacher.name || "eee",
+      fullName: this.props.Teacher.fullName || "eee",
       phone: this.props.Teacher.phone || "",
       priceAtStudent: this.props.Teacher.priceAtStudent || "",
       price: this.props.Teacher.price || "",
@@ -104,10 +106,10 @@ class FormExample extends Component {
             <FormSearchInput
               title={"שם מלא"}
               input={"שם מלא"}
-              initializeValue={this.state.fullname}
+              initializeValue={this.state.fullName}
               validationType={"text"}
               inputValue={input => {
-                this.setState({ fullname: input });
+                this.setState({ fullName: input });
               }}
             />
             <FormSearchInput
@@ -308,7 +310,7 @@ class FormExample extends Component {
               style={{ size: 15 }}
               onPress={() => {
                 const obj = {
-                  fullName: this.state.fullname,
+                  fullName: this.state.fullName,
                   phone: this.state.phone,
                   priceAtStudent: this.state.priceAtStudent,
                   price: this.state.price,
@@ -325,8 +327,16 @@ class FormExample extends Component {
                   rating: 0,
                   profile: "teacher"
                 };
-
-                if (!this.props.Teacher.name) {
+                if (
+                  FormValidation(
+                    obj.fullName,
+                    obj.phone,
+                    obj.priceAtStudent,
+                    obj.price
+                  )
+                ) {
+                  Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
+                } else if (!this.props.Teacher.fullName) {
                   this.printDetails(
                     obj,
                     this.props.navigation.getParam("access_token")
@@ -369,7 +379,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { Teacher } = state;
-
+  console.log(Teacher);
   return { Teacher };
 };
 

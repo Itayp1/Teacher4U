@@ -13,3 +13,4 @@ export const STUDENT_INFO_UPDATE = "student_update";
 export const FETCH_TEACHER_LIST = "search_teacher";
 export const SELECTED_TEACHER = "selected_teacher";
 export const APOINTMENT_lESSON = "appointment_leeson";
+export const FORMS_VALIDATION = "form_validation";

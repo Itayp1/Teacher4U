@@ -11,7 +11,7 @@ class TeacherMainProfile extends React.Component {
     super(props);
 
     this.state = {
-      name: this.props.name,
+      fullName: this.props.fullName,
       views: this.props.views,
       ratingAverage: this.props.ratingAverage,
       TimeTable: this.props.TimeTable,
@@ -33,7 +33,7 @@ class TeacherMainProfile extends React.Component {
         views: this.props.views,
         sumOfLessons: this.props.sumOfLessons,
         ratingAverage: this.props.ratingAverage,
-        name: this.props.name
+        fullName: this.props.fullName
       });
     }
   }
@@ -41,7 +41,7 @@ class TeacherMainProfile extends React.Component {
     return (
       <View style={styles.view}>
         <Spinner
-          visible={this.props.name == undefined}
+          visible={this.props.fullName == undefined}
           textContent={"Loading..."}
           textStyle={styles.spinnerTextStyle}
         />
@@ -54,7 +54,7 @@ class TeacherMainProfile extends React.Component {
         />
         <View>
           <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
-            {this.props.name}
+            {this.props.fullName}
           </Text>
           <TouchableOpacity>
             <Image style={styles.avatar} source={require("./avatar6.png")} />
@@ -128,8 +128,8 @@ const mapStateToProps = state => {
   const ratingAverage = rating.toString();
   const views = Teacher.views || 0;
   const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
-  const name = Teacher.name;
-  return { ratingAverage, views, TimeTable, sumOfLessons, Teacher, name };
+  const fullName = Teacher.fullName;
+  return { ratingAverage, views, TimeTable, sumOfLessons, Teacher, fullName };
 };
 
 export default connect(mapStateToProps, {

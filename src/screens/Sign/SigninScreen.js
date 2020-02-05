@@ -17,7 +17,16 @@ const SigninScreen = ({ navigation }) => {
     </View>
   );
 };
-
+SigninScreen.navigationOptions = {
+  title: "Teacher4U ",
+  headerStyle: {
+    backgroundColor: "#2E9AFE"
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold"
+  }
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
