@@ -5,7 +5,7 @@ import { teacherFetch } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import SignOutIcon from "../../components/SignOutIcon";
 import { Card, Icon, Header, Text } from "react-native-elements";
-
+import SelectPic from "../../components/SelectPic";
 class TeacherMainProfile extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +15,8 @@ class TeacherMainProfile extends React.Component {
       views: this.props.views,
       ratingAverage: this.props.ratingAverage,
       TimeTable: this.props.TimeTable,
-      sumOfLessons: this.props.sumOfLessons
+      sumOfLessons: this.props.sumOfLessons,
+      visable: false
     };
   }
 
@@ -45,6 +46,7 @@ class TeacherMainProfile extends React.Component {
           textContent={"Loading..."}
           textStyle={styles.spinnerTextStyle}
         />
+
         <Header
           style={styles.Header}
           centerComponent={{
@@ -56,7 +58,11 @@ class TeacherMainProfile extends React.Component {
           <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
             {this.props.fullName}
           </Text>
-          <TouchableOpacity>
+          <SelectPic
+            isVisable={this.state.visable}
+            close={() => this.setState({ visable: false })}
+          />
+          <TouchableOpacity onPress={() => this.setState({ visable: true })}>
             <Image style={styles.avatar} source={require("./avatar6.png")} />
           </TouchableOpacity>
         </View>
@@ -125,7 +131,7 @@ const mapStateToProps = state => {
     },
     { rating: 0 }
   );
-  const ratingAverage = rating.toString();
+  const ratingAverage = parseInt(rating / Rating.length).toString();
   const views = Teacher.views || 0;
   const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
   const fullName = Teacher.fullName;

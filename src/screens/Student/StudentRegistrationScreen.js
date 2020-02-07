@@ -58,10 +58,6 @@ class StudentRegistrationScreenNew extends Component {
       this.setState({ spinner: false });
       this.props.studentUpdate(obj);
       this.props.navigation.pop(1);
-
-      //    console.log("after response");
-
-      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -234,8 +230,7 @@ const mapStateToProps = state => {
   const {
     Student: { age, city, fullName, gender, phone, profile }
   } = state;
-  console.log("maps");
-  console.log(age, city, fullName, gender, phone, profile);
+
   return { age, city, fullName, gender, phone, profile };
 };
 

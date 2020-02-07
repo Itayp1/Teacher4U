@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { Teacher } = state;
-  console.log(Teacher);
+
   return { Teacher };
 };
 

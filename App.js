@@ -31,7 +31,9 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
 import reducers from "./src/reducers";
-//import Choseepic from "./src/components/Choseepic";
+import cameraScreen from "./src/components/Camera/camera.page";
+import PhotoPickerScreen from "./src/components/PhotoPickerScreen";
+import SelectPicScreen from "./src/components/SelectPic";
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
   TeacherList: TeacherListScreen,
@@ -46,9 +48,10 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
-    //  Cameraa: Choseepic,
+    PhotoPicker: PhotoPickerScreen,
     MessageTest: MessageScreen,
-
+    camera: cameraScreen,
+    SelectPic: SelectPicScreen,
     Profilep: TeacherMainProfileScreen,
     Welcome: WelcomeScreen,
     TeacherRegistration: TeacherRegistrationScreen,
@@ -121,6 +124,7 @@ const switchNavigator = createSwitchNavigator(
             }
           }
         ),
+
         Review: TeacherReviewScreen,
         ScheduleLessions: TeacherScheduleLessionsScreen
       },

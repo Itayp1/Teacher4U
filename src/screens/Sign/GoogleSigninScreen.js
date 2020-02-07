@@ -11,8 +11,9 @@ import * as Google from "expo-google-app-auth";
 import { withNavigation } from "react-navigation";
 import api from "../../api/api";
 import { AsyncStorage } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 
-const signInWithGoogleAsync = async navigation => {
+const signInWithGoogleAsync = async (navigation, setIsVisable) => {
   try {
     const config = {
       behaviar: "web",
@@ -35,6 +36,7 @@ const signInWithGoogleAsync = async navigation => {
         }
       });
       AsyncStorage.setItem("token", response.data.jwt);
+      setIsVisable(false);
       if (response.data.profile === "student") {
         navigation.navigate("StudentMenu");
       } else if (response.data.profile === "teacher") {
@@ -65,11 +67,18 @@ const GoogleSignin = ({ navigation }) => {
     name: "",
     photoUrl: ""
   });
+  const [isVisable, setIsVisable] = useState(false);
   return (
     <>
+      <Spinner
+        visible={isVisable}
+        textContent={"Loading..."}
+        textStyle={styles.spinnerTextStyle}
+      />
       <TouchableOpacity
         onPress={() => {
-          signInWithGoogleAsync(navigation);
+          setIsVisable(true);
+          signInWithGoogleAsync(navigation, setIsVisable);
         }}
       >
         <Image
@@ -89,6 +98,9 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 25
+  },
+  spinnerTextStyle: {
+    color: "#FFF"
   }
 });
 

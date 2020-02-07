@@ -7,6 +7,8 @@ import StudentReducer from "./Student";
 import TeacherListReducer from "./TeacherList";
 import SelectedTeacherReducer from "./SelectedTeacher";
 import ApointmentLessonReducer from "./ApointmentLesson";
+import PictureReducer from "./Picture";
+
 export default combineReducers({
   Rating: RatingReducer,
   Teacher: TeacherReducer,
@@ -15,5 +17,6 @@ export default combineReducers({
   Student: StudentReducer,
   TeacherList: TeacherListReducer,
   SelectedTeacher: SelectedTeacherReducer,
-  ApointmentLesson: ApointmentLessonReducer
+  ApointmentLesson: ApointmentLessonReducer,
+  Picture: PictureReducer
 });

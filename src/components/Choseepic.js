@@ -1,38 +1,72 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { Camera, Permissions } from "expo";
+import React, { useState, useEffect } from "react";
+import { Text, View, TouchableOpacity, Button } from "react-native";
+import { Camera } from "expo-camera";
 
-import styles from "./styles";
+export default function App() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  let camera;
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
-export default class CameraPage extends React.Component {
-  camera = null;
-
-  state = {
-    hasCameraPermission: null
-  };
-
-  async componentDidMount() {
-    const camera = await Permissions.askAsync(Permissions.CAMERA);
-    const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-    const hasCameraPermission =
-      camera.status === "granted" && audio.status === "granted";
-
-    this.setState({ hasCameraPermission });
+  if (hasPermission === null) {
+    return <View />;
   }
-
-  render() {
-    const { hasCameraPermission } = this.state;
-
-    if (hasCameraPermission === null) {
-      return <View />;
-    } else if (hasCameraPermission === false) {
-      return <Text>Access to camera has been denied.</Text>;
-    }
-
-    return (
-      <View>
-        <Camera style={styles.preview} ref={camera => (this.camera = camera)} />
-      </View>
-    );
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
   }
+  return (
+    <View style={{ flex: 1 }}>
+      <Camera
+        ref={ref => {
+          camera = ref;
+        }}
+        style={{ flex: 1 }}
+        type={type}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "transparent",
+            flexDirection: "row"
+          }}
+        >
+          <Button
+            title="fdgfdg"
+            onPress={async () => {
+              if (camera) {
+                let photo = await camera.takePictureAsync({
+                  quality: 0.1,
+                  base64: true
+                });
+              }
+            }}
+          />
+          <TouchableOpacity
+            style={{
+              flex: 0.1,
+              alignSelf: "flex-end",
+              alignItems: "center"
+            }}
+            onPress={() => {
+              setType(
+                type === Camera.Constants.Type.back
+                  ? Camera.Constants.Type.front
+                  : Camera.Constants.Type.back
+              );
+            }}
+          >
+            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
+              {" "}
+              Flip{" "}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Camera>
+    </View>
+  );
 }
