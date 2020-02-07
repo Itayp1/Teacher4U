@@ -35,11 +35,11 @@ const TeacherListScreen = ({
             key={i}
           >
             <ListItem
-              keyExtractor={item => item.name}
+              keyExtractor={item => item.fullName}
               key={l => l.name}
               //   leftAvatar={{ source: { uri: l.avatar_url } }}
               //   rightIcon={i == "0" ? { name: "cancel" } : null}
-              title={l.name}
+              title={l.fullName}
               subtitle={l.generalDescription}
               bottomDivider
             />
@@ -57,7 +57,7 @@ TeacherListScreen.navigationOptions = {
 const styles = StyleSheet.create({
   main: {
     // marginTop: 10,
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   Header: {

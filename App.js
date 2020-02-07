@@ -35,6 +35,7 @@ import cameraScreen from "./src/components/Camera/camera.page";
 import PhotoPickerScreen from "./src/components/PhotoPickerScreen";
 import SelectPicScreen from "./src/components/SelectPic";
 import ChoseepicScreen from "./src/components/Choseepic";
+import addReviewScreen from "./src/components/addReview";
 
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
@@ -50,6 +51,7 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
+    addReview: addReviewScreen,
     PhotoPicker: PhotoPickerScreen,
     MessageTest: MessageScreen,
     camera: cameraScreen,

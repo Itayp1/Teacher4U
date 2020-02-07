@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  TextInput
+} from "react-native";
 import { connect } from "react-redux";
 import { studentFetch } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";

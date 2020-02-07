@@ -1,60 +1,121 @@
-import React from "react";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import PhotoPickerScreen from "./PhotoPickerScreen";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  TextInput,
+  Alert
+} from "react-native";
 import { connect } from "react-redux";
-import { Overlay } from "react-native-elements";
-import { AntDesign } from "@expo/vector-icons";
+import { Overlay, AirbnbRating, Text } from "react-native-elements";
+import Spinner from "react-native-loading-spinner-overlay";
 import { Button } from "react-native-elements";
 import { withNavigation } from "react-navigation";
+import { Rating } from "react-native-ratings";
+import { FontAwesome, Feather } from "@expo/vector-icons";
+import { addStudentReview } from "../actions/index";
+addReview = ({
+  tableId,
+  hasReview,
+  teacherEmail,
+  addStudentReview,
+  studentName
+}) => {
+  const [isVisible, SetisVisible] = useState(false);
+  const [textInput, setTextInput] = useState("יש לרשום כאן ביקורת");
+  const [rating, setRating] = useState(5);
+  const [spinerVisable, SetspinerVisable] = useState(false);
 
-SelectPic = ({ navigation, Picture, isVisable, close }) => {
+  const ratingCompleted = rate => {
+    console.log("Rating is: " + rating);
+    setRating(rate);
+  };
+  if (hasReview) {
+    return <View></View>;
+  }
   return (
-    <Overlay
-      borderRadius={15}
-      height={200}
-      isVisible={isVisable}
-      onBackdropPress={() => close()}
+    <TouchableOpacity
+      style={{ marginRight: 10, bottom: 5 }}
+      onPress={() => SetisVisible(true)}
     >
-      <View>
-        <Text style={{ marginTop: 10, textAlign: "center" }}>
-          הוספת תמונת פרופיל
-        </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginTop: 20
-          }}
-        >
-          <PhotoPickerScreen close={close} click={false} />
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("camera");
-              close();
-            }}
-          >
-            <AntDesign name="camerao" size={50} />
-          </TouchableOpacity>
-        </View>
-        <Button
-          title={"חזרה"}
-          type="clear"
-          onPress={close}
-          buttonStyle={{ marginTop: 20 }}
-        />
+      <Spinner
+        visible={spinerVisable}
+        textContent={"Saving Picture..."}
+        textStyle={styles.spinnerTextStyle}
+      />
+      <Text>הוספת ביקורת</Text>
+      <View style={{ right: 30 }}>
+        <FontAwesome name="star" size={20} />
       </View>
-    </Overlay>
+      <Overlay
+        borderRadius={15}
+        height={300}
+        isVisible={isVisible}
+        onBackdropPress={() => SetisVisible(false)}
+      >
+        <View>
+          <AirbnbRating
+            count={5}
+            reviews={["גרוע", "חובבן", "בסדר", "טוב", "מצויין"]}
+            defaultRating={5}
+            size={40}
+            onFinishRating={ratingCompleted}
+          />
+          <Text
+            h4
+            h4Style={{ textAlign: "center", marginBottom: 20, marginTop: 20 }}
+          >
+            רשום מטה את הביקורת
+          </Text>
+
+          <TextInput
+            editable
+            maxLength={60}
+            style={{
+              textAlign: "right",
+              height: 60,
+              borderColor: "gray",
+              borderWidth: 1
+            }}
+            multiline
+            numberOfLines={4}
+            onChangeText={text => {
+              setTextInput(text);
+            }}
+            value={textInput}
+          />
+          <Button
+            title={"שמור"}
+            type="clear"
+            onPress={async () => {
+              SetspinerVisable(true);
+              await addStudentReview(
+                rating,
+                textInput,
+                tableId,
+                teacherEmail,
+                studentName
+              );
+              SetisVisible(false);
+              SetspinerVisable(false);
+              Alert.alert("דירוג ", "הדירוג התווסף בהצלחה");
+            }}
+            buttonStyle={{ marginTop: 20 }}
+          />
+        </View>
+      </Overlay>
+    </TouchableOpacity>
   );
 };
 
-const mapStateToProps = state => {
-  const { Picture } = state;
-  return { Picture };
-};
-
-StyleSheet.create({
-  overlay: {}
+const styles = StyleSheet.create({
+  spinnerTextStyle: {
+    color: "#FFF"
+  }
 });
-export default connect(mapStateToProps, {})(withNavigation(SelectPic));
+const mapStateToProps = state => state;
+
+StyleSheet.create({});
+export default connect(mapStateToProps, { addStudentReview })(
+  withNavigation(addReview)
+);

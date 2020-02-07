@@ -38,6 +38,7 @@
     "react-native-multiple-select-list": "^1.0.4",
     "react-native-picker-box": "^1.0.5",
     "react-native-pure-jwt": "^2.1.1",
+    "react-native-ratings": "^6.5.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-svg": "9.13.3",
     "react-native-web": "^0.11.7",

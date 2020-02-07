@@ -1,4 +1,9 @@
-import { TIME_TABLE, CHANGE_STATUS, APOINTMENT_lESSON } from "../actions/types";
+import {
+  TIME_TABLE,
+  CHANGE_STATUS,
+  APOINTMENT_lESSON,
+  TEACHER_RATING_CHANGED
+} from "../actions/types";
 
 const INITIAL_STATE = {};
 
@@ -16,7 +21,14 @@ export default (state = INITIAL_STATE, action) => {
       return { timeTable: newstimeTable };
     case APOINTMENT_lESSON:
       return { timeTable: [...state.timeTable, action.payload] };
-
+    case TEACHER_RATING_CHANGED:
+      const ratingTimeTable = state.timeTable.map(obj => {
+        if (action.payload == obj.id) {
+          obj.hasReview = true;
+        }
+        return obj;
+      });
+      return { timeTable: ratingTimeTable };
     default:
       return state;
   }

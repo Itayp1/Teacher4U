@@ -11,7 +11,7 @@ import { Text, Header, Input } from "react-native-elements";
 import api from "../../api/api";
 import { connect } from "react-redux";
 import TimeTableStatus from "../../components/TimeTableStatus";
-
+import AddReview from "../../components/addReview";
 import { Feather } from "@expo/vector-icons";
 import { render } from "react-dom";
 
@@ -43,11 +43,19 @@ class ScheduleLessionsScreen extends React.Component {
                   key={i}
                   //     leftAvatar={{ source: { uri: l.avatar_url } }}
                   rightElement={
-                    <TimeTableStatus
-                      status={l.status}
-                      tableId={l.id}
-                      edit={false}
-                    />
+                    <>
+                      <AddReview
+                        hasReview={l.hasReview}
+                        tableId={l.id}
+                        teacherEmail={l.email}
+                        studentName={l.studentName}
+                      />
+                      <TimeTableStatus
+                        status={l.status}
+                        tableId={l.id}
+                        edit={false}
+                      />
+                    </>
                   }
                   title={l.name || l.teacherName}
                   subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}

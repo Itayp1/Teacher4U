@@ -8,7 +8,8 @@ import {
   APOINTMENT_lESSON,
   TEACHER_RATING,
   STUDENT_INFO_UPDATE,
-  SAVE_PICTURE
+  SAVE_PICTURE,
+  TEACHER_RATING_CHANGED
 } from "./types";
 import axios from "axios";
 
@@ -93,5 +94,25 @@ export const studentUpdate = info => {
   return {
     type: STUDENT_INFO_UPDATE,
     payload: info
+  };
+};
+
+export const addStudentReview = (
+  rating,
+  review,
+  lessonId,
+  teacherEmail,
+  studentName
+) => {
+  return async dispatch => {
+    const responseReviews = await api.post(`/api/rating/add`, {
+      rating,
+      review,
+      lessonId,
+      teacherEmail,
+      studentName
+    });
+
+    dispatch({ type: TEACHER_RATING_CHANGED, payload: lessonId });
   };
 };
