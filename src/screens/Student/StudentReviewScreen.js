@@ -44,7 +44,7 @@ const ReviewScreen = ({ navigation }) => {
         {reviewList.map((l, i) => (
           <ListItem
             key={i}
-            //  leftAvatar={{ source: { uri: l.avatar_url } }}
+            // leftAvatar={{ source: { uri: l.avatar_url } }}
             title={l.studentName}
             subtitle={l.review}
             bottomDivider

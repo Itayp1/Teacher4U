@@ -16,7 +16,8 @@ class TeacherMainProfile extends React.Component {
       ratingAverage: this.props.ratingAverage,
       TimeTable: this.props.TimeTable,
       sumOfLessons: this.props.sumOfLessons,
-      visable: false
+      visable: false,
+      pic: this.props.pic
     };
   }
 
@@ -28,17 +29,29 @@ class TeacherMainProfile extends React.Component {
     if (
       this.props.views != this.state.views ||
       this.props.sumOfLessons != this.state.sumOfLessons ||
-      this.props.ratingAverage != this.state.ratingAverage
+      this.props.ratingAverage != this.state.ratingAverage ||
+      this.props.ratingAverage != this.state.ratingAverage ||
+      this.props.pic != this.state.pic
     ) {
       this.setState({
         views: this.props.views,
         sumOfLessons: this.props.sumOfLessons,
         ratingAverage: this.props.ratingAverage,
-        fullName: this.props.fullName
+        fullName: this.props.fullName,
+        pic: this.props.pic
       });
     }
   }
   render() {
+    const srcpic =
+      this.props.pic != "" ? (
+        <Image style={styles.avatar} source={{ uri: this.props.pic }} />
+      ) : (
+        <Image style={styles.avatar} source={require("./avatar6.png")} />
+      );
+    console.log("this.props.pic");
+
+    console.log(this.props);
     return (
       <View style={styles.view}>
         <Spinner
@@ -62,8 +75,9 @@ class TeacherMainProfile extends React.Component {
             isVisable={this.state.visable}
             close={() => this.setState({ visable: false })}
           />
+
           <TouchableOpacity onPress={() => this.setState({ visable: true })}>
-            <Image style={styles.avatar} source={require("./avatar6.png")} />
+            {srcpic}
           </TouchableOpacity>
         </View>
         <View style={styles.cards}>
@@ -123,7 +137,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { Rating, Teacher, TimeTable } = state;
+  const { Rating, Teacher, TimeTable, Picture: pic } = state;
 
   const { rating } = Rating.reduce(
     (pre, next) => {
@@ -134,8 +148,17 @@ const mapStateToProps = state => {
   const ratingAverage = parseInt(rating / Rating.length).toString();
   const views = Teacher.views || 0;
   const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
-  const fullName = Teacher.fullName;
-  return { ratingAverage, views, TimeTable, sumOfLessons, Teacher, fullName };
+  const { fullName } = Teacher;
+
+  return {
+    ratingAverage,
+    views,
+    TimeTable,
+    sumOfLessons,
+    Teacher,
+    fullName,
+    pic
+  };
 };
 
 export default connect(mapStateToProps, {

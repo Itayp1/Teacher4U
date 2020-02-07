@@ -4,7 +4,8 @@ import {
   TEACHER_RATING,
   TIME_TABLE,
   CHANGE_STATUS,
-  TEACHER_INFO_UPDATE
+  TEACHER_INFO_UPDATE,
+  SAVE_PICTURE
 } from "./types";
 import axios from "axios";
 
@@ -21,6 +22,7 @@ export const teacherFetch = () => {
     dispatch({ type: TEACHER_INFO_FEATCH, payload: allresponsed[0].data });
     dispatch({ type: TIME_TABLE, payload: allresponsed[1].data });
     dispatch({ type: TEACHER_RATING, payload: allresponsed[2].data });
+    dispatch({ type: SAVE_PICTURE, payload: allresponsed[0].data.pic });
   };
 };
 

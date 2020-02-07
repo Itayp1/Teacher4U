@@ -8,6 +8,8 @@ import { savePicture } from "../../actions";
 import styles from "./styles";
 import Toolbar from "./toolbar.component";
 import Gallery from "./gallery.component";
+import * as ImageManipulator from "expo-image-manipulator";
+
 class CameraPage extends React.Component {
   camera = null;
 
@@ -16,7 +18,7 @@ class CameraPage extends React.Component {
     captures: [],
     capturing: null,
     hasCameraPermission: null,
-    cameraType: Camera.Constants.Type.back,
+    cameraType: Camera.Constants.Type.front,
     flashMode: Camera.Constants.FlashMode.off
   };
 
@@ -33,14 +35,21 @@ class CameraPage extends React.Component {
       isVisable: true
     });
     const photoData = await this.camera.takePictureAsync({
-      quality: 0.1,
-      base64: true
+      quality: 0,
+      base64: false
     });
+
+    const imageFile = await ImageManipulator.manipulateAsync(
+      photoData.uri,
+      [{ resize: { width: 200, height: 200 } }],
+      { base64: true }
+    );
+
     this.setState({
       capturing: false,
       captures: [photoData, ...this.state.captures]
     });
-    this.props.savePicture(photoData.base64);
+    this.props.savePicture(imageFile.base64);
     this.setState({
       isVisable: false
     });

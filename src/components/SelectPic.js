@@ -8,14 +8,12 @@ import { Button } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 
 SelectPic = ({ navigation, Picture, isVisable, close }) => {
-  console.log(Picture);
-
   return (
     <Overlay
       borderRadius={15}
       height={200}
       isVisible={isVisable}
-      onBackdropPress={() => close}
+      onBackdropPress={() => close()}
     >
       <View>
         <Text style={{ marginTop: 10, textAlign: "center" }}>
@@ -42,7 +40,7 @@ SelectPic = ({ navigation, Picture, isVisable, close }) => {
         <Button
           title={"חזרה"}
           type="clear"
-          onPress={() => close}
+          onPress={close}
           buttonStyle={{ marginTop: 20 }}
         />
       </View>

@@ -7,7 +7,8 @@ import {
   SELECTED_TEACHER,
   APOINTMENT_lESSON,
   TEACHER_RATING,
-  STUDENT_INFO_UPDATE
+  STUDENT_INFO_UPDATE,
+  SAVE_PICTURE
 } from "./types";
 import axios from "axios";
 
@@ -18,6 +19,7 @@ export const studentFetch = () => {
     const allresponsed = await axios.all([responseTeacher, responseTimeTable]);
     dispatch({ type: STUDENT_INFO_FEATCH, payload: allresponsed[0].data });
     dispatch({ type: TIME_TABLE, payload: allresponsed[1].data });
+    dispatch({ type: SAVE_PICTURE, payload: allresponsed[0].data.pic });
   };
 };
 

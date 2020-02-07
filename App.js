@@ -34,6 +34,8 @@ import reducers from "./src/reducers";
 import cameraScreen from "./src/components/Camera/camera.page";
 import PhotoPickerScreen from "./src/components/PhotoPickerScreen";
 import SelectPicScreen from "./src/components/SelectPic";
+import ChoseepicScreen from "./src/components/Choseepic";
+
 const SearchTeacher = createStackNavigator({
   SearchTeachers: SearchTeacherScreen,
   TeacherList: TeacherListScreen,
@@ -55,6 +57,7 @@ const switchNavigator = createSwitchNavigator(
     Profilep: TeacherMainProfileScreen,
     Welcome: WelcomeScreen,
     TeacherRegistration: TeacherRegistrationScreen,
+    Choseepic: ChoseepicScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
       FacebookSignin: FacebookSigninScreen,

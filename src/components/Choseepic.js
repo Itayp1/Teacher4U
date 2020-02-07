@@ -1,72 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, Button } from "react-native";
-import { Camera } from "expo-camera";
+import { Button, View, Image } from "react-native";
+import { Asset } from "expo-asset";
+import * as ImageManipulator from "expo-image-manipulator";
 
 export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  let camera;
+  const [ready, setReady] = useState(false);
+  const [image, setImage] = useState(null);
+
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === "granted");
+      const image = Asset.fromModule(require("../icons/logo.png"));
+      await image.downloadAsync();
+      setReady(true);
+      setImage(image);
     })();
   }, []);
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
-  return (
-    <View style={{ flex: 1 }}>
-      <Camera
-        ref={ref => {
-          camera = ref;
+  const _rotate90andFlip = async () => {
+    const manipResult = await ImageManipulator.manipulateAsync(
+      image.localUri || image.uri,
+      [{ rotate: 90 }, { flip: ImageManipulator.FlipType.Vertical }],
+      { compress: 1, format: ImageManipulator.SaveFormat.PNG }
+    );
+    setImage(manipResult);
+  };
+
+  const _renderImage = () => {
+    return (
+      <View
+        style={{
+          marginVertical: 20,
+          alignItems: "center",
+          justifyContent: "center"
         }}
-        style={{ flex: 1 }}
-        type={type}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: "transparent",
-            flexDirection: "row"
-          }}
-        >
-          <Button
-            title="fdgfdg"
-            onPress={async () => {
-              if (camera) {
-                let photo = await camera.takePictureAsync({
-                  quality: 0.1,
-                  base64: true
-                });
-              }
-            }}
-          />
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: "flex-end",
-              alignItems: "center"
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}
-          >
-            <Text style={{ fontSize: 18, marginBottom: 10, color: "white" }}>
-              {" "}
-              Flip{" "}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </Camera>
+        <Image
+          source={{ uri: image.localUri || image.uri }}
+          style={{ width: 300, height: 300, resizeMode: "contain" }}
+        />
+      </View>
+    );
+  };
+
+  return (
+    <View style={{ flex: 1, justifyContent: "center" }}>
+      {ready && _renderImage()}
+      <Button title="Rotate and Flip" onPress={_rotate90andFlip} />
     </View>
   );
 }
