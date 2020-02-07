@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     justifyContent: "flex-start"
   },
   logo: { width: 350, height: 350, resizeMode: "contain", bottom: 70 },

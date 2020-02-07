@@ -78,7 +78,7 @@ ScheduleLessionsScreen.navigationOptions = {
 const styles = StyleSheet.create({
   main: {
     // marginTop: 10,
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   Header: {

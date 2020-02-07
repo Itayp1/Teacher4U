@@ -65,7 +65,7 @@ SearchTeacherScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1,
     marginTop: 10
   },

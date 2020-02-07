@@ -50,7 +50,7 @@ MessagesScreen.navigationOptions = {
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   HeadercenterComponent: {

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   main: {
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   HeadercenterComponent: {

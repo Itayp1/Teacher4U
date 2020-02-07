@@ -356,7 +356,7 @@ class FormExample extends Component {
 const styles = StyleSheet.create({
   main: {
     marginTop: 30,
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   elementSpaces: {

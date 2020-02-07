@@ -77,7 +77,7 @@ const ReviewScreen = ({ navigation }) => {
         ratingCount={5}
         imageSize={60}
         showRating
-        ratingBackgroundColor="#D3E8FF"
+        ratingBackgroundColor="white"
         readonly
         startingValue={ratingSum}
       />
@@ -93,7 +93,7 @@ ReviewScreen.navigationOptions = {
 const styles = StyleSheet.create({
   main: {
     // marginTop: 10,
-    backgroundColor: "#D3E8FF",
+    backgroundColor: "white",
     flex: 1
   },
   Header: {
