@@ -8,35 +8,42 @@ class TeacherProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     const {
-      name,
+      fullName,
       email,
       courses,
       generalDescription,
       university,
       priceAtStudent,
-      price
+      price,
+      pic
     } = this.props.SelectedTeacher;
     this.state = {
-      name,
+      fullName,
       email,
       courses,
       generalDescription,
       university,
       priceAtStudent,
-      price
+      price,
+      pic
     };
   }
 
   render() {
+    const srcpic =
+      this.props.pic != "" ? (
+        <Image style={styles.avatar} source={{ uri: this.props.pic }} />
+      ) : (
+        <Image style={styles.avatar} source={require("./avatar6.png")} />
+      );
     return (
       <View style={styles.view}>
         <View>
           <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
-            {this.state.name}
+            {this.state.fullName}
           </Text>
-          <TouchableOpacity>
-            <Image style={styles.avatar} source={require("./avatar6.png")} />
-          </TouchableOpacity>
+          {srcpic}
+
           <Button
             title="קבע שיעור"
             type="outline"

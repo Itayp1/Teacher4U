@@ -4,28 +4,28 @@ const validateText = Field => {
   // Then use it
 
   if (!LegalChars.test(Field)) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };
 
 const validatePhone = Field => {
   const LegalChars = new RegExp("^[0-9]+$"); //Note that this one allows space
   if (!LegalChars.test(Field)) {
-    return true;
-  } else if (Field.toString().split("").length != 10) {
-    return true;
-  } else {
     return false;
+  } else if (Field.toString().split("").length != 10) {
+    return false;
+  } else {
+    return true;
   }
 };
 const validateNumber = Field => {
   const LegalChars = new RegExp("^[0-9]+$"); //Note that this one allows space
   if (!LegalChars.test(Field)) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 };
 const validate = (validationType, term) => {
@@ -48,6 +48,16 @@ const validate = (validationType, term) => {
 };
 
 const StudentFormsValidation = (fullname, phone, city, datePickerTitle) => {
+  console.log("form validationnnnnnnnnnnnnnnn");
+  console.log(validate("text", fullname));
+  console.log("fullname" + fullname);
+
+  console.log(validate("phoneNumber", phone));
+  console.log("phoneNumber" + phone);
+
+  console.log(city);
+  console.log(datePickerTitle);
+
   if (
     validate("text", fullname) ||
     validate("phoneNumber", phone) ||

@@ -53,7 +53,11 @@ class CameraPage extends React.Component {
     this.setState({
       isVisable: false
     });
-    this.props.navigation.navigate("TeacherMenu");
+    const profile = this.props.navigation.getParam("profile");
+
+    profile == "teacher"
+      ? this.props.navigation.navigate("TeacherMenu")
+      : this.props.navigation.navigate("StudentMenu");
   };
 
   handleLongCapture = async () => {

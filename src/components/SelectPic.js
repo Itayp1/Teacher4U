@@ -7,7 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Button } from "react-native-elements";
 import { withNavigation } from "react-navigation";
 
-SelectPic = ({ navigation, Picture, isVisable, close }) => {
+SelectPic = ({ navigation, Picture, isVisable, close, profile }) => {
   return (
     <Overlay
       borderRadius={15}
@@ -30,7 +30,7 @@ SelectPic = ({ navigation, Picture, isVisable, close }) => {
 
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("camera");
+              navigation.navigate("camera", { profile });
               close();
             }}
           >

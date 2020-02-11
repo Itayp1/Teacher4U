@@ -70,7 +70,17 @@ const getAvaiablehours = async (email, date, setAvailablesHouers) => {
   });
   setAvailablesHouers(response.data.avaiables);
 };
-const getMonthsArray = (yyyy, mm, availablesDays) => {
+const getMonthsArray = (yyyy, mm, availablesDaystonum) => {
+  const days = {
+    ראשון: "1",
+    שני: "2",
+    שלישי: "3",
+    רביעי: "4",
+    חמישי: "5",
+    שישי: "6",
+    שבת: "7"
+  };
+  const availablesDays = availablesDaystonum.map(day => days[day]);
   yyyy = yyyy.length == 4 ? yyyy : `20${yyyy}`;
   mm = mm.toString().length > 1 ? mm : `0${mm}`;
 
@@ -102,7 +112,7 @@ const CalanderScreen = ({
   Student
 }) => {
   const {
-    name,
+    fullName: teacherfullName,
     email,
     availablesDays,
     profession,
@@ -150,7 +160,7 @@ const CalanderScreen = ({
                         apointmentLesson(
                           studentName,
                           studentEmail,
-                          name,
+                          teacherfullName,
                           email,
                           profession.name,
                           selectetDate,

@@ -15,7 +15,6 @@ import { teacherUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import FormValidation from "../../hooks/TeacherFormsValidation";
 import { AsyncStorage } from "react-native";
-
 function UselessTextInput(props) {
   return (
     <TextInput
@@ -60,18 +59,24 @@ class FormExample extends Component {
   printDetails = async (obj, access_token) => {
     try {
       this.setState({ spinner: true });
+      console.log("registration");
       response = await loginApi.post("/api/registration/teacher", obj, {
         headers: {
           Platform: "google",
           access_token: access_token
         }
       });
+      console.log("AsyncStorage");
+      console.log(response.data);
 
       await AsyncStorage.setItem("token", response.data.jwt);
       this.setState({ spinner: false });
 
       this.props.navigation.navigate("TeacherMenu");
     } catch (error) {
+      Alert.alert("Selected Item", error.toString());
+      this.setState({ spinner: false });
+
       console.log(error);
     }
   };
@@ -90,6 +95,7 @@ class FormExample extends Component {
       this.props.navigation.pop(1);
     } catch (error) {
       console.log(error);
+      Alert.alert("Selected Item", error.toString());
     }
   };
 
@@ -337,11 +343,14 @@ class FormExample extends Component {
                 ) {
                   Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
                 } else if (!this.props.Teacher.fullName) {
+                  console.log("not this.props.Teacher.fullName");
                   this.printDetails(
                     obj,
                     this.props.navigation.getParam("access_token")
                   );
                 } else {
+                  console.log("yes this.props.Teacher.fullName");
+
                   this.updateDetails(obj);
                 }
               }}

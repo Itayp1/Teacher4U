@@ -15,13 +15,15 @@ const ReviewScreen = ({ navigation }) => {
       try {
         const response = await api.get(`/api/rating/${email}`);
 
-        const { rating } = response.data.reduce(
+        let { rating } = response.data.reduce(
           (pre, next) => {
             return { rating: +pre.rating + +next.rating };
           },
           { rating: 0 }
         );
-        setRatingSum(rating / response.data.length);
+        const RatingSum = rating == 0 ? 0 : rating / response.data.length;
+
+        setRatingSum(RatingSum);
         setReviewList(response.data);
         setisvisable(false);
       } catch (error) {

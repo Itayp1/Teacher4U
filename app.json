@@ -21,6 +21,15 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "apiKey": "879750377002-0s7l05kifet0gn767dedp2pdkheq3qb9.apps.googleusercontent.com",
+          "certificateHash": "54:1A:D6:44:A4:4E:3F:A2:57:16:54:2E:3B:A9:DB:B8:C1:29:3A:BF"
+        }
+      }
     }
   }
 }

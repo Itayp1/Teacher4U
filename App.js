@@ -19,7 +19,7 @@ import TeacherReviewScreen from "./src/screens/Teacher/TeacherReviewScreen";
 import TeacherScheduleLessionsScreen from "./src/screens/Teacher/TeacherScheduleLessionsScreen";
 import StudentMainProfileScreen from "./src/screens/Student/StudentMainProfile";
 import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
-import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
+// import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
 import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
 import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";

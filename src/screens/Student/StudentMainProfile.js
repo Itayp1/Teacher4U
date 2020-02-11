@@ -69,6 +69,7 @@ class StudentMainProfile extends React.Component {
             {this.props.name}
           </Text>
           <SelectPic
+            profile="student"
             isVisable={this.state.visable}
             close={() => this.setState({ visable: false })}
           />

@@ -83,7 +83,7 @@ const mapStateToProps = state => {
     },
     { rating: 0 }
   );
-  const ratingAverage = rating / Rating.length;
+  const ratingAverage = rating == 0 ? 0 : parseInt(rating / Rating.length);
   return { reviews: Rating, ratingAverage };
 };
 

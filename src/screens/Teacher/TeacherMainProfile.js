@@ -73,6 +73,7 @@ class TeacherMainProfile extends React.Component {
           </Text>
           <SelectPic
             isVisable={this.state.visable}
+            profile="teacher"
             close={() => this.setState({ visable: false })}
           />
 
@@ -145,7 +146,9 @@ const mapStateToProps = state => {
     },
     { rating: 0 }
   );
-  const ratingAverage = parseInt(rating / Rating.length).toString();
+
+  const ratingAverage =
+    rating == 0 ? "0" : parseInt(rating / Rating.length).toString();
   const views = Teacher.views || 0;
   const sumOfLessons = TimeTable.timeTable ? TimeTable.timeTable.length : 0;
   const { fullName } = Teacher;

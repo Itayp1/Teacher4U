@@ -165,12 +165,7 @@ class StudentRegistrationScreenNew extends Component {
                 };
 
                 if (
-                  FormValidation(
-                    obj.fullName,
-                    obj.phone,
-                    obj.city,
-                    obj.datePickerTitle
-                  )
+                  !FormValidation(obj.fullName, obj.phone, obj.city, obj.age)
                 ) {
                   Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
                 } else if (!this.props.fullName) {
