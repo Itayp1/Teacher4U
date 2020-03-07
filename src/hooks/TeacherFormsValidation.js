@@ -49,9 +49,9 @@ const validate = (validationType, term) => {
 
 const TeacherFormsValidation = (fullname, phone, priceAtStudent, price) => {
   if (
-    validate("text", fullname) ||
-    validate("phoneNumber", phone) ||
-    validate("number", priceAtStudent) ||
+    validate("text", fullname) &&
+    validate("phoneNumber", phone) &&
+    validate("number", priceAtStudent) &&
     validate("number", price)
   ) {
     return true;

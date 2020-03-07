@@ -13,8 +13,7 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import SelectProfileScreen from "./src/screens/SelectProfileScreen";
 import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistrationScreen";
 import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
-import MessageScreen from "./src/screens/MessagesScreen";
-import ReviewScreen from "./src/screens/ReviewScreen";
+
 import TeacherReviewScreen from "./src/screens/Teacher/TeacherReviewScreen";
 import TeacherScheduleLessionsScreen from "./src/screens/Teacher/TeacherScheduleLessionsScreen";
 import StudentMainProfileScreen from "./src/screens/Student/StudentMainProfile";
@@ -51,14 +50,11 @@ SearchTeacher.navigationOptions = {
 
 const switchNavigator = createSwitchNavigator(
   {
+    Welcome: WelcomeScreen,
     addReview: addReviewScreen,
     PhotoPicker: PhotoPickerScreen,
-    MessageTest: MessageScreen,
     camera: cameraScreen,
     SelectPic: SelectPicScreen,
-    Profilep: TeacherMainProfileScreen,
-    Welcome: WelcomeScreen,
-    TeacherRegistration: TeacherRegistrationScreen,
     Choseepic: ChoseepicScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,

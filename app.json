@@ -6,9 +6,9 @@
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
 
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./icons/playstore.png",
     "facebookScheme": "fb552200288939015",
     "splash": {
       "image": "./assets/splash.png",
@@ -20,10 +20,13 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "bundleIdentifier": "com.itayp.Teacher4u",
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
-      "package": "host.exp.exponent",
+      "versionCode": 3,
+      "package": "com.teacher4u.itayp",
       "config": {
         "googleSignIn": {
           "apiKey": "879750377002-0s7l05kifet0gn767dedp2pdkheq3qb9.apps.googleusercontent.com",

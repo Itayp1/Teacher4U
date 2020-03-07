@@ -59,9 +59,9 @@ const StudentFormsValidation = (fullname, phone, city, datePickerTitle) => {
   console.log(datePickerTitle);
 
   if (
-    validate("text", fullname) ||
-    validate("phoneNumber", phone) ||
-    city ||
+    validate("text", fullname) &&
+    validate("phoneNumber", phone) &&
+    city &&
     datePickerTitle
     //  validate("datePickerTitle", datePickerTitle)
   ) {

@@ -142,7 +142,15 @@ const CalanderScreen = ({
 
   return (
     <View style={styles.main}>
-      <Modal isVisible={visable} onBackdropPress={() => setVisable(false)}>
+      <Modal
+        isVisible={visable}
+        onBackdropPress={() => setVisable(false)}
+        transparent={true}
+        animationType="slide"
+        onBackButtonPress={() => {
+          setVisable(false);
+        }}
+      >
         <ScrollView style={{ backgroundColor: "white", borderRadius: 90 }}>
           <Text style={{ textAlign: "center", fontSize: 20 }}>
             {" "}

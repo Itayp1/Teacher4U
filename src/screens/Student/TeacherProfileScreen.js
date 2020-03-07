@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { getReviews } from "./../../actions/";
+import { getReviews, selectTeacher } from "./../../actions/";
 import { Button, Header, Text } from "react-native-elements";
 
 class TeacherProfileScreen extends React.Component {
@@ -28,21 +28,26 @@ class TeacherProfileScreen extends React.Component {
       pic
     };
   }
+  srcpic = () => {
+    console.log("this.props.pic4");
 
+    return this.props.SelectedTeacher.pic != "" ? (
+      <Image
+        style={styles.avatar}
+        source={{ uri: this.props.SelectedTeacher.pic }}
+      />
+    ) : (
+      <Image style={styles.avatar} source={require("./avatar6.png")} />
+    );
+  };
   render() {
-    const srcpic =
-      this.props.pic != "" ? (
-        <Image style={styles.avatar} source={{ uri: this.props.pic }} />
-      ) : (
-        <Image style={styles.avatar} source={require("./avatar6.png")} />
-      );
     return (
       <View style={styles.view}>
         <View>
           <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
             {this.state.fullName}
           </Text>
-          {srcpic}
+          {this.srcpic()}
 
           <Button
             title="קבע שיעור"
@@ -109,7 +114,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { SelectedTeacher } = state;
-
   return { SelectedTeacher };
 };
 

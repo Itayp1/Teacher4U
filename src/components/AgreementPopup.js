@@ -4,14 +4,14 @@ import { Overlay, Text, ButtonGroup, Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { changeStatus } from "../actions/index";
 import moment from "moment";
-const agreementStatus = ["accepted", "canceled", "awating"];
+const agreementStatus = ["accepted", "canceled", "waiting"];
 
 const validateDate = (lessonDateDate, id) => {
   let isValid = false;
   lessonDateDate.timeTable.forEach(obj => {
     if (obj.id == id) {
       isValid = true;
-      const timeInISo = moment(obj.date, "DD-MM-YYYY").toISOString();
+      const timeInISo = moment(obj.date, "YYYY-MM-DD").toISOString();
       isValid =
         moment(timeInISo).diff(moment().toISOString(), "m") > 0 ? true : false;
     }

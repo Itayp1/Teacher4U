@@ -49,6 +49,13 @@ export const fetchListOfTeachers = (city, course, navigation) => {
 };
 
 export const selectTeacher = teacher => {
+  api.get(`/api/information/teacher`, {
+    params: {
+      email: teacher.email
+    }
+  });
+  console.log("");
+
   return {
     type: SELECTED_TEACHER,
     payload: teacher

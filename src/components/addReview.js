@@ -40,13 +40,14 @@ addReview = ({
     >
       <Spinner
         visible={spinerVisable}
-        textContent={"Saving Picture..."}
+        textContent={"Saving review..."}
         textStyle={styles.spinnerTextStyle}
       />
-      <Text>הוספת ביקורת</Text>
-      <View style={{ right: 30 }}>
+      <View style={{ alignItems: "center" }}>
+        <Text>הוספת ביקורת</Text>
         <FontAwesome name="star" size={20} />
       </View>
+      <View style={{ right: 30 }}></View>
       <Overlay
         borderRadius={15}
         height={300}

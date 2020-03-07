@@ -6,20 +6,21 @@ import MultiSelect from "../../components/MultiSelect";
 import FormSearchInput from "../../components/FormSearchInput";
 import { StyleSheet, Alert, Text } from "react-native";
 import { Container, Form, Content, Picker, Label, View } from "native-base";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import loginApi from "../../api/api";
 import { connect } from "react-redux";
 import { studentUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import { AsyncStorage } from "react-native";
 import FormValidation from "../../hooks/StudentFormsValidation";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 class StudentRegistrationScreenNew extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       spinner: false,
-      fullname: this.props.fullName || "שם מלא",
+      fullname: this.props.fullName || "",
       phone: this.props.phone || "",
       gender: this.props.gender || "זכר",
       city: this.props.city || "",
@@ -111,18 +112,23 @@ class StudentRegistrationScreenNew extends Component {
             </View>
 
             <View style={styles.elementSpaces}>
-              <DateTimePickerModal
-                isVisible={this.state.DateTimePickerVisable}
-                mode="date"
-                onConfirm={res => {
-                  const date = new Date(res);
-                  this.setState({ DateTimePickerVisable: false });
-                  this.setState({
-                    datePickerTitle: moment(date).format("DD/MM/YYYY")
-                  });
-                }}
-                onCancel={() => {}}
-              />
+              {this.state.DateTimePickerVisable && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  isVisible={this.state.DateTimePickerVisable}
+                  value={new Date()}
+                  display="spinner"
+                  mode="date"
+                  onChange={(event, selectetDate) => {
+                    const date = new Date(selectetDate);
+                    this.setState({
+                      DateTimePickerVisable: false,
+                      datePickerTitle: moment(date).format("DD/MM/YYYY")
+                    });
+                  }}
+                  onCancel={() => {}}
+                />
+              )}
               <Button
                 style={{ borderRadius: 100 }}
                 title={this.state.datePickerTitle}
@@ -168,6 +174,7 @@ class StudentRegistrationScreenNew extends Component {
                   !FormValidation(obj.fullName, obj.phone, obj.city, obj.age)
                 ) {
                   Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
+                  return;
                 } else if (!this.props.fullName) {
                   this.printDetails(
                     obj,

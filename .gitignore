@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
-
+keystore.txt
+keystore.jks
 # macOS
 .DS_Store
