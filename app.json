@@ -11,7 +11,7 @@
     "icon": "https://i.imgur.com/dx9PGnz.png",
     "facebookScheme": "fb552200288939015",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://i.imgur.com/Bf3W1Znl.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

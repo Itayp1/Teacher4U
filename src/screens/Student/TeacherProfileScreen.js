@@ -29,8 +29,6 @@ class TeacherProfileScreen extends React.Component {
     };
   }
   srcpic = () => {
-    console.log("this.props.pic4");
-
     return this.props.SelectedTeacher.pic != "" ? (
       <Image
         style={styles.avatar}
@@ -44,7 +42,7 @@ class TeacherProfileScreen extends React.Component {
     return (
       <View style={styles.view}>
         <View>
-          <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
+          <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
             {this.state.fullName}
           </Text>
           {this.srcpic()}

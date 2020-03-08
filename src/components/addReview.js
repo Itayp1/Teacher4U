@@ -22,7 +22,7 @@ addReview = ({
   studentName
 }) => {
   const [isVisible, SetisVisible] = useState(false);
-  const [textInput, setTextInput] = useState("יש לרשום כאן ביקורת");
+  const [textInput, setTextInput] = useState("");
   const [rating, setRating] = useState(5);
   const [spinerVisable, SetspinerVisable] = useState(false);
 
@@ -71,7 +71,7 @@ addReview = ({
 
           <TextInput
             editable
-            maxLength={60}
+            maxLength={200}
             style={{
               textAlign: "right",
               height: 60,

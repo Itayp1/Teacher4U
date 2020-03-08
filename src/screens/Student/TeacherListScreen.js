@@ -1,9 +1,14 @@
 import { ListItem } from "react-native-elements";
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
 import { Text, Header, Input } from "react-native-elements";
 import { connect } from "react-redux";
 import { selectTeacher } from "../../actions/StudentProfile";
+
+const notExist = navigation => {
+  navigation.goBack();
+  Alert.alert("חיפוש מורים", "לא נמצאו תוצאות");
+};
 const TeacherListScreen = ({
   navigation,
   teacherList,
@@ -23,6 +28,7 @@ const TeacherListScreen = ({
           style: styles.HeadercenterComponent
         }}
       />
+      {teacherList.length == 0 ? notExist(navigation) : null}
 
       <View>
         {teacherList.map((l, i) => (

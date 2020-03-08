@@ -68,7 +68,7 @@ class TeacherMainProfile extends React.Component {
           }}
         />
         <View>
-          <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
+          <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
             {this.props.fullName}
           </Text>
           <SelectPic

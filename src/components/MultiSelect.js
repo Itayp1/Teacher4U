@@ -77,6 +77,7 @@ export default MultiSelect = ({
 
           <FlatList
             data={listResult(list, term)}
+            keyboardShouldPersistTaps={true}
             keyExtractor={result => result.id.toString()}
             renderItem={({ item }) => {
               return (
