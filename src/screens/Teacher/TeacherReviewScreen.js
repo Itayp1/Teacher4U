@@ -23,8 +23,8 @@ const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
           style: styles.HeadercenterComponent
         }}
       />
-      <View style={{ marginBottom: 20 }}>
-        <ScrollView>
+      <ScrollView>
+        <View style={{ marginBottom: 20 }}>
           {reviews.map((l, i) => (
             <ListItem
               key={i}
@@ -34,8 +34,8 @@ const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
               bottomDivider
             />
           ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
       <Rating
         ratingCount={5}
         imageSize={60}

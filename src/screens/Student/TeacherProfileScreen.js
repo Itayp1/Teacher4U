@@ -38,7 +38,8 @@ class TeacherProfileScreen extends React.Component {
     };
   }
   srcpic = () => {
-    return this.props.SelectedTeacher.pic != "" ? (
+    return this.props.SelectedTeacher.pic &&
+      this.props.SelectedTeacher.pic != "" ? (
       <Image
         style={styles.avatar}
         source={{ uri: this.props.SelectedTeacher.pic }}

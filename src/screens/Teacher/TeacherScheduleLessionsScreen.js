@@ -1,6 +1,6 @@
 import { ListItem } from "react-native-elements";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, ScrollView } from "react-native";
 import { Text, Header, Input, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
@@ -16,23 +16,24 @@ const TeacherScheduleLessionsScreen = ({ navigation, timeTable }) => {
           style: styles.HeadercenterComponent
         }}
       />
-
-      <View>
-        {timeTable.map((l, i) => (
-          <View key={i}>
-            <ListItem
-              key={i}
-              //     leftAvatar={{ source: { uri: l.avatar_url } }}
-              rightElement={
-                <TimeTableStatus status={l.status} tableId={l.id} />
-              }
-              title={l.name}
-              subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-              bottomDivider
-            />
-          </View>
-        ))}
-      </View>
+      <ScrollView>
+        <View>
+          {timeTable.map((l, i) => (
+            <View key={i}>
+              <ListItem
+                key={i}
+                //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                rightElement={
+                  <TimeTableStatus status={l.status} tableId={l.id} />
+                }
+                title={l.name}
+                subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                bottomDivider
+              />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
