@@ -1,6 +1,6 @@
 import React, { Component, useContext } from "react";
 import { Button } from "react-native-elements";
-import cities from "../../../config/cities.json";
+import cities from "../../../config/cities";
 import listOfcources from "../../../config/professions.json";
 import days from "../../../config/days.json";
 import moment from "moment";
@@ -15,6 +15,7 @@ import { teacherUpdate } from "../../actions";
 import Spinner from "react-native-loading-spinner-overlay";
 import FormValidation from "../../hooks/TeacherFormsValidation";
 import { AsyncStorage } from "react-native";
+
 function UselessTextInput(props) {
   return (
     <TextInput
@@ -42,8 +43,7 @@ class FormExample extends Component {
       coursesisVisible: false,
       studyCities: this.props.Teacher.studyCities || [],
       studyCitiesVisable: false,
-      university:
-        this.props.Teacher.university || "שם המוסד בו למדה או השגלה רלוונטית",
+      university: this.props.Teacher.university || "",
       generalDescription: this.props.Teacher.generalDescription || "",
       priceValidation: false,
       availablesDays: this.props.Teacher.availablesDays || [],
@@ -149,14 +149,9 @@ class FormExample extends Component {
               <Label>מין</Label>
               <Picker
                 selectedValue={this.state.gender}
-                style={{ height: 50, width: 100 }}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ gender: itemValue })
                 }
-                style={{
-                  borderColor: "black",
-                  borderWidth: 1
-                }}
               >
                 <Picker.Item label="זכר" value="זכר" />
                 <Picker.Item label="נקבה" value="נקבה" />
@@ -165,6 +160,7 @@ class FormExample extends Component {
             <FormSearchInput
               title={"מוסד /  השכלה"}
               input={"שם המוסד או סוג ההשכלה"}
+              initializeValue={this.state.university.toString()}
               validationType={"text"}
               inputValue={input => {
                 this.setState({ university: input });
@@ -180,9 +176,14 @@ class FormExample extends Component {
                   mode="date"
                   onChange={(event, selectetDate) => {
                     const date = new Date(selectetDate);
+                    if (selectetDate) {
+                      this.setState({
+                        datePickerTitle: moment(date).format("DD/MM/YYYY"),
+                        DateTimePickerVisable: false
+                      });
+                    }
                     this.setState({
-                      DateTimePickerVisable: false,
-                      datePickerTitle: moment(date).format("DD/MM/YYYY")
+                      DateTimePickerVisable: false
                     });
                   }}
                   onCancel={() => {}}
@@ -290,9 +291,11 @@ class FormExample extends Component {
                     id: day.toString()
                   };
                 })}
-                selectedItems={selected =>
-                  this.setState({ avaiablesHours: selected })
-                }
+                selectedItems={selected => {
+                  const sorted = selected.sort();
+
+                  this.setState({ avaiablesHours: sorted });
+                }}
                 showList={true}
               />
             </View>
@@ -334,7 +337,6 @@ class FormExample extends Component {
                   availablesDays: this.state.availablesDays,
                   avaiablesHours: this.state.avaiablesHours,
                   age: this.state.datePickerTitle,
-                  pic: "",
                   rating: 0,
                   profile: "teacher"
                 };
@@ -344,9 +346,22 @@ class FormExample extends Component {
                     obj.phone,
                     obj.priceAtStudent,
                     obj.price
-                  )
+                  ) ||
+                  !this.state.fullName ||
+                  !this.state.phone ||
+                  !this.state.priceAtStudent ||
+                  !this.state.price ||
+                  !this.state.gender ||
+                  !this.state.city ||
+                  this.state.courses.length == 0 ||
+                  this.state.studyCities.length == 0 ||
+                  !this.state.university ||
+                  !this.state.generalDescription ||
+                  this.state.availablesDays.length == 0 ||
+                  !this.state.avaiablesHours.length ||
+                  !this.state.datePickerTitle
                 ) {
-                  Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
+                  Alert.alert("שיאה בנתונים ", "יש למלא את כל השדות");
                 } else if (!this.props.Teacher.fullName) {
                   console.log("not this.props.Teacher.fullName");
                   this.printDetails(
@@ -354,7 +369,8 @@ class FormExample extends Component {
                     this.props.navigation.getParam("access_token")
                   );
                 } else {
-                  console.log("yes this.props.Teacher.fullName");
+                  console.log("erorssssssssssss");
+                  console.log(this.state.availablesDays);
 
                   this.updateDetails(obj);
                 }

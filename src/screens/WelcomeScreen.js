@@ -29,7 +29,7 @@ const WelcomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  main: { flex: 1, marginLeft: 15, marginBottom: 40 },
+  main: { flex: 1, marginBottom: 40, alignItems: "center" },
   image: { width: 350, height: 350, resizeMode: "contain" }
 });
 

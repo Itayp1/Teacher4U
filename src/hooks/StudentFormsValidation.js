@@ -48,16 +48,6 @@ const validate = (validationType, term) => {
 };
 
 const StudentFormsValidation = (fullname, phone, city, datePickerTitle) => {
-  console.log("form validationnnnnnnnnnnnnnnn");
-  console.log(validate("text", fullname));
-  console.log("fullname" + fullname);
-
-  console.log(validate("phoneNumber", phone));
-  console.log("phoneNumber" + phone);
-
-  console.log(city);
-  console.log(datePickerTitle);
-
   if (
     validate("text", fullname) &&
     validate("phoneNumber", phone) &&

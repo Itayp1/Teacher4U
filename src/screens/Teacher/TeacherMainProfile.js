@@ -49,9 +49,7 @@ class TeacherMainProfile extends React.Component {
       ) : (
         <Image style={styles.avatar} source={require("./avatar6.png")} />
       );
-    console.log("this.props.pic");
 
-    console.log(this.props);
     return (
       <View style={styles.view}>
         <Spinner

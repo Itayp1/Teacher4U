@@ -4,14 +4,15 @@ import {
   StyleSheet,
   Image,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 
 //import { Button } from "react-native-elements";
 import { Text, Header } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import SearchInput from "../../components/SearchInput";
-import cities from "../../../config/cities.json";
+import cities from "../../../config/cities";
 import professions from "../../../config/professions.json";
 import api from "../../api/api";
 import { connect } from "react-redux";
@@ -53,7 +54,13 @@ const SearchTeacherScreen = ({ navigation, fetchListOfTeachers }) => {
       <TouchableOpacity style={styles.button}>
         <Button
           title="המשך"
-          onPress={() => fetchListOfTeachers(city, profession, navigation)}
+          onPress={() => {
+            if (city == 0 || profession == 0) {
+              Alert.alert("חסרים פרטים", "יש לבחור עיר ומקצוע");
+              return;
+            }
+            fetchListOfTeachers(city, profession, navigation);
+          }}
         />
       </TouchableOpacity>
     </View>

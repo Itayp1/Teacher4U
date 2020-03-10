@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import cities from "../../config/cities.json";
+import cities from "../../config/cities";
 import AgreementPopup from "../components/AgreementPopup";
 
 import { View, StyleSheet, Image, Text } from "react-native";

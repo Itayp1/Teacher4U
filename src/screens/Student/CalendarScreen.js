@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { apointmentLesson } from "../../actions/index";
-import { Text } from "react-native-elements";
+import { Text, Divider } from "react-native-elements";
 import { LocaleConfig } from "react-native-calendars";
 import { Calendar } from "react-native-calendars";
 import Modal from "react-native-modal";
@@ -119,6 +119,32 @@ const CalanderScreen = ({
     avaiablesHours
   } = SelectedTeacher;
 
+  const num2time = [
+    "00:00",
+    "01:00",
+    "02:00",
+    "03:00",
+    "04:00",
+    "05:00",
+    "06:00",
+    "07:00",
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00"
+  ];
   const { fullName: studentName, email: studentEmail } = Student;
   const [visableOk, setVisableOK] = useState(false);
   const [selectetDate, setSelectetDate] = useState({});
@@ -189,8 +215,9 @@ const CalanderScreen = ({
                         fontSize: 20
                       }}
                     >
-                      {item}
+                      {num2time[item]}
                     </Text>
+                    <Divider style={{ backgroundColor: "blue" }} />
                   </TouchableOpacity>
                 </View>
               );

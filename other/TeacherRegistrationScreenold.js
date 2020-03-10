@@ -2,7 +2,7 @@ import React, { Component, useState } from "react";
 import { Button, Text, Overlay } from "react-native-elements";
 import { CustomPicker } from "react-native-custom-picker";
 import PickerModal from "react-native-picker-modal-view";
-import cities from "../../../config/cities.json";
+import cities from "../../../config/cities";
 import moment from "moment";
 
 import {

@@ -1,11 +1,11 @@
 import React, { Component, useContext } from "react";
 import { Button } from "react-native-elements";
-import cities from "../../../config/cities.json";
+import cities from "../../../config/cities";
 import moment from "moment";
 import MultiSelect from "../../components/MultiSelect";
 import FormSearchInput from "../../components/FormSearchInput";
-import { StyleSheet, Alert, Text } from "react-native";
-import { Container, Form, Content, Picker, Label, View } from "native-base";
+import { StyleSheet, Alert, Picker } from "react-native";
+import { Container, Form, Content, Label, View } from "native-base";
 import loginApi from "../../api/api";
 import { connect } from "react-redux";
 import { studentUpdate } from "../../actions";
@@ -97,14 +97,10 @@ class StudentRegistrationScreenNew extends Component {
               <Label>מין</Label>
               <Picker
                 selectedValue={this.state.gender}
-                style={{ height: 50, width: 100 }}
+                style={{}}
                 onValueChange={(itemValue, itemIndex) =>
                   this.setState({ gender: itemValue })
                 }
-                style={{
-                  borderColor: "black",
-                  borderWidth: 1
-                }}
               >
                 <Picker.Item label="זכר" value="זכר" />
                 <Picker.Item label="נקבה" value="נקבה" />
@@ -121,9 +117,14 @@ class StudentRegistrationScreenNew extends Component {
                   mode="date"
                   onChange={(event, selectetDate) => {
                     const date = new Date(selectetDate);
+                    if (selectetDate) {
+                      this.setState({
+                        datePickerTitle: moment(date).format("DD/MM/YYYY"),
+                        DateTimePickerVisable: false
+                      });
+                    }
                     this.setState({
-                      DateTimePickerVisable: false,
-                      datePickerTitle: moment(date).format("DD/MM/YYYY")
+                      DateTimePickerVisable: false
                     });
                   }}
                   onCancel={() => {}}
@@ -166,7 +167,6 @@ class StudentRegistrationScreenNew extends Component {
                   city: this.state.city,
                   gender: this.state.gender,
                   age: this.state.datePickerTitle,
-                  pic: "",
                   profile: "student"
                 };
 
@@ -181,9 +181,6 @@ class StudentRegistrationScreenNew extends Component {
                     this.props.navigation.getParam("access_token")
                   );
                 } else {
-                  console.log("this.state.inputValidationError");
-
-                  console.log(this.state.inputValidationError);
                   this.updateDetails(obj);
                 }
               }}

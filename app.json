@@ -6,12 +6,12 @@
     "sdkVersion": "36.0.0",
     "platforms": ["ios", "android", "web"],
 
-    "version": "1.0.2",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "https://i.imgur.com/dx9PGnz.png",
     "facebookScheme": "fb552200288939015",
     "splash": {
-      "image": "https://i.imgur.com/Bf3W1Znl.png",
+      "image": "https://i.ibb.co/P6CLcZC/splash-Welcome.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,11 +21,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.itayp.Teacher4u",
-      "buildNumber": "1.0.2",
+      "buildNumber": "1.0.6",
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 6,
       "package": "com.teacher4u.itayp",
       "config": {
         "googleSignIn": {

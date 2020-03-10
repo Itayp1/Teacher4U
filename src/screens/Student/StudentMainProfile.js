@@ -65,7 +65,7 @@ class StudentMainProfile extends React.Component {
           }}
         />
         <View>
-          <Text h1 style={{ textAlign: "center", marginTop: 30 }}>
+          <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
             {this.props.name}
           </Text>
           <SelectPic
@@ -121,9 +121,8 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     // borderColor: "white",
     marginBottom: 10,
-    alignSelf: "center",
+    alignSelf: "center"
     // position: "absolute",
-    marginTop: 35
   },
   HeadercenterComponent: {
     fontSize: 25,

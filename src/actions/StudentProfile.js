@@ -54,7 +54,6 @@ export const selectTeacher = teacher => {
       email: teacher.email
     }
   });
-  console.log("");
 
   return {
     type: SELECTED_TEACHER,

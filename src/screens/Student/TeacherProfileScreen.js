@@ -1,8 +1,15 @@
 import React from "react";
-import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Linking,
+  TouchableOpacity
+} from "react-native";
 import { connect } from "react-redux";
 import { getReviews, selectTeacher } from "./../../actions/";
-import { Button, Header, Text } from "react-native-elements";
+import { Button, Card, Text, Divider } from "react-native-elements";
+import { Feather } from "@expo/vector-icons";
 
 class TeacherProfileScreen extends React.Component {
   constructor(props) {
@@ -15,6 +22,7 @@ class TeacherProfileScreen extends React.Component {
       university,
       priceAtStudent,
       price,
+      phone,
       pic
     } = this.props.SelectedTeacher;
     this.state = {
@@ -25,6 +33,7 @@ class TeacherProfileScreen extends React.Component {
       university,
       priceAtStudent,
       price,
+      phone,
       pic
     };
   }
@@ -35,28 +44,34 @@ class TeacherProfileScreen extends React.Component {
         source={{ uri: this.props.SelectedTeacher.pic }}
       />
     ) : (
-      <Image style={styles.avatar} source={require("./avatar6.png")} />
+      <Image
+        style={styles.avatar}
+        source={require("../../../icons/Student_transperncy_.png")}
+      />
     );
   };
   render() {
     return (
       <View style={styles.view}>
-        <View>
-          <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
-            {this.state.fullName}
-          </Text>
-          {this.srcpic()}
+        <Text h1 style={{ textAlign: "center" }}>
+          {this.state.fullName}
+        </Text>
+        {this.srcpic()}
+        <Text h4 style={styles.text}>
+          {"מוסד לימודים : " + this.state.university}
+        </Text>
 
+        <View style={styles.cards}>
           <Button
             title="קבע שיעור"
             type="outline"
-            containerStyle={{ margin: 40 }}
+            containerStyle={{ margin: 15, width: 150 }}
             onPress={() => {
               this.props.navigation.navigate("Calender");
             }}
           />
-
           <Button
+            containerStyle={{ margin: 15, width: 150 }}
             title="הצג ביקורות"
             type="outline"
             onPress={() => {
@@ -67,6 +82,24 @@ class TeacherProfileScreen extends React.Component {
             }}
           />
         </View>
+
+        <View style={styles.cards}>
+          <Card title={`שיעור בבית התלמיד`}>
+            <Text style={styles.text}>{this.state.price + " ₪"}</Text>
+          </Card>
+          <Card title="שיעור בבית המורה">
+            <Text style={styles.text}>{this.state.priceAtStudent + " ₪"}</Text>
+          </Card>
+        </View>
+        <TouchableOpacity
+          style={{ marginTop: 30 }}
+          onPress={() => {
+            Linking.openURL(`tel:${this.state.phone}`);
+          }}
+        >
+          <Feather name="phone-call" size={50} />
+          <Text>צור קשר</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -101,8 +134,9 @@ const styles = StyleSheet.create({
     // borderColor: "white",
     marginBottom: 10,
     alignSelf: "center",
+    resizeMode: "contain",
     // position: "absolute",
-    marginTop: 35
+    marginTop: 10
   },
   HeadercenterComponent: {
     fontSize: 25,

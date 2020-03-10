@@ -27,7 +27,6 @@ addReview = ({
   const [spinerVisable, SetspinerVisable] = useState(false);
 
   const ratingCompleted = rate => {
-    console.log("Rating is: " + rating);
     setRating(rate);
   };
   if (hasReview) {

@@ -16,7 +16,7 @@ import { Button } from "react-native-elements";
 import MultiSelectResult from "../components/MultiSelectResult";
 
 import { Feather } from "@expo/vector-icons";
-import cities from "../../config/cities.json";
+import cities from "../../config/cities";
 const listResult = (list, term) => {
   let index = 0;
   term ? term : null;
@@ -77,7 +77,7 @@ export default MultiSelect = ({
 
           <FlatList
             data={listResult(list, term)}
-            keyboardShouldPersistTaps={true}
+            keyboardShouldPersistTaps="always"
             keyExtractor={result => result.id.toString()}
             renderItem={({ item }) => {
               return (

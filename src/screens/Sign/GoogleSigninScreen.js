@@ -26,7 +26,7 @@ const signInWithGoogleAsync = async (navigation, setIsVisable) => {
         "879750377002-iv2ka9ht149lc6l7h40i74hq8jsd16ib.apps.googleusercontent.com";
     } else {
       config.androidClientId =
-        "879750377002-0s7l05kifet0gn767dedp2pdkheq3qb9.apps.googleusercontent.com";
+        "879750377002-sj5g0pq3k0kvu4n9ebljh8qchcq2l50s.apps.googleusercontent.com";
       config.androidStandaloneAppClientId =
         "879750377002-0s7l05kifet0gn767dedp2pdkheq3qb9.apps.googleusercontent.com";
     }
