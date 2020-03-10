@@ -21,7 +21,7 @@ function UselessTextInput(props) {
     <TextInput
       {...props} // Inherit any props passed to it; e.g., multiline, numberOfLines below
       editable
-      maxLength={40}
+      maxLength={100}
     />
   );
 }
@@ -31,6 +31,7 @@ class FormExample extends Component {
     super(props);
 
     this.state = {
+      marginText: 5,
       spinner: false,
       fullName: this.props.Teacher.fullName || "",
       phone: this.props.Teacher.phone || "",
@@ -299,7 +300,7 @@ class FormExample extends Component {
                 showList={true}
               />
             </View>
-            <View style={styles.elementSpaces}>
+            <View style={styles.generalDescription}>
               <Text>יש להכניס תיאור קצר</Text>
               <View
                 style={{
@@ -391,6 +392,10 @@ const styles = StyleSheet.create({
   },
   elementSpaces: {
     marginTop: 5
+  },
+  generalDescription: {
+    marginTop: 5,
+    marginBottom: 240
   },
   title: {
     marginRight: 20,

@@ -13,7 +13,7 @@ const SigninScreen = ({ navigation }) => {
         התחבר למערכת
       </Text>
       <GoogleButton />
-      <FacebookButton />
+      {/* <FacebookButton /> */}
     </View>
   );
 };

@@ -68,7 +68,7 @@ export default MultiSelect = ({
               autoCapitalize="none"
               autoCorrect={false}
               style={styles.inputStyle}
-              placeholder="Search"
+              placeholder="חיפוש"
               value={term}
               onChangeText={term => seterm(term)}
               onEndEditing={() => {}}
@@ -124,9 +124,11 @@ export default MultiSelect = ({
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 20
+    fontSize: 20,
+    textAlign: "center"
   },
   item: {
+    borderRadius: 20,
     borderWidth: 1,
     // borderRadius: 10,
     backgroundColor: "#F0EEEE",
@@ -137,13 +139,17 @@ const styles = StyleSheet.create({
   container: {
     // alignItems: "center",
     marginTop: 50,
+    marginLeft: 5,
+    marginRight: 5,
     // height: 50,
     // width: 200,
     backgroundColor: "white",
-    borderWidth: 5,
-    height: 300
+    borderWidth: 3,
+    height: 300,
+    borderRadius: 20
   },
   backgroundStyle: {
+    borderRadius: 20,
     marginTop: 10,
     backgroundColor: "#F0EEEE",
     height: 50,

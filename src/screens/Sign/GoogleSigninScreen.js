@@ -101,7 +101,8 @@ const styles = StyleSheet.create({
   // main: { flex: 1, marginLeft: 15, marginBottom: 40 },
   image: {
     resizeMode: "contain",
-    width: 350
+    width: 340,
+    borderRadius: 20
   },
   header: {
     fontSize: 25
