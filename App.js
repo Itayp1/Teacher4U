@@ -4,28 +4,26 @@ import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { setNavigator } from "./src/navigationRef";
-//import { AnimatedCircleBarComponent } from "react-navigation-custom-bottom-tab-component/AnimatedCircleBarComponent";
 import { FlexibleTabBarComponent } from "react-navigation-custom-bottom-tab-component/FlexibleTabBarComponent";
 import SigninScreen from "./src/screens/Sign/SigninScreen";
 import FacebookSigninScreen from "./src/screens/Sign/FacebookSigninScreen";
 import GoogleSigninScreen from "./src/screens/Sign/GoogleSigninScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
+import FadeInScreen from "./src/screens/FadeIn";
+
 import SelectProfileScreen from "./src/screens/SelectProfileScreen";
 import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistrationScreen";
 import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
-
 import TeacherReviewScreen from "./src/screens/Teacher/TeacherReviewScreen";
 import TeacherScheduleLessionsScreen from "./src/screens/Teacher/TeacherScheduleLessionsScreen";
 import StudentMainProfileScreen from "./src/screens/Student/StudentMainProfile";
 import ScheduleLessionsScreen from "./src/screens/Student/ScheduleLessionsScreen";
-// import StudentProfileScreen from "./src/screens/Student/StudentProfileScreen";
 import TeacherProfileScreen from "./src/screens/Student/TeacherProfileScreen";
 import TeacherMainProfileScreen from "./src/screens/Teacher/TeacherMainProfile";
 import SearchTeacherScreen from "./src/screens/Student/SearchTeacherScreen";
 import TeacherListScreen from "./src/screens/Student/TeacherListScreen";
 import CalendarScreen from "./src/screens/Student/CalendarScreen";
 import StudentReviewScreen from "./src/screens/Student/StudentReviewScreen";
-// import Cards from "./src/screens/Teacher/card";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -51,6 +49,7 @@ SearchTeacher.navigationOptions = {
 const switchNavigator = createSwitchNavigator(
   {
     Welcome: WelcomeScreen,
+    FadeIn: FadeInScreen,
     addReview: addReviewScreen,
     PhotoPicker: PhotoPickerScreen,
     camera: cameraScreen,

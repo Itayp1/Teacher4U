@@ -1,48 +1,80 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Image, Text, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  RefreshControl,
+  ScrollView
+} from "react-native";
 import { ListItem, Header, Rating } from "react-native-elements";
 import { FontAwesome, Feather } from "@expo/vector-icons";
 import api from "../../api/api";
 import Spinner from "react-native-loading-spinner-overlay";
 import { connect } from "react-redux";
 import { teacherFetch } from "../../actions";
+import Constants from "expo-constants";
 
-const TeacherReviewScreen = ({ navigation, reviews, ratingAverage }) => {
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
+const TeacherReviewScreen = ({
+  navigation,
+  reviews,
+  ratingAverage,
+  teacherFetch
+}) => {
   const [isvisable, setisvisable] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    teacherFetch();
+    wait(1000).then(() => setRefreshing(false));
+  }, [refreshing]);
+
   return (
-    <View style={styles.main}>
-      <Spinner
-        visible={isvisable}
-        textContent={"Loading..."}
-        textStyle={styles.spinnerTextStyle}
-      />
-      <Header
-        style={styles.Header}
-        centerComponent={{
-          text: "ביקורת",
-          style: styles.HeadercenterComponent
-        }}
-      />
-      <ScrollView>
-        <View style={{ marginBottom: 20 }}>
-          {reviews.map((l, i) => (
-            <ListItem
-              key={i}
-              //  leftAvatar={{ source: { uri: l.avatar_url } }}
-              title={l.studentName}
-              subtitle={l.review}
-              bottomDivider
-            />
-          ))}
-        </View>
-      </ScrollView>
-      <Rating
-        ratingCount={5}
-        imageSize={60}
-        readonly
-        startingValue={ratingAverage}
-      />
-    </View>
+    <ScrollView
+      contentContainerStyle={styles.scrollView}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.main}>
+        <Spinner
+          visible={isvisable}
+          textContent={"Loading..."}
+          textStyle={styles.spinnerTextStyle}
+        />
+        <Header
+          style={styles.Header}
+          centerComponent={{
+            text: "ביקורת",
+            style: styles.HeadercenterComponent
+          }}
+        />
+        <ScrollView>
+          <View style={{ marginBottom: 20 }}>
+            {reviews.map((l, i) => (
+              <ListItem
+                key={i}
+                //  leftAvatar={{ source: { uri: l.avatar_url } }}
+                title={l.studentName}
+                subtitle={l.review}
+                bottomDivider
+              />
+            ))}
+          </View>
+        </ScrollView>
+        <Rating
+          ratingCount={5}
+          imageSize={60}
+          readonly
+          startingValue={ratingAverage}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -71,6 +103,14 @@ const styles = StyleSheet.create({
   },
   spinnerTextStyle: {
     color: "#FFF"
+  },
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight
+  },
+  scrollView: {
+    flex: 1,
+    justifyContent: "center"
   }
 });
 

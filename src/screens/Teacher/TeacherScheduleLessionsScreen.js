@@ -1,40 +1,70 @@
 import { ListItem } from "react-native-elements";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView
+} from "react-native";
 import { Text, Header, Input, Icon } from "react-native-elements";
 import { connect } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 import TimeTableStatus from "../../components/TimeTableStatus";
+import { teacherFetch } from "../../actions";
+import Constants from "expo-constants";
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+const TeacherScheduleLessionsScreen = ({
+  navigation,
+  timeTable,
+  teacherFetch
+}) => {
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    teacherFetch();
+    wait(1000).then(() => setRefreshing(false));
+  }, [refreshing]);
 
-const TeacherScheduleLessionsScreen = ({ navigation, timeTable }) => {
   return (
-    <View style={styles.main}>
-      <Header
-        style={styles.Header}
-        centerComponent={{
-          text: "מערכת שעות ",
-          style: styles.HeadercenterComponent
-        }}
-      />
-      <ScrollView>
-        <View>
-          {timeTable.map((l, i) => (
-            <View key={i}>
-              <ListItem
-                key={i}
-                //     leftAvatar={{ source: { uri: l.avatar_url } }}
-                rightElement={
-                  <TimeTableStatus status={l.status} tableId={l.id} />
-                }
-                title={l.name}
-                subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-                bottomDivider
-              />
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView
+      contentContainerStyle={styles.scrollView}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.main}>
+        <Header
+          style={styles.Header}
+          centerComponent={{
+            text: "מערכת שעות ",
+            style: styles.HeadercenterComponent
+          }}
+        />
+        <ScrollView>
+          <View>
+            {timeTable.map((l, i) => (
+              <View key={i}>
+                <ListItem
+                  key={i}
+                  //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                  rightElement={
+                    <TimeTableStatus status={l.status} tableId={l.id} />
+                  }
+                  title={l.name}
+                  subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                  bottomDivider
+                />
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -60,6 +90,14 @@ const styles = StyleSheet.create({
   HeadercenterComponent: {
     fontSize: 25,
     color: "white"
+  },
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight
+  },
+  scrollView: {
+    flex: 1,
+    justifyContent: "center"
   }
 });
 
@@ -70,4 +108,6 @@ const mapStateToProps = state => {
   return { timeTable };
 };
 
-export default connect(mapStateToProps, {})(TeacherScheduleLessionsScreen);
+export default connect(mapStateToProps, { teacherFetch })(
+  TeacherScheduleLessionsScreen
+);
