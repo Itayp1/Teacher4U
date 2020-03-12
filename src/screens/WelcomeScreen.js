@@ -25,7 +25,7 @@ const WelcomeScreen = ({ navigation }) => {
   loginMethod(navigation);
   return (
     <>
-      <Text h1 style={{ textAlign: "center", marginTop: 20 }}>
+      <Text h1 style={{ textAlign: "center", marginTop: 40 }}>
         Loading
       </Text>
 

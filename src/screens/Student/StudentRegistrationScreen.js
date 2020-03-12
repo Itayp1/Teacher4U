@@ -173,7 +173,7 @@ class StudentRegistrationScreenNew extends Component {
                 if (
                   !FormValidation(obj.fullName, obj.phone, obj.city, obj.age)
                 ) {
-                  Alert.alert("שיאה בנתונים ", "יש לתקן את השדות עם השגיאות");
+                  Alert.alert("שיאה בנתונים ", "יש למלא את כל השדות");
                   return;
                 } else if (!this.props.fullName) {
                   this.printDetails(

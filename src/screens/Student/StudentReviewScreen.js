@@ -47,7 +47,7 @@ const ReviewScreen = ({ navigation }) => {
           <ListItem
             key={i}
             // leftAvatar={{ source: { uri: l.avatar_url } }}
-            title={l.studentName}
+            title={l.studentName + "  " + l.cource}
             subtitle={l.review}
             bottomDivider
           />

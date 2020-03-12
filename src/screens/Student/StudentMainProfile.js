@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  TextInput
+  RefreshControl,
+  ScrollView
 } from "react-native";
 import { connect } from "react-redux";
 import { studentFetch } from "../../actions";
@@ -13,6 +14,12 @@ import SignOutIcon from "../../components/SignOutIcon";
 import { Card, Icon, Header, Text } from "react-native-elements";
 import { AntDesign } from "@expo/vector-icons";
 import SelectPic from "../../components/SelectPic";
+
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
 
 class StudentMainProfile extends React.Component {
   constructor(props) {
@@ -23,10 +30,18 @@ class StudentMainProfile extends React.Component {
       TimeTable: this.props.TimeTable,
       sumOfLessons: this.props.sumOfLessons,
       pic: this.props.pic,
-      visable: false
+      visable: false,
+      refreshing: false
     };
   }
 
+  onRefresh = () => {
+    React.useCallback(() => {
+      this.setState({ refreshing: true });
+      this.state.studentFetch();
+      wait(1000).then(() => this.setState({ refreshing: false }));
+    }, [this.state.refreshing]);
+  };
   componentDidMount() {
     this.props.studentFetch();
   }
@@ -51,50 +66,60 @@ class StudentMainProfile extends React.Component {
         <Image style={styles.avatar} source={require("./avatar6.png")} />
       );
     return (
-      <View style={styles.view}>
-        <Spinner
-          visible={this.props.name == undefined}
-          textContent={"Loading..."}
-          textStyle={styles.spinnerTextStyle}
-        />
-        <Header
-          style={styles.Header}
-          centerComponent={{
-            text: "פרופיל ",
-            style: styles.HeadercenterComponent
-          }}
-        />
-        <View>
-          <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
-            {this.props.name}
-          </Text>
-          <SelectPic
-            profile="student"
-            isVisable={this.state.visable}
-            close={() => this.setState({ visable: false })}
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.state.onRefresh}
           />
-          <TouchableOpacity onPress={() => this.setState({ visable: true })}>
-            {srcpic}
+        }
+      >
+        <View style={styles.view}>
+          <Spinner
+            visible={this.props.name == undefined}
+            textContent={"Loading..."}
+            textStyle={styles.spinnerTextStyle}
+          />
+          <Header
+            style={styles.Header}
+            centerComponent={{
+              text: "פרופיל ",
+              style: styles.HeadercenterComponent
+            }}
+          />
+          <View>
+            <Text h1 style={{ textAlign: "center", marginTop: 10 }}>
+              {this.props.name}
+            </Text>
+            <SelectPic
+              profile="student"
+              isVisable={this.state.visable}
+              close={() => this.setState({ visable: false })}
+            />
+            <TouchableOpacity onPress={() => this.setState({ visable: true })}>
+              {srcpic}
+            </TouchableOpacity>
+          </View>
+          <View style={styles.cards}>
+            <Card title={`סה"כ שיעורים`}>
+              <Text style={styles.text}>{this.state.sumOfLessons}</Text>
+            </Card>
+          </View>
+          <TouchableOpacity
+            style={{ marginTop: 20 }}
+            onPress={() => {
+              this.props.navigation.navigate("studnetDetails");
+              //   teacherProfile: this.props.Teacher
+              // });
+            }}
+          >
+            <Icon name="edit" type="feather" color="#00aced" size={50} />
+            <Text>עדכון פרטים</Text>
           </TouchableOpacity>
+          <SignOutIcon />
         </View>
-        <View style={styles.cards}>
-          <Card title={`סה"כ שיעורים`}>
-            <Text style={styles.text}>{this.state.sumOfLessons}</Text>
-          </Card>
-        </View>
-        <TouchableOpacity
-          style={{ marginTop: 20 }}
-          onPress={() => {
-            this.props.navigation.navigate("studnetDetails");
-            //   teacherProfile: this.props.Teacher
-            // });
-          }}
-        >
-          <Icon name="edit" type="feather" color="#00aced" size={50} />
-          <Text>עדכון פרטים</Text>
-        </TouchableOpacity>
-        <SignOutIcon />
-      </View>
+      </ScrollView>
     );
   }
 }

@@ -108,7 +108,8 @@ export const addStudentReview = (
   review,
   lessonId,
   teacherEmail,
-  studentName
+  studentName,
+  cource
 ) => {
   return async dispatch => {
     const responseReviews = await api.post(`/api/rating/add`, {
@@ -116,7 +117,8 @@ export const addStudentReview = (
       review,
       lessonId,
       teacherEmail,
-      studentName
+      studentName,
+      cource
     });
 
     dispatch({ type: TEACHER_RATING_CHANGED, payload: lessonId });

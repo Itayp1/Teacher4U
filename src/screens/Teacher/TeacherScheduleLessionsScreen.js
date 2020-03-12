@@ -55,7 +55,7 @@ const TeacherScheduleLessionsScreen = ({
                   rightElement={
                     <TimeTableStatus status={l.status} tableId={l.id} />
                   }
-                  title={l.name}
+                  title={l.name + "   " + `${l.cource}`}
                   subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
                   bottomDivider
                 />

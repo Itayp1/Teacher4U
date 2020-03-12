@@ -9,8 +9,6 @@ import SigninScreen from "./src/screens/Sign/SigninScreen";
 import FacebookSigninScreen from "./src/screens/Sign/FacebookSigninScreen";
 import GoogleSigninScreen from "./src/screens/Sign/GoogleSigninScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
-import FadeInScreen from "./src/screens/FadeIn";
-
 import SelectProfileScreen from "./src/screens/SelectProfileScreen";
 import TeacherRegistrationScreen from "./src/screens/Teacher/TeacherRegistrationScreen";
 import StudentRegistrationScreen from "./src/screens/Student/StudentRegistrationScreen";
@@ -49,7 +47,6 @@ SearchTeacher.navigationOptions = {
 const switchNavigator = createSwitchNavigator(
   {
     Welcome: WelcomeScreen,
-    FadeIn: FadeInScreen,
     addReview: addReviewScreen,
     PhotoPicker: PhotoPickerScreen,
     camera: cameraScreen,

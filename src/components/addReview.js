@@ -19,7 +19,8 @@ addReview = ({
   hasReview,
   teacherEmail,
   addStudentReview,
-  studentName
+  studentName,
+  cource
 }) => {
   const [isVisible, SetisVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
@@ -94,7 +95,8 @@ addReview = ({
                 textInput,
                 tableId,
                 teacherEmail,
-                studentName
+                studentName,
+                cource
               );
               SetisVisible(false);
               SetspinerVisable(false);
