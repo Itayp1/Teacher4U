@@ -40,56 +40,53 @@ class ScheduleLessionsScreen extends React.Component {
   }
   render() {
     return (
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this.state.onRefresh}
-          />
-        }
-      >
-        <View style={styles.main}>
-          <Header
-            style={styles.Header}
-            centerComponent={{
-              text: "מערכת שעות ",
-              style: styles.HeadercenterComponent
-            }}
-          />
-          <ScrollView>
-            <View>
-              {this.state.timeTable.map((l, i) => (
-                <TouchableOpacity key={i}>
-                  <ListItem
-                    key={i}
-                    //     leftAvatar={{ source: { uri: l.avatar_url } }}
-                    rightElement={
-                      <>
-                        <AddReview
-                          hasReview={l.hasReview}
-                          tableId={l.id}
-                          teacherEmail={l.email}
-                          studentName={l.studentName}
-                          cource={l.cource}
-                        />
-                        <TimeTableStatus
-                          status={l.status}
-                          tableId={l.id}
-                          edit={false}
-                        />
-                      </>
-                    }
-                    title={(l.name || l.teacherName) + "   " + `${l.cource}`}
-                    subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-                    bottomDivider
-                  />
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        </View>
-      </ScrollView>
+      <View style={styles.main}>
+        <Header
+          style={styles.Header}
+          centerComponent={{
+            text: "מערכת שעות ",
+            style: styles.HeadercenterComponent
+          }}
+        />
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.state.onRefresh}
+            />
+          }
+        >
+          <View>
+            {this.state.timeTable.map((l, i) => (
+              <TouchableOpacity key={i}>
+                <ListItem
+                  key={i}
+                  //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                  rightElement={
+                    <>
+                      <AddReview
+                        hasReview={l.hasReview}
+                        tableId={l.id}
+                        teacherEmail={l.email}
+                        studentName={l.studentName}
+                        cource={l.cource}
+                      />
+                      <TimeTableStatus
+                        status={l.status}
+                        tableId={l.id}
+                        edit={false}
+                      />
+                    </>
+                  }
+                  title={(l.name || l.teacherName) + "   " + `${l.cource}`}
+                  subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                  bottomDivider
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }

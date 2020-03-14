@@ -31,40 +31,37 @@ const TeacherScheduleLessionsScreen = ({
   }, [refreshing]);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollView}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View style={styles.main}>
-        <Header
-          style={styles.Header}
-          centerComponent={{
-            text: "מערכת שעות ",
-            style: styles.HeadercenterComponent
-          }}
-        />
-        <ScrollView>
-          <View>
-            {timeTable.map((l, i) => (
-              <View key={i}>
-                <ListItem
-                  key={i}
-                  //     leftAvatar={{ source: { uri: l.avatar_url } }}
-                  rightElement={
-                    <TimeTableStatus status={l.status} tableId={l.id} />
-                  }
-                  title={l.name + "   " + `${l.cource}`}
-                  subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
-                  bottomDivider
-                />
-              </View>
-            ))}
-          </View>
-        </ScrollView>
-      </View>
-    </ScrollView>
+    <View style={styles.main}>
+      <Header
+        style={styles.Header}
+        centerComponent={{
+          text: "מערכת שעות ",
+          style: styles.HeadercenterComponent
+        }}
+      />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View>
+          {timeTable.map((l, i) => (
+            <View key={i}>
+              <ListItem
+                key={i}
+                //     leftAvatar={{ source: { uri: l.avatar_url } }}
+                rightElement={
+                  <TimeTableStatus status={l.status} tableId={l.id} />
+                }
+                title={l.name + "   " + `${l.cource}`}
+                subtitle={`בשעה ${l.time}:00 בתאריך ${l.date}`}
+                bottomDivider
+              />
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

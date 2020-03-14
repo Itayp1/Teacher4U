@@ -35,46 +35,43 @@ const TeacherReviewScreen = ({
   }, [refreshing]);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.scrollView}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View style={styles.main}>
-        <Spinner
-          visible={isvisable}
-          textContent={"Loading..."}
-          textStyle={styles.spinnerTextStyle}
-        />
-        <Header
-          style={styles.Header}
-          centerComponent={{
-            text: "ביקורת",
-            style: styles.HeadercenterComponent
-          }}
-        />
-        <ScrollView>
-          <View style={{ marginBottom: 20 }}>
-            {reviews.map((l, i) => (
-              <ListItem
-                key={i}
-                //  leftAvatar={{ source: { uri: l.avatar_url } }}
-                title={l.studentName + "  " + l.cource}
-                subtitle={l.review}
-                bottomDivider
-              />
-            ))}
-          </View>
-        </ScrollView>
-        <Rating
-          ratingCount={5}
-          imageSize={60}
-          readonly
-          startingValue={ratingAverage}
-        />
-      </View>
-    </ScrollView>
+    <View style={styles.main}>
+      <Spinner
+        visible={isvisable}
+        textContent={"Loading..."}
+        textStyle={styles.spinnerTextStyle}
+      />
+      <Header
+        style={styles.Header}
+        centerComponent={{
+          text: "ביקורת",
+          style: styles.HeadercenterComponent
+        }}
+      />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={{ marginBottom: 20 }}>
+          {reviews.map((l, i) => (
+            <ListItem
+              key={i}
+              //  leftAvatar={{ source: { uri: l.avatar_url } }}
+              title={l.studentName + "  " + l.cource}
+              subtitle={l.review}
+              bottomDivider
+            />
+          ))}
+        </View>
+      </ScrollView>
+      <Rating
+        ratingCount={5}
+        imageSize={60}
+        readonly
+        startingValue={ratingAverage}
+      />
+    </View>
   );
 };
 
