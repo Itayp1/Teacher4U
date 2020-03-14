@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   View,
   StyleSheet,
-  Image,
+  Alert,
   FlatList,
   TouchableOpacity,
   ScrollView
@@ -191,17 +191,34 @@ const CalanderScreen = ({
                   <TouchableOpacity
                     onPress={async () => {
                       try {
-                        apointmentLesson(
-                          studentName,
-                          studentEmail,
-                          teacherfullName,
-                          email,
-                          profession.name,
-                          selectetDate,
-                          item
+                        Alert.alert(
+                          "האם אתה מאשר את קביעת השיעור",
+                          `מורה: ${teacherfullName}\nמקצוע: ${profession.name}\nתאריך: ${selectetDate}   `,
+                          [
+                            {
+                              text: "מאשר",
+                              onPress: () => {
+                                apointmentLesson(
+                                  studentName,
+                                  studentEmail,
+                                  teacherfullName,
+                                  email,
+                                  profession.name,
+                                  selectetDate,
+                                  item
+                                );
+                                setVisableOK(true);
+                              }
+                            },
+
+                            {
+                              text: "לא מאשר"
+                            }
+                          ],
+                          { cancelable: false }
                         );
+
                         // setVisable(false);
-                        setVisableOK(true);
                       } catch (error) {
                         console.log(error);
                       }
