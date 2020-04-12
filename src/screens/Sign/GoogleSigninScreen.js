@@ -56,11 +56,11 @@ const signInWithGoogleAsync = async (navigation, setIsVisable) => {
       // navigation0dismiss();
       return result.accessToken;
     } else {
+      setIsVisable(false)
       return { cancelled: true };
     }
   } catch (e) {
     Alert.alert("Selected Item", e.toString());
-
     console.log("error in catch");
     console.log(e);
 

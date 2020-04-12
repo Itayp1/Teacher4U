@@ -51,8 +51,8 @@ const StudentFormsValidation = (fullname, phone, city, datePickerTitle) => {
   if (
     validate("text", fullname) &&
     validate("phoneNumber", phone) &&
-    city &&
-    datePickerTitle
+    city && datePickerTitle &&
+    datePickerTitle != "תאריך לידה"
     //  validate("datePickerTitle", datePickerTitle)
   ) {
     return true;

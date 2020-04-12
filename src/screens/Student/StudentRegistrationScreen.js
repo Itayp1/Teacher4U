@@ -118,16 +118,26 @@ class StudentRegistrationScreenNew extends Component {
                   onChange={(event, selectetDate) => {
                     const date = new Date(selectetDate);
                     if (selectetDate) {
-                      this.setState({
-                        datePickerTitle: moment(date).format("DD/MM/YYYY"),
-                        DateTimePickerVisable: false
-                      });
+                      const pickedDate = moment(selectetDate, "DD/MM/YYYY");
+                      const today = moment(new Date(), "DD/MM/YYYY");
+                      const diff = moment(today).diff(pickedDate, 'years')
+                      if (diff < 14) {
+                        Alert.alert("שיאה בנתונים ", "גיל המינימום הוא 14");
+
+                      }
+                      else {
+
+                        this.setState({
+                          datePickerTitle: moment(date).format("DD/MM/YYYY"),
+                          DateTimePickerVisable: false
+                        });
+                      }
                     }
                     this.setState({
                       DateTimePickerVisable: false
                     });
                   }}
-                  onCancel={() => {}}
+                  onCancel={() => { }}
                 />
               )}
               <Button
