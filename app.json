@@ -4,9 +4,12 @@
     "slug": "Teacher4U",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "platforms": ["ios", "android", "web"],
-
-    "version": "1.9.11",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.9.12",
     "orientation": "portrait",
     "icon": "https://i.imgur.com/dx9PGnz.png",
     "facebookScheme": "fb552200288939015",
@@ -18,14 +21,16 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.itayp.Teacher4u",
-      "buildNumber": "1.9.11",
+      "buildNumber": "1.9.12",
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 911,
+      "versionCode": 912,
       "package": "com.teacher4u.itayp",
       "config": {
         "googleSignIn": {

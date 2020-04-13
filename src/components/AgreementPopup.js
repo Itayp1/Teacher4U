@@ -29,7 +29,7 @@ const AgreementPopup = ({
   timeTable
 }) => {
   //const [overlayIsVisible, SetOverlayIsVisible] = useState(popUpVisible);
-  const [selectedIndex, SetSelectedIndex] = useState(currentSelectedItem);
+  const [selectedIndex, SetSelectedIndex] = useState(1);
 
   return (
     <Overlay
@@ -49,7 +49,7 @@ const AgreementPopup = ({
         <ButtonGroup
           onPress={index => SetSelectedIndex(index)}
           selectedIndex={selectedIndex}
-          buttons={["מאושר", "מבוטל", "ממתין לאישור"]}
+          buttons={["מאושר", "מבוטל"]}
           containerStyle={{ height: 100 }}
         />
         <Button
